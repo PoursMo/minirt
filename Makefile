@@ -1,7 +1,7 @@
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -Ilibft -Iminilibx-linux -Iheaders
 LFLAGS = -Llibft -lft -Lminilibx-linux -lmlx_Linux -lXext -lX11 -lm
-NAME = fdf
+NAME = miniRT
 SRCSDIR = srcs/
 SRCS =	minirt.c \
 
@@ -12,8 +12,8 @@ MLX = minilibx-linux/libmlx_Linux.a
 
 all: $(NAME)
 
-$(NAME): $(OBJS) $(LIBFT) $(MLX)
-	$(CC) $(OBJS) -o $@ $(LFLAG)
+$(NAME): $(LIBFT) $(MLX) $(OBJS)
+	$(CC) $(OBJS) -o $@ $(LFLAGS)
 
 $(MLX):
 	cd minilibx-linux && ./configure && cd ..
@@ -26,10 +26,11 @@ $(OBJSDIR)/%.o : %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(OBJS)
+	rm -rf $(OBJSDIR)
 
 fclean: clean
 	rm -f $(NAME)
 	make fclean -C libft
+	cd minilibx-linux && ./configure clean && cd ..
 
 re: fclean all

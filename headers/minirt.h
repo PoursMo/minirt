@@ -8,9 +8,9 @@
 # include <string.h>
 # include <math.h>
 
-#include "libft.h"
-#include "mlx.h"
-#include "mlx_int.h"
+# include "libft.h"
+# include "mlx.h"
+# include "mlx_int.h"
 
 # define MRT_PI	3.14159265358979323846
 
