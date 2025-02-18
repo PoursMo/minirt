@@ -1,9 +1,16 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -Ilibft -Iminilibx-linux -Iheaders
+CFLAGS = -Wall -Wextra -Werror -Ilibft -Iminilibx-linux -Iheaders -g # remove -g
 LFLAGS = -Llibft -lft -Lminilibx-linux -lmlx_Linux -lXext -lX11 -lm
 NAME = miniRT
 SRCSDIR = srcs/
 SRCS =	minirt.c \
+parsing/parsing_utils.c \
+parsing/parsing.c \
+utils/color.c \
+utils/scene.c \
+debug.c \
+# remove
+
 
 OBJSDIR = objects
 OBJS = $(SRCS:%.c=$(OBJSDIR)/%.o)
