@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 16:06:51 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/21 13:53:48 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/21 14:15:56 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,18 @@ int	is_valid_parameter(char **line)
 {
 	return (*((*line) - 1) == ' '
 		&& (!ft_isdigit(**line) || **line != '-' || **line != '+'));
+}
+
+int is_valid_tail(char *line)
+{
+	while (*line != '\n' && *line != EOF)
+	{
+		if (*line == ' ')
+			line++;
+		else
+			return (0);
+	}
+	return (1);
 }
 
 int	parsing_get_float(char **line, float *target, float min, float max)
@@ -100,7 +112,8 @@ int	get_ambiant_lighting(char *line)
 	if (!get_scene()->ambiant_light)
 		return (perror("get_ambiant_lighting"), -1);
 	if (parsing_get_float(&line, &get_scene()->ambiant_light->ratio, 0.0f, 1.0f) == -1
-		|| parsing_get_color(&line, &get_scene()->ambiant_light->color) == -1)
+		|| parsing_get_color(&line, &get_scene()->ambiant_light->color) == -1
+		|| !is_valid_tail(line))
 		return (misconfiguration_error("ambiant lighting: wrong parameters"), -1);
 	return (0);
 }
@@ -114,7 +127,8 @@ int	get_camera(char *line)
 		return (perror("get_camera"), -1);
 	if (parsing_get_vector3(&line, &get_scene()->camera->position) == -1
 		|| parsing_get_vector3(&line, &get_scene()->camera->direction) == -1 // normalized
-		|| parsing_get_int(&line, &get_scene()->camera->fov, 0, 180) == -1)
+		|| parsing_get_int(&line, &get_scene()->camera->fov, 0, 180) == -1
+		|| !is_valid_tail(line))
 		return (misconfiguration_error("camera: wrong parameters"), -1);
 	return (0);
 }
@@ -128,7 +142,8 @@ int	get_light(char *line)
 		return (perror("get_light"), -1);
 	if (parsing_get_vector3(&line, &get_scene()->light->position) == -1
 		|| parsing_get_float(&line, &get_scene()->light->brightness, 0.0f, 1.0f) == -1
-		|| parsing_get_color(&line, &get_scene()->light->color) == -1)
+		|| parsing_get_color(&line, &get_scene()->light->color) == -1
+		|| !is_valid_tail(line))
 		return (misconfiguration_error("light: wrong parameters"), -1);
 	return (0);
 }
@@ -143,7 +158,8 @@ int	get_sphere(char *line)
 		return (perror("get_sphere"), -1);
 	if (parsing_get_vector3(&line, &sphere->position) == -1
 		|| parsing_get_float(&line, &sphere->diameter, 0.0f, __FLT_MAX__) == -1
-		|| parsing_get_color(&line, &sphere->color) == -1)
+		|| parsing_get_color(&line, &sphere->color) == -1
+		|| !is_valid_tail(line))
 		return (misconfiguration_error("sphere: wrong parameters"), free(sphere), -1);
 	sphere_list = ft_lstnew(sphere);
 	if (!sphere_list)
@@ -162,7 +178,8 @@ int	get_plane(char *line)
 		return (perror("get_plane"), -1);
 	if (parsing_get_vector3(&line, &plane->position) == -1
 		|| parsing_get_vector3(&line, &plane->normal) == -1 // normalized
-		|| parsing_get_color(&line, &plane->color) == -1)
+		|| parsing_get_color(&line, &plane->color) == -1
+		|| !is_valid_tail(line))
 		return (misconfiguration_error("plane: wrong parameters"), free(plane), -1);
 	plane_list = ft_lstnew(plane);
 	if (!plane_list)
@@ -183,8 +200,9 @@ int	get_cylinder(char *line)
 		|| parsing_get_vector3(&line, &cylinder->axis) == -1 // normalized
 		|| parsing_get_float(&line, &cylinder->diameter, 0.0f, __FLT_MAX__) == -1
 		|| parsing_get_float(&line, &cylinder->height, 0.0f, __FLT_MAX__) == -1
-		|| parsing_get_color(&line, &cylinder->color) == -1)
-		return (misconfiguration_error("plane: wrong parameters"), free(cylinder), -1);
+		|| parsing_get_color(&line, &cylinder->color) == -1
+		|| !is_valid_tail(line))
+		return (misconfiguration_error("cylinder: wrong parameters"), free(cylinder), -1);
 	cylinder_list = ft_lstnew(cylinder);
 	if (!cylinder_list)
 		return (perror("get_cylinder"), free(cylinder), -1);
