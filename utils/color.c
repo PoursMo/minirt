@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 16:49:24 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/14 17:00:38 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/21 14:50:34 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,4 +20,9 @@ int rgb_to_int(unsigned char red, unsigned char green, unsigned char blue)
 	color += green << 8;
 	color += blue;
 	return (color);
+}
+
+int t_color_to_int(t_color color)
+{
+	return (rgb_to_int(color.red, color.green, color.blue));
 }

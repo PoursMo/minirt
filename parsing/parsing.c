@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 16:06:51 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/21 14:34:48 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/21 17:05:43 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -261,9 +261,9 @@ int	parse_file(char *file)
 			i++;
 		if (line[i])
 			if (parse_line(line + i) == -1)
-				return (free_scene(), free(line), close(fd), -1); // free and close
+				return (free_scene(), free(line), close(fd), -1);
 		free(line);
 	}
-	close(fd); // err handling
+	close(fd);
 	return (0);
 }

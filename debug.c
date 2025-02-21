@@ -109,3 +109,43 @@ void print_scene(t_scene *scene)
         printf("  None\n");
 	// **********************************************************************
 }
+
+void place_pixel_in_img_data(char *data, int pixel, t_color *color)
+{
+	data[pixel + 0] = color->blue;
+	data[pixel + 1] = color->green;
+	data[pixel + 2] = color->red;
+	data[pixel + 3] = 0x00;
+}
+
+void fill_img(void *img)
+{
+	int bpp, sl, endian;
+	char *data = mlx_get_data_addr(img, &bpp, &sl, &endian);
+	printf("OK (bpp: %d, sizeline: %d endian: %d type: %d)\n",bpp,sl,endian,((t_img *)img)->type);
+	t_color pink = {.red = 255, .green = 20, .blue = 147};
+	for (int y = 0; y < 10; y++)
+	{
+		for (int x = 0; x < 10; x++)
+		{
+			int pixel = (y * sl) + (x * (bpp / 8));
+			place_pixel_in_img_data(data, pixel, &pink);
+		}
+	}
+	for (int y = 0; y < 10; y++)
+	{
+		for (int x = 20; x < 30; x++)
+		{
+			int pixel = (y * sl) + (x * (bpp / 8));
+			place_pixel_in_img_data(data, pixel, &pink);
+		}
+	}
+	for (int y = 10; y < 40; y++)
+	{
+		for (int x = 10; x < 20; x++)
+		{
+			int pixel = (y * sl) + (x * (bpp / 8));
+			place_pixel_in_img_data(data, pixel, &pink);
+		}
+	}
+}
