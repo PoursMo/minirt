@@ -12,21 +12,20 @@ static void print_color(t_color c)
 
 void print_scene(t_scene *scene)
 {
+	// **********************************************************************
+    printf("Ambiant Light:\n");
     if (scene->ambiant_light)
     {
-        printf("Ambiant Light:\n");
         printf("  Ratio: %f\n", scene->ambiant_light->ratio);
         printf("  Color: ");
         print_color(scene->ambiant_light->color);
     }
     else
-    {
-        printf("Ambiant Light: None\n");
-    }
-
+        printf("  None\n");
+	// **********************************************************************
+    printf("Camera:\n");
     if (scene->camera)
     {
-        printf("Camera:\n");
         printf("  Position: ");
         print_vector3(scene->camera->position);
         printf("  Direction: ");
@@ -34,13 +33,11 @@ void print_scene(t_scene *scene)
         printf("  FOV: %d\n", scene->camera->fov);
     }
     else
-    {
-        printf("Camera: None\n");
-    }
-
+        printf("  None\n");
+	// **********************************************************************
+    printf("Light:\n");
     if (scene->light)
     {
-        printf("Light:\n");
         printf("  Position: ");
         print_vector3(scene->light->position);
         printf("  Brightness: %f\n", scene->light->brightness);
@@ -48,33 +45,67 @@ void print_scene(t_scene *scene)
         print_color(scene->light->color);
     }
     else
+        printf("  None\n");
+	// **********************************************************************
+    printf("Spheres:\n");
+    if (scene->spheres)
     {
-        printf("Light: None\n");
+        t_list *current = scene->spheres;
+        while (current)
+        {
+            t_sphere *sphere = (t_sphere *)current->content;
+            printf("  Sphere:\n");
+    		printf("    Position: ");
+    		print_vector3(sphere->position);
+    		printf("    Diameter: %f\n", sphere->diameter);
+    		printf("    Color: ");
+    		print_color(sphere->color);
+            current = current->next;
+        }
     }
-
-    // if (scene->shapes)
-    // {
-    //     printf("Shapes:\n");
-    //     t_list *current = scene->shapes;
-    //     while (current)
-    //     {
-    //         // Assuming shapes are stored as void* and cast to appropriate type
-    //         // You need to implement the logic to print each shape based on its type
-    //         // For example, if you have a t_sphere:
-    //         t_sphere *sphere = (t_sphere *)current->content;
-    //         printf("  Sphere:\n");
-    //         printf("    Position: ");
-    //         print_vector3(sphere->position);
-    //         printf("    Radius: %f\n", sphere->radius);
-    //         printf("    Color: ");
-    //         print_color(sphere->color);
-
-    //         // Move to the next shape
-    //         current = current->next;
-    //     }
-    // }
-    // else
-    // {
-    //     printf("Shapes: None\n");
-    // }
+    else
+        printf("  None\n");
+	// **********************************************************************
+    printf("Planes:\n");
+    if (scene->planes)
+    {
+        t_list *current = scene->planes;
+        while (current)
+        {
+            t_plane *plane = (t_plane *)current->content;
+            printf("  Plane:\n");
+    		printf("    Position: ");
+    		print_vector3(plane->position);
+    		printf("    Normal: ");
+    		print_vector3(plane->normal);
+    		printf("    Color: ");
+    		print_color(plane->color);
+            current = current->next;
+        }
+    }
+    else
+        printf("  None\n");
+	// **********************************************************************
+    printf("Cylinders:\n");
+    if (scene->cylinders)
+    {
+        t_list *current = scene->cylinders;
+        while (current)
+        {
+            t_cylinder *cylinder = (t_cylinder *)current->content;
+            printf("  Cylinder:\n");
+    		printf("    Position: ");
+    		print_vector3(cylinder->position);
+    		printf("    Axis: ");
+    		print_vector3(cylinder->axis);
+    		printf("    Diameter: %f\n", cylinder->diameter);
+    		printf("    Height: %f\n", cylinder->height);
+    		printf("    Color: ");
+    		print_color(cylinder->color);
+            current = current->next;
+        }
+    }
+    else
+        printf("  None\n");
+	// **********************************************************************
 }

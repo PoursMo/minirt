@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 14:57:10 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/15 15:06:39 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/21 11:21:24 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ int	mrt_atoi(char **nptr)
 	int	num;
 
 	mult = 1;
-	while (**nptr && ft_isspace(**nptr))
-		(*nptr)++;
 	if (**nptr == '+' || **nptr == '-')
 	{
 		if (**nptr == '-')
@@ -42,8 +40,6 @@ float mrt_atof(char **nptr)
 	float divisor;
 	int mult;
 
-	while (**nptr && ft_isspace(**nptr))
-		(*nptr)++;
 	mult = 1;
 	if (**nptr == '+' || **nptr == '-')
 	{

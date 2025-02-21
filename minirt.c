@@ -4,10 +4,10 @@ void print_scene(t_scene *scene); // debug.c
 
 int main(int argc, char **argv)
 {
-	// check file is .rt
 	if (parse_file(argv[argc - 1]) == -1)
 		return (1);
 	print_scene(get_scene());
+	free_scene();
 }
 
 

@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 16:53:25 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/15 15:49:30 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/21 13:36:51 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,10 @@ void free_scene()
 		free(get_scene()->camera);
 	if (get_scene()->light)
 		free(get_scene()->light);
-	// shapes
+	if (get_scene()->spheres)
+		ft_lstclear(&get_scene()->spheres, free);
+	if (get_scene()->planes)
+		ft_lstclear(&get_scene()->planes, free);
+	if (get_scene()->cylinders)
+		ft_lstclear(&get_scene()->cylinders, free);
 }
