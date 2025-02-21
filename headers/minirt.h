@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 16:18:53 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/21 16:41:33 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/21 19:56:25 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 
 # define MRT_PI	3.14159265358979323846
 # define ESC_KEY 65307
+# define WIDTH 500
+# define HEIGHT 500
 
 typedef struct s_vector3
 {

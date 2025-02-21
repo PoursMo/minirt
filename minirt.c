@@ -1,7 +1,9 @@
 #include "minirt.h"
 
-void print_scene(t_scene *scene); // debug.c
+// ** debug.c **
+void print_scene(t_scene *scene);
 void fill_img(void *img);
+// *************
 
 typedef struct test
 {
@@ -55,7 +57,7 @@ int main(int argc, char **argv)
     	printf(" !! KO !!\n");
     	exit(1);
     }
-	if (!(t.win = mlx_new_window(t.mlx, 250, 250, "Title1")))
+	if (!(t.win = mlx_new_window(t.mlx, WIDTH, HEIGHT, "Title1")))
     {
     	printf(" !! KO !!\n");
     	exit(1);
@@ -66,7 +68,7 @@ int main(int argc, char **argv)
     	exit(1);
     }
 	fill_img(t.img);
-	mlx_put_image_to_window(t.mlx, t.win, t.img, 250 / 2, 250 / 2);
+	mlx_put_image_to_window(t.mlx, t.win, t.img, WIDTH / 2, HEIGHT / 2);
 	mlx_hook(t.win, DestroyNotify, 0, mrt_terminate, &t);
 	mlx_key_hook(t.win, handle_key, &t);
 	mlx_loop(t.mlx);
