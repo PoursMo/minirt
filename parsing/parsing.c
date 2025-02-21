@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 16:06:51 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/21 14:15:56 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/21 14:34:48 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ int	is_valid_parameter(char **line)
 
 int is_valid_tail(char *line)
 {
-	while (*line != '\n' && *line != EOF)
+	while (*line)
 	{
-		if (*line == ' ')
+		if (*line == ' ' || *line == '\n')
 			line++;
 		else
 			return (0);
