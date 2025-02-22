@@ -4,11 +4,16 @@ LFLAGS = -Llibft -lft -Lminilibx-linux -lmlx_Linux -lXext -lX11 -lm
 NAME = miniRT
 SRCSDIR = srcs/
 SRCS =	minirt.c \
-parsing/parsing_utils.c \
 parsing/parsing.c \
+parsing/parsing_utils.c \
+parsing/parsing_utils2.c \
+parsing/parsing_shape_getters.c \
+parsing/parsing_type_getters.c \
+parsing/parsing_unique_getters.c \
 utils/color.c \
 utils/scene.c \
 utils/vectors.c \
+utils/vectors2.c \
 debug.c \
 # remove
 

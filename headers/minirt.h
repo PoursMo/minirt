@@ -6,12 +6,12 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 16:18:53 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/22 13:44:01 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/22 20:15:19 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
-#define MINIRT_H
+# define MINIRT_H
 
 # include <fcntl.h>
 # include <unistd.h>
@@ -23,9 +23,6 @@
 # include "mlx.h"
 # include "mlx_int.h"
 # include "libft.h"
-
-# include "parsing.h"
-# include "utils.h"
 
 # define MRT_PI	3.14159265358979323846
 # define ESC_KEY 65307
@@ -69,7 +66,7 @@ typedef struct s_light
 typedef struct s_sphere
 {
 	t_vector3	position;
-	float		diameter; // work with radius ?
+	float		radius;
 	t_color		color;
 }	t_sphere;
 
@@ -84,10 +81,17 @@ typedef struct s_cylinder
 {
 	t_vector3	position;
 	t_vector3	axis;
-	float		diameter; // work with radius ?
+	float		radius;
 	float		height;
 	t_color		color;
 }	t_cylinder;
+
+// typedef enum e_shape_type
+// {
+// 	SPHERE,
+// 	PLANE,
+// 	CYLINDER
+// }	t_shape_type;
 
 typedef struct s_scene
 {
@@ -98,5 +102,8 @@ typedef struct s_scene
 	t_list			*planes;
 	t_list			*cylinders;
 }	t_scene;
+
+# include "parsing.h"
+# include "utils.h"
 
 #endif

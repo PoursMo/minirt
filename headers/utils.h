@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 16:48:25 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/22 13:46:12 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/22 16:14:51 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,10 @@ t_vector3	v3_scale(t_vector3 v, float scalar);
 t_vector3	v3_add(t_vector3 a, t_vector3 b);
 t_vector3	v3_subtract(t_vector3 a, t_vector3 b);
 t_vector3	v3_normalize(t_vector3 v);
+
+// vectors2.c
+
+double	v3_get_magnitude(t_vector3 v);
+float	v3_dot(t_vector3 a, t_vector3 b);
 
 #endif

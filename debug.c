@@ -57,7 +57,7 @@ void print_scene(t_scene *scene)
             printf("  Sphere:\n");
     		printf("    Position: ");
     		print_vector3(sphere->position);
-    		printf("    Diameter: %f\n", sphere->diameter);
+    		printf("    Radius: %f\n", sphere->radius);
     		printf("    Color: ");
     		print_color(sphere->color);
             current = current->next;
@@ -98,7 +98,7 @@ void print_scene(t_scene *scene)
     		print_vector3(cylinder->position);
     		printf("    Axis: ");
     		print_vector3(cylinder->axis);
-    		printf("    Diameter: %f\n", cylinder->diameter);
+    		printf("    Radius: %f\n", cylinder->radius);
     		printf("    Height: %f\n", cylinder->height);
     		printf("    Color: ");
     		print_color(cylinder->color);
