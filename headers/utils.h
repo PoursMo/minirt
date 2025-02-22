@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 16:48:25 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/21 14:50:49 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/22 13:46:12 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,13 @@ int t_color_to_int(t_color color);
 
 t_scene *get_scene();
 void free_scene();
+
+// vectors.c
+
+t_vector3	v3_cross(t_vector3 a, t_vector3 b);
+t_vector3	v3_scale(t_vector3 v, float scalar);
+t_vector3	v3_add(t_vector3 a, t_vector3 b);
+t_vector3	v3_subtract(t_vector3 a, t_vector3 b);
+t_vector3	v3_normalize(t_vector3 v);
 
 #endif

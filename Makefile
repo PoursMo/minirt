@@ -8,6 +8,7 @@ parsing/parsing_utils.c \
 parsing/parsing.c \
 utils/color.c \
 utils/scene.c \
+utils/vectors.c \
 debug.c \
 # remove
 
