@@ -1,28 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   color.c                                            :+:      :+:    :+:   */
+/*   vectors2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/14 16:49:24 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/22 16:13:43 by aloubry          ###   ########.fr       */
+/*   Created: 2025/02/22 13:44:39 by aloubry           #+#    #+#             */
+/*   Updated: 2025/02/22 16:12:56 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	rgb_to_int(unsigned char red, unsigned char green, unsigned char blue)
+double	v3_get_magnitude(t_vector3 v)
 {
-	int	color;
-
-	color = red << 16;
-	color += green << 8;
-	color += blue;
-	return (color);
-}
-
-int	t_color_to_int(t_color color)
-{
-	return (rgb_to_int(color.red, color.green, color.blue));
+	return (sqrt(v.x * v.x + v.y * v.y + v.z * v.z));
 }

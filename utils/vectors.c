@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 13:44:39 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/22 13:45:03 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/22 16:11:06 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,11 @@ t_vector3	v3_subtract(t_vector3 a, t_vector3 b)
 
 t_vector3	v3_normalize(t_vector3 v)
 {
-	float		length;
+	float		magnitude;
 	t_vector3	normalized_vector;
 
-	length = sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
-	if (length == 0)
+	magnitude = sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
+	if (magnitude == 0)
 	{
 		normalized_vector.x = 0;
 		normalized_vector.y = 0;
@@ -66,9 +66,9 @@ t_vector3	v3_normalize(t_vector3 v)
 	}
 	else
 	{
-		normalized_vector.x = v.x / length;
-		normalized_vector.y = v.y / length;
-		normalized_vector.z = v.z / length;
+		normalized_vector.x = v.x / magnitude;
+		normalized_vector.y = v.y / magnitude;
+		normalized_vector.z = v.z / magnitude;
 	}
 	return (normalized_vector);
 }
