@@ -6,15 +6,15 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 13:44:39 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/22 16:11:06 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/22 20:19:19 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_vector3	v3_cross(t_vector3 a, t_vector3 b)
+t_vector3 v3_cross(t_vector3 a, t_vector3 b)
 {
-	t_vector3	result;
+	t_vector3 result;
 
 	result.x = a.y * b.z - a.z * b.y;
 	result.y = a.z * b.x - a.x * b.z;
@@ -22,9 +22,9 @@ t_vector3	v3_cross(t_vector3 a, t_vector3 b)
 	return (result);
 }
 
-t_vector3	v3_scale(t_vector3 v, float scalar)
+t_vector3 v3_scale(t_vector3 v, float scalar)
 {
-	t_vector3	result;
+	t_vector3 result;
 
 	result.x = v.x * scalar;
 	result.y = v.y * scalar;
@@ -32,9 +32,9 @@ t_vector3	v3_scale(t_vector3 v, float scalar)
 	return (result);
 }
 
-t_vector3	v3_add(t_vector3 a, t_vector3 b)
+t_vector3 v3_add(t_vector3 a, t_vector3 b)
 {
-	t_vector3	result;
+	t_vector3 result;
 
 	result.x = a.x + b.x;
 	result.y = a.y + b.y;
@@ -42,9 +42,9 @@ t_vector3	v3_add(t_vector3 a, t_vector3 b)
 	return (result);
 }
 
-t_vector3	v3_subtract(t_vector3 a, t_vector3 b)
+t_vector3 v3_subtract(t_vector3 a, t_vector3 b)
 {
-	t_vector3	result;
+	t_vector3 result;
 
 	result.x = a.x - b.x;
 	result.y = a.y - b.y;
@@ -52,10 +52,10 @@ t_vector3	v3_subtract(t_vector3 a, t_vector3 b)
 	return (result);
 }
 
-t_vector3	v3_normalize(t_vector3 v)
+t_vector3 v3_normalize(t_vector3 v)
 {
-	float		magnitude;
-	t_vector3	normalized_vector;
+	float magnitude;
+	t_vector3 normalized_vector;
 
 	magnitude = sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
 	if (magnitude == 0)
