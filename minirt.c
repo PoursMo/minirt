@@ -57,7 +57,7 @@ int main(int argc, char **argv)
     	printf(" !! KO !!\n");
     	exit(1);
     }
-	if (!(t.win = mlx_new_window(t.mlx, WIDTH, HEIGHT, "Title1")))
+	if (!(t.win = mlx_new_window(t.mlx, WIDTH, HEIGHT, "miniRT")))
     {
     	printf(" !! KO !!\n");
     	exit(1);
