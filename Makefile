@@ -3,7 +3,7 @@ CFLAGS = -Wall -Wextra -Werror -Ilibft -Iminilibx-linux -Iheaders -g # remove -g
 LFLAGS = -Llibft -lft -Lminilibx-linux -lmlx_Linux -lXext -lX11 -lm
 NAME = miniRT
 SRCSDIR = srcs/
-SRCS =	minirt.c \
+SRCS =	main.c \
 parsing/parsing.c \
 parsing/parsing_utils.c \
 parsing/parsing_utils2.c \
@@ -19,7 +19,7 @@ debug.c \
 
 
 OBJSDIR = objects
-OBJS = $(SRCS:%.c=$(OBJSDIR)/%.o)
+OBJS = $(SRCS:.c=$(OBJSDIR)/%.o)
 LIBFT = libft/libft.a
 MLX = minilibx-linux/libmlx_Linux.a
 

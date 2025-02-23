@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 16:48:25 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/22 20:38:57 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/23 14:05:57 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 // color.c
 
 int			rgb_to_int(unsigned char red, unsigned char green, unsigned char blue);
-int			t_color_to_int(t_color color);
+int			color_to_int(t_color color);
 
 // scene.c
 

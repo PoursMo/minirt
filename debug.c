@@ -110,42 +110,47 @@ void print_scene(t_scene *scene)
 	// **********************************************************************
 }
 
-void place_pixel_in_img_data(char *data, int pixel, t_color *color)
+void place_pixel_in_mlx_img(t_img *img, int x, int y, t_color *color)
 {
-	data[pixel + 0] = color->blue;
-	data[pixel + 1] = color->green;
-	data[pixel + 2] = color->red;
-	data[pixel + 3] = 0x00;
+	int pixel = (y * img->size_line) + (x * (img->bpp / 8));
+	if (img->image->byte_order == 0)
+	{
+		img->data[pixel + 0] = color->blue;
+		img->data[pixel + 1] = color->green;
+		img->data[pixel + 2] = color->red;
+		img->data[pixel + 3] = 0x00;
+	}
+	else
+	{
+		img->data[pixel + 0] = 0x00;
+		img->data[pixel + 1] = color->red;
+		img->data[pixel + 2] = color->green;
+		img->data[pixel + 3] = color->blue;
+	}
 }
 
-void fill_img(void *img)
+void draw_test(t_img *img)
 {
-	int bpp, sl, endian;
-	char *data = mlx_get_data_addr(img, &bpp, &sl, &endian);
-	printf("OK (bpp: %d, sizeline: %d endian: %d type: %d)\n",bpp,sl,endian,((t_img *)img)->type);
 	t_color pink = {.red = 255, .green = 20, .blue = 147};
 	for (int y = 0; y < 10; y++)
 	{
 		for (int x = 0; x < 10; x++)
 		{
-			int pixel = (y * sl) + (x * (bpp / 8));
-			place_pixel_in_img_data(data, pixel, &pink);
+			place_pixel_in_mlx_img(img, x, y, &pink);
 		}
 	}
 	for (int y = 0; y < 10; y++)
 	{
 		for (int x = 20; x < 30; x++)
 		{
-			int pixel = (y * sl) + (x * (bpp / 8));
-			place_pixel_in_img_data(data, pixel, &pink);
+			place_pixel_in_mlx_img(img, x, y, &pink);
 		}
 	}
 	for (int y = 10; y < 40; y++)
 	{
 		for (int x = 10; x < 20; x++)
 		{
-			int pixel = (y * sl) + (x * (bpp / 8));
-			place_pixel_in_img_data(data, pixel, &pink);
+			place_pixel_in_mlx_img(img, x, y, &pink);
 		}
 	}
 }

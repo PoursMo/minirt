@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 16:18:53 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/22 20:15:19 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/23 13:38:02 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,15 @@ typedef struct s_scene
 	t_list			*planes;
 	t_list			*cylinders;
 }	t_scene;
+
+typedef struct s_mlx_img
+{
+	void	*img_ptr;
+	char	*data;
+	int		bits_per_pixel;
+	int		size_line;
+	int		endian;
+}	t_mlx_img;
 
 # include "parsing.h"
 # include "utils.h"
