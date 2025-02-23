@@ -1,25 +1,25 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -Ilibft -Iminilibx-linux -Iheaders -g # remove -g
+CFLAGS = -Wall -Wextra -Werror -Ilibft -Iminilibx-linux -Iminirt/headers -g # remove -g
 LFLAGS = -Llibft -lft -Lminilibx-linux -lmlx_Linux -lXext -lX11 -lm
 NAME = miniRT
 SRCSDIR = srcs/
-SRCS =	main.c \
-parsing/parsing.c \
-parsing/parsing_utils.c \
-parsing/parsing_utils2.c \
-parsing/parsing_shape_getters.c \
-parsing/parsing_type_getters.c \
-parsing/parsing_unique_getters.c \
-utils/color.c \
-utils/scene.c \
-utils/vectors.c \
-utils/vectors2.c \
-debug.c \
+SRCS =	minirt/main.c \
+minirt/parsing/parsing.c \
+minirt/parsing/parsing_utils.c \
+minirt/parsing/parsing_utils2.c \
+minirt/parsing/parsing_shape_getters.c \
+minirt/parsing/parsing_type_getters.c \
+minirt/parsing/parsing_unique_getters.c \
+minirt/utils/color.c \
+minirt/utils/scene.c \
+minirt/utils/vectors.c \
+minirt/utils/vectors2.c \
+minirt/debug.c \
 # remove
 
 
-OBJSDIR = objects
-OBJS = $(SRCS:.c=$(OBJSDIR)/%.o)
+OBJSDIR = minirt/objects
+OBJS = $(SRCS:%.c=$(OBJSDIR)/%.o)
 LIBFT = libft/libft.a
 MLX = minilibx-linux/libmlx_Linux.a
 
