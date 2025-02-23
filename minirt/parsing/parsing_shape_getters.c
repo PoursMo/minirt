@@ -6,13 +6,13 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 20:27:59 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/22 20:28:18 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/23 15:37:01 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	get_sphere(char *line)
+int	parsing_get_sphere(char *line)
 {
 	t_sphere	*sphere;
 	t_list		*sphere_list;
@@ -34,7 +34,7 @@ int	get_sphere(char *line)
 	return (0);
 }
 
-int	get_plane(char *line)
+int	parsing_get_plane(char *line)
 {
 	t_plane	*plane;
 	t_list	*plane_list;
@@ -54,7 +54,7 @@ int	get_plane(char *line)
 	return (0);
 }
 
-int	get_cylinder(char *line)
+int	parsing_get_cylinder(char *line)
 {
 	t_cylinder	*cylinder;
 	t_list		*cylinder_list;

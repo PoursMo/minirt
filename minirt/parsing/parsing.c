@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 16:06:51 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/22 20:34:37 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/23 15:37:22 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,17 @@
 int	parse_line(char *line)
 {
 	if (!ft_strncmp("A ", line, 2))
-		return (get_ambiant_lighting(line + 1));
+		return (parsing_get_ambiant_lighting(line + 1));
 	else if (!ft_strncmp("C ", line, 2))
-		return (get_camera(line + 1));
+		return (parsing_get_camera(line + 1));
 	else if (!ft_strncmp("L ", line, 2))
-		return (get_light(line + 1));
+		return (parsing_get_light(line + 1));
 	else if (!ft_strncmp("sp ", line, 3))
-		return (get_sphere(line + 2));
+		return (parsing_get_sphere(line + 2));
 	else if (!ft_strncmp("pl ", line, 3))
-		return (get_plane(line + 2));
+		return (parsing_get_plane(line + 2));
 	else if (!ft_strncmp("cy ", line, 3))
-		return (get_cylinder(line + 2));
+		return (parsing_get_cylinder(line + 2));
 	else
 		return (misconfiguration_error("unkown type identifier"), -1);
 }

@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 16:18:53 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/23 13:38:02 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/23 15:54:12 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,14 +103,26 @@ typedef struct s_scene
 	t_list			*cylinders;
 }	t_scene;
 
-typedef struct s_mlx_img
+typedef struct s_ray
 {
-	void	*img_ptr;
-	char	*data;
-	int		bits_per_pixel;
-	int		size_line;
-	int		endian;
-}	t_mlx_img;
+	t_vector3	origin;
+	t_vector3	direction;
+}	t_ray;
+
+typedef struct s_mlx_data
+{
+	void	*mlx;
+	void	*win;
+}	t_mlx_data;
+
+typedef struct s_precomputed_camera
+{
+	t_vector3	right_vector;
+	t_vector3	up_vector;
+	float		aspect_ratio;
+	float		viewport_height;
+	float		viewport_width;
+}	t_precomputed_camera;
 
 # include "parsing.h"
 # include "utils.h"

@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 16:48:25 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/23 14:05:57 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/23 15:38:40 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 int			rgb_to_int(unsigned char red, unsigned char green, unsigned char blue);
 int			color_to_int(t_color color);
+void		place_pixel_in_mlx_img(t_img *img, int x, int y, t_color color);
 
 // scene.c
 

@@ -1,34 +1,41 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/23 14:25:36 by aloubry           #+#    #+#             */
+/*   Updated: 2025/02/23 15:52:34 by aloubry          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
 // ** debug.c **
 void print_scene(t_scene *scene);
-void draw_test(t_img *img);
 // *************
 
-typedef struct test
-{
-	void *mlx;
-	void *win;
-	t_img *img;
-} test;
+// ** blblblbl.c **
+void render_scene(t_mlx_data *data);
+// ****************
 
-int mrt_terminate(void *ptr)
+int mrt_terminate(void *data)
 {
-	test *t;
+	t_mlx_data *mlx_data;
 
-	t = (test *)ptr;
+	mlx_data = (t_mlx_data *)data;
 	free_scene();
-	mlx_destroy_image(t->mlx, t->img);
-	mlx_destroy_window(t->mlx, t->win);
-	mlx_destroy_display(t->mlx);
-	free(t->mlx);
+	mlx_destroy_window(mlx_data->mlx, mlx_data->win);
+	mlx_destroy_display(mlx_data->mlx);
+	free(mlx_data->mlx);
 	exit(EXIT_SUCCESS);
 }
 
-int handle_key(int keycode, void *ptr)
+int handle_key(int keycode, void *data)
 {
 	if (keycode == ESC_KEY)
-		mrt_terminate(ptr);
+		mrt_terminate(data);
 	return (0);
 }
 
@@ -50,25 +57,19 @@ int main(int argc, char **argv)
 	// printf(" => Local Endian : %d\n",local_endian);
 
 	// initialize mlx stuff
-	test t;
-	if (!(t.mlx = mlx_init()))
+	t_mlx_data data;
+	if (!(data.mlx = mlx_init()))
     {
     	printf(" !! KO !!\n");
-    	exit(1);
+    	exit(1); // do clean exit
     }
-	if (!(t.win = mlx_new_window(t.mlx, WIDTH, HEIGHT, "miniRT")))
+	if (!(data.win = mlx_new_window(data.mlx, WIDTH, HEIGHT, "miniRT")))
     {
     	printf(" !! KO !!\n");
-    	exit(1);
+    	exit(1); // do clean exit
     }
-	if (!(t.img = mlx_new_image(t.mlx, 100, 100)))
-    {
-    	printf(" !! KO !!\n");
-    	exit(1);
-    }
-	draw_test(t.img);
-	mlx_put_image_to_window(t.mlx, t.win, t.img, WIDTH / 2, HEIGHT / 2);
-	mlx_hook(t.win, DestroyNotify, 0, mrt_terminate, &t);
-	mlx_key_hook(t.win, handle_key, &t);
-	mlx_loop(t.mlx);
+	render_scene(&data);
+	mlx_hook(data.win, DestroyNotify, 0, mrt_terminate, &data);
+	mlx_key_hook(data.win, handle_key, &data);
+	mlx_loop(data.mlx);
 }

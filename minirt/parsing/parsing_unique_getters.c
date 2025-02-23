@@ -6,13 +6,13 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 20:28:50 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/22 20:28:57 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/23 15:37:11 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	get_ambiant_lighting(char *line)
+int	parsing_get_ambiant_lighting(char *line)
 {
 	if (get_scene()->ambiant_light)
 		return (misconfiguration_error("ambiant lighting: duplicate"), -1);
@@ -26,7 +26,7 @@ int	get_ambiant_lighting(char *line)
 	return (0);
 }
 
-int	get_camera(char *line)
+int	parsing_get_camera(char *line)
 {
 	if (get_scene()->camera)
 		return (misconfiguration_error("camera: duplicate"), -1);
@@ -41,7 +41,7 @@ int	get_camera(char *line)
 	return (0);
 }
 
-int	get_light(char *line)
+int	parsing_get_light(char *line)
 {
 	if (get_scene()->light)
 		return (misconfiguration_error("light: duplicate"), -1);
