@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 12:47:14 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/24 14:36:54 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/24 18:46:03 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,30 +54,35 @@ t_ray	get_ray(int x, int y, t_precomputed_camera *precomputed, t_camera *camera)
 	return (ray);
 }
 
-t_color apply_phong(t_scene *scene)
+t_color apply_phong(t_scene *scene, t_shape *shape)
 {
 	t_color color;
 
-	color.red = scene->ambiant_light->color.red * scene->ambiant_light->ratio;
-	color.green = scene->ambiant_light->color.green * scene->ambiant_light->ratio;
-	color.blue = scene->ambiant_light->color.blue * scene->ambiant_light->ratio;
+	if (shape->type == SPHERE)
+		color = shape->data.sphere.color;
+	else if (shape->type == PLANE)
+		color = shape->data.plane.color;
+	else if (shape->type == CYLINDER)
+		color = shape->data.cylinder.color;
+    color = color_multiply(color, color_scale(scene->ambiant_light->color, scene->ambiant_light->ratio));
+	// cast ray towards light and if hit apply diffuse and specular elements
+	// apply attenuation depending on range from light ? (bonus bonus)
 	return (color);
 }
 
 // t = intersection distance
+// returns NULL if no intersection
 t_shape *get_closest_shape_intersecting(t_ray *ray, t_list *shapes)
 {
 	t_shape *closest_shape;
-	t_list *iterator;
 	float t;
 	float closest_t;
 
 	closest_shape = NULL;
 	closest_t = __FLT_MAX__;
-	iterator = shapes;
-	while (iterator)
+	while (shapes)
 	{
-		t_shape *shape = (t_shape *)iterator->content;
+		t_shape *shape = (t_shape *)shapes->content;
 		if (shape->type == SPHERE)
 		{
  			// sphere check
@@ -91,7 +96,7 @@ t_shape *get_closest_shape_intersecting(t_ray *ray, t_list *shapes)
 		{
 			// cylinder check
 		}
-		iterator = iterator->next;
+		shapes = shapes->next;
 	}
 	return (closest_shape);
 }
@@ -105,13 +110,7 @@ t_color trace_ray(t_ray *ray, t_scene *scene)
 	closest_shape = get_closest_shape_intersecting(ray, scene->shapes);
 	if (closest_shape)
 	{
-		if (closest_shape->type == SPHERE)
-			color = closest_shape->data.sphere.color;
-		else if (closest_shape->type == PLANE)
-			color = closest_shape->data.plane.color;
-		else if (closest_shape->type == CYLINDER)
-			color = closest_shape->data.cylinder.color;
-		// apply phong
+		color = apply_phong(scene, closest_shape);
 	}
 	return (color);
 }
@@ -149,8 +148,8 @@ void render_scene(t_mrt_data *data)
 	img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
 	if (!img)
     {
-    	printf(" !! KO !!\n");
-    	exit(1); // do clean exit
+    	ft_putstr_fd("mlx_new_image error\n", 2);
+    	clean_exit(EXIT_FAILURE, data);
     }
 	fill_img(img, &data->scene);
 	mlx_put_image_to_window(data->mlx, data->win, img, 0, 0);

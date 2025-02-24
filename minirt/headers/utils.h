@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 16:48:25 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/24 13:33:22 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/24 18:49:01 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,9 @@
 
 int			rgb_to_int(unsigned char red, unsigned char green, unsigned char blue);
 int			color_to_int(t_color color);
-void		place_pixel_in_mlx_img(t_img *img, int x, int y, t_color color);
-
-// scene.c
-
-void		free_scene(t_scene *scene);
+t_color		color_multiply(t_color a, t_color b);
+t_color		color_add(t_color a, t_color b);
+t_color		color_scale(t_color c, float scalar);
 
 // vectors.c
 
@@ -35,5 +33,13 @@ t_vector3	v3_normalize(t_vector3 v);
 
 double		v3_get_magnitude(t_vector3 v);
 float		v3_dot(t_vector3 a, t_vector3 b);
+
+// utils.c
+
+void		place_pixel_in_mlx_img(t_img *img, int x, int y, t_color color);
+void		clean_exit(int status, t_mrt_data *data);
+int			mrt_terminate(void *data);
+int			handle_key(int keycode, void *data);
+void		free_scene(t_scene *scene);
 
 #endif

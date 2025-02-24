@@ -11,7 +11,7 @@ minirt/parsing/parsing_shape_getters.c \
 minirt/parsing/parsing_type_getters.c \
 minirt/parsing/parsing_unique_getters.c \
 minirt/utils/color.c \
-minirt/utils/scene.c \
+minirt/utils/utils.c \
 minirt/utils/vectors.c \
 minirt/utils/vectors2.c \
 minirt/algo/blblblbl.c \

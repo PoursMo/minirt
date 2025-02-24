@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 16:49:24 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/23 15:38:33 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/24 18:37:05 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,23 +27,32 @@ int	color_to_int(t_color color)
 	return (rgb_to_int(color.red, color.green, color.blue));
 }
 
-void	place_pixel_in_mlx_img(t_img *img, int x, int y, t_color color)
+t_color	color_multiply(t_color a, t_color b)
 {
-	int	pixel;
+	t_color	result;
 
-	pixel = (y * img->size_line) + (x * (img->bpp / 8));
-	if (img->image->byte_order == 0)
-	{
-		img->data[pixel + 0] = color.blue;
-		img->data[pixel + 1] = color.green;
-		img->data[pixel + 2] = color.red;
-		img->data[pixel + 3] = 0x00;
-	}
-	else
-	{
-		img->data[pixel + 0] = 0x00;
-		img->data[pixel + 1] = color.red;
-		img->data[pixel + 2] = color.green;
-		img->data[pixel + 3] = color.blue;
-	}
+	result.red = (unsigned char)fminf(a.red * (b.red / 255.0f), 255.0f);
+	result.green = (unsigned char)fminf(a.green * (b.green / 255.0f), 255.0f);
+	result.blue = (unsigned char)fminf(a.blue * (b.blue / 255.0f), 255.0f);
+	return (result);
+}
+
+t_color	color_add(t_color a, t_color b)
+{
+	t_color	result;
+
+	result.red = (unsigned char)fminf(a.red + b.red, 255.0f);
+	result.green = (unsigned char)fminf(a.green + b.green, 255.0f);
+	result.blue = (unsigned char)fminf(a.blue + b.blue, 255.0f);
+	return (result);
+}
+
+t_color	color_scale(t_color c, float scalar)
+{
+	t_color	result;
+
+	result.red = c.red * scalar;
+	result.green = c.green * scalar;
+	result.blue = c.blue * scalar;
+	return (result);
 }

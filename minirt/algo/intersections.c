@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 13:51:10 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/24 14:06:11 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/24 18:09:11 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,5 @@ int intersect_plane(t_ray *ray, t_plane *plane, float *intersect_dist)
         *intersect_dist = v3_dot(p0l0, plane->normal) / denom;
         return (*intersect_dist >= 0);
     }
-    return 0;
+    return (0);
 }

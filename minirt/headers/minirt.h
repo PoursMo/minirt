@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 16:18:53 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/24 14:20:34 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/24 18:36:34 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,5 +139,7 @@ typedef struct s_precomputed_camera
 # include "parsing.h"
 # include "utils.h"
 # include "algo.h"
+
+void		place_pixel_in_mlx_img(t_img *img, int x, int y, t_color color);
 
 #endif
