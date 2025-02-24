@@ -6,15 +6,15 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 20:27:59 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/24 13:35:44 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/24 14:19:54 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static int add_shape_to_scene(t_shape *shape, t_scene *scene)
+static int	add_shape_to_scene(t_shape *shape, t_scene *scene)
 {
-	t_list *shape_list;
+	t_list	*shape_list;
 
 	shape_list = ft_lstnew(shape);
 	if (!shape_list)

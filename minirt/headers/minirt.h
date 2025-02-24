@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 16:18:53 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/24 13:52:21 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/24 14:20:34 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ typedef struct s_mrt_data
 {
 	void	*mlx;
 	void	*win;
-	t_scene scene;
+	t_scene	scene;
 }	t_mrt_data;
 
 typedef struct s_precomputed_camera

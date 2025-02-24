@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 14:57:10 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/22 20:32:04 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/24 14:20:07 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	is_valid_parameter(char **line)
 		&& (!ft_isdigit(**line) || **line != '-' || **line != '+'));
 }
 
-int is_valid_tail(char *line)
+int	is_valid_tail(char *line)
 {
 	while (*line)
 	{

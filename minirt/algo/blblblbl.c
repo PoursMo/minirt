@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 12:47:14 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/24 14:17:25 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/24 14:36:54 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ t_color trace_ray(t_ray *ray, t_scene *scene)
 			color = closest_shape->data.plane.color;
 		else if (closest_shape->type == CYLINDER)
 			color = closest_shape->data.cylinder.color;
+		// apply phong
 	}
 	return (color);
 }
