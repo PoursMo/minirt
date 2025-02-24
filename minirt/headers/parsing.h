@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 16:18:48 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/23 15:36:53 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/24 13:35:21 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 // parsing.c
 
-int		parse_file(char *file);
+int		parse_file(char *file, t_scene *scene);
 
 // parsing_utils.c
 
@@ -31,9 +31,9 @@ void	misconfiguration_error(char *error);
 
 // parsing_shape_getters.c
 
-int		parsing_get_sphere(char *line);
-int		parsing_get_plane(char *line);
-int		parsing_get_cylinder(char *line);
+int		parsing_get_sphere(char *line, t_scene *scene);
+int		parsing_get_plane(char *line, t_scene *scene);
+int		parsing_get_cylinder(char *line, t_scene *scene);
 
 // parsing_type_getters.c
 
@@ -45,8 +45,8 @@ int		parsing_get_normalized_vector3(char **line, t_vector3 *target);
 
 // parsing_unique_getters.c
 
-int		parsing_get_ambiant_lighting(char *line);
-int		parsing_get_camera(char *line);
-int		parsing_get_light(char *line);
+int		parsing_get_ambiant_lighting(char *line, t_scene *scene);
+int		parsing_get_camera(char *line, t_scene *scene);
+int		parsing_get_light(char *line, t_scene *scene);
 
 #endif

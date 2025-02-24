@@ -1,25 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   scene.c                                            :+:      :+:    :+:   */
+/*   algo.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/14 16:53:25 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/24 13:33:38 by aloubry          ###   ########.fr       */
+/*   Created: 2025/02/24 13:51:34 by aloubry           #+#    #+#             */
+/*   Updated: 2025/02/24 14:17:45 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#ifndef ALGO_H
+# define ALGO_H
 
-void	free_scene(t_scene *scene)
-{
-	if (scene->ambiant_light)
-		free(scene->ambiant_light);
-	if (scene->camera)
-		free(scene->camera);
-	if (scene->light)
-		free(scene->light);
-	if (scene->shapes)
-		ft_lstclear(&scene->shapes, free);
-}
+void render_scene(t_mrt_data *data);
+
+// intersections.c
+
+int intersect_plane(t_ray *ray, t_plane *plane, float *t);
+
+#endif

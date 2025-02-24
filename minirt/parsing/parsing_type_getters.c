@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 20:25:55 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/22 20:26:38 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/24 13:28:20 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,10 +93,8 @@ int	parsing_get_normalized_vector3(char **line, t_vector3 *target)
 	else
 		return (-1);
 	target->z = mrt_atof(line);
-	if (target->z >= -1.0 && target->z <= 1.0)
-	{
-		*target = v3_normalize(*target);
-		return (0);
-	}
-	return (-1);
+	if (target->z < -1.0 || target->z > 1.0)
+		return (-1);
+	*target = v3_normalize(*target);
+	return (0);
 }

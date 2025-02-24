@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   scene.c                                            :+:      :+:    :+:   */
+/*   intersections.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/14 16:53:25 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/24 13:33:38 by aloubry          ###   ########.fr       */
+/*   Created: 2025/02/24 13:51:10 by aloubry           #+#    #+#             */
+/*   Updated: 2025/02/24 14:06:11 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	free_scene(t_scene *scene)
+int intersect_plane(t_ray *ray, t_plane *plane, float *intersect_dist)
 {
-	if (scene->ambiant_light)
-		free(scene->ambiant_light);
-	if (scene->camera)
-		free(scene->camera);
-	if (scene->light)
-		free(scene->light);
-	if (scene->shapes)
-		ft_lstclear(&scene->shapes, free);
+    float denom;
+	t_vector3 p0l0;
+	
+	denom = v3_dot(plane->normal, ray->direction);
+    if (fabs(denom) > 1e-6)
+    {
+        p0l0 = v3_subtract(plane->position, ray->origin);
+        *intersect_dist = v3_dot(p0l0, plane->normal) / denom;
+        return (*intersect_dist >= 0);
+    }
+    return 0;
 }

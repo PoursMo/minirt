@@ -14,7 +14,8 @@ minirt/utils/color.c \
 minirt/utils/scene.c \
 minirt/utils/vectors.c \
 minirt/utils/vectors2.c \
-minirt/blblblbl.c \
+minirt/algo/blblblbl.c \
+minirt/algo/intersections.c \
 minirt/debug.c \
 # remove
 

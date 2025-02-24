@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 16:18:53 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/23 15:54:12 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/24 13:52:21 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,21 +86,32 @@ typedef struct s_cylinder
 	t_color		color;
 }	t_cylinder;
 
-// typedef enum e_shape_type
-// {
-// 	SPHERE,
-// 	PLANE,
-// 	CYLINDER
-// }	t_shape_type;
+typedef enum e_shape_type
+{
+	SPHERE,
+	PLANE,
+	CYLINDER
+}	t_shape_type;
+
+typedef union u_shape_data
+{
+	t_sphere	sphere;
+	t_plane		plane;
+	t_cylinder	cylinder;
+}	t_shape_data;
+
+typedef struct s_shape
+{
+	t_shape_type	type;
+	t_shape_data	data;
+}	t_shape;
 
 typedef struct s_scene
 {
 	t_ambiant_light	*ambiant_light;
 	t_camera		*camera;
 	t_light			*light;
-	t_list			*spheres;
-	t_list			*planes;
-	t_list			*cylinders;
+	t_list			*shapes;
 }	t_scene;
 
 typedef struct s_ray
@@ -109,11 +120,12 @@ typedef struct s_ray
 	t_vector3	direction;
 }	t_ray;
 
-typedef struct s_mlx_data
+typedef struct s_mrt_data
 {
 	void	*mlx;
 	void	*win;
-}	t_mlx_data;
+	t_scene scene;
+}	t_mrt_data;
 
 typedef struct s_precomputed_camera
 {
@@ -126,5 +138,6 @@ typedef struct s_precomputed_camera
 
 # include "parsing.h"
 # include "utils.h"
+# include "algo.h"
 
 #endif

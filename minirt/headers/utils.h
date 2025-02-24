@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 16:48:25 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/23 15:38:40 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/24 13:33:22 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ void		place_pixel_in_mlx_img(t_img *img, int x, int y, t_color color);
 
 // scene.c
 
-t_scene		*get_scene(void);
-void		free_scene(void);
+void		free_scene(t_scene *scene);
 
 // vectors.c
 
