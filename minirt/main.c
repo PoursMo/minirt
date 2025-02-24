@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 14:25:36 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/24 18:58:27 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/25 00:06:07 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 void print_scene(t_scene *scene);
 // *************
 
+
+// 
 int main(int argc, char **argv)
 {
 	t_mrt_data data;
@@ -25,6 +27,7 @@ int main(int argc, char **argv)
 		return (ft_putstr_fd("Wrong number of arguments\n", 2), EXIT_FAILURE);
 	if (parse_file(argv[argc - 1], &data.scene) == -1)
 		return (EXIT_FAILURE);
+	// do we need one of each capital letter element ?
 	print_scene(&data.scene); // debug
 
 	// // get endian

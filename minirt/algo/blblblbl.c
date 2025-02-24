@@ -6,13 +6,11 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 12:47:14 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/24 18:46:03 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/25 00:10:01 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-static const t_vector3	g_up = {.x = 0, .y = 1, .z = 0};
 
 float	degrees_to_radians(float degrees)
 {
@@ -23,7 +21,7 @@ t_precomputed_camera	precompute_camera(t_camera *camera, t_img *img)
 {
 	t_precomputed_camera	result;
 
-	result.right_vector = v3_normalize(v3_cross(g_up, camera->direction));
+	result.right_vector = v3_normalize(v3_cross(v3_up(), camera->direction));
 	result.up_vector = v3_cross(camera->direction, result.right_vector);
 	result.aspect_ratio = (float)img->width / (float)img->height;
 	result.viewport_height = 2 * tan(degrees_to_radians(camera->fov) / 2);
@@ -54,25 +52,41 @@ t_ray	get_ray(int x, int y, t_precomputed_camera *precomputed, t_camera *camera)
 	return (ray);
 }
 
-t_color apply_phong(t_scene *scene, t_shape *shape)
+t_vector3 get_normal(t_shape *shape, t_vector3 *point)
 {
-	t_color color;
+	t_vector3 normal;
 
+	(void)point;
 	if (shape->type == SPHERE)
-		color = shape->data.sphere.color;
+	{
+		// implement
+	}
 	else if (shape->type == PLANE)
-		color = shape->data.plane.color;
+	{
+		normal = shape->data.plane.normal;
+	}
 	else if (shape->type == CYLINDER)
-		color = shape->data.cylinder.color;
-    color = color_multiply(color, color_scale(scene->ambiant_light->color, scene->ambiant_light->ratio));
-	// cast ray towards light and if hit apply diffuse and specular elements
-	// apply attenuation depending on range from light ? (bonus bonus)
-	return (color);
+	{
+		// implement
+	}
+	return (normal);
+}
+
+t_color get_shape_color(t_shape *shape)
+{
+	if (shape->type == SPHERE)
+		return (shape->data.sphere.color);
+	else if (shape->type == PLANE)
+		return (shape->data.plane.color);
+	else if (shape->type == CYLINDER)
+		return (shape->data.cylinder.color);
+	return (t_color){0};
 }
 
 // t = intersection distance
-// returns NULL if no intersection
-t_shape *get_closest_shape_intersecting(t_ray *ray, t_list *shapes)
+// returns 0 if no intersection
+// returns 1 if intersection, and fills hit_info if it it not NULL
+int get_closest_shape_intersecting(t_ray *ray, t_list *shapes, t_ray_hit_info *hit_info)
 {
 	t_shape *closest_shape;
 	float t;
@@ -98,19 +112,48 @@ t_shape *get_closest_shape_intersecting(t_ray *ray, t_list *shapes)
 		}
 		shapes = shapes->next;
 	}
-	return (closest_shape);
+	if (closest_shape)
+	{
+		if (hit_info)
+		{
+			hit_info->position = v3_add(ray->origin, v3_scale(ray->direction, closest_t));
+			hit_info->normal = get_normal(closest_shape, &hit_info->position);
+			hit_info->shape = closest_shape;
+		}
+		return (1);
+	}
+	return (0);
+}
+
+// precompute lights intensities ?
+t_color apply_phong(t_scene *scene, t_ray_hit_info *hit_info)
+{
+	t_color shape_color;
+	t_ray	light_ray;
+
+	shape_color = get_shape_color(hit_info->shape);
+	t_color ambiant = color_multiply(shape_color, color_scale(scene->ambiant_light->color, scene->ambiant_light->ratio));
+	light_ray.origin = hit_info->position;
+	light_ray.direction = v3_normalize(v3_subtract(scene->light->position, light_ray.origin));
+	if (get_closest_shape_intersecting(&light_ray, scene->shapes, NULL))
+		return (ambiant);
+	// diffuse
+	float diff = fmaxf(0, v3_dot(light_ray.direction, hit_info->normal));
+	t_color diffuse = color_multiply(shape_color, color_scale(color_scale(scene->light->color, scene->light->brightness), diff));
+	// add specular
+	// apply attenuation depending on range from light ? (bonus bonus)
+	return (color_add(ambiant, diffuse));
 }
 
 t_color trace_ray(t_ray *ray, t_scene *scene)
 {
 	t_color color;
-	t_shape *closest_shape;
+	t_ray_hit_info hit_info;
 
 	ft_memset(&color, 0, sizeof(t_color));
-	closest_shape = get_closest_shape_intersecting(ray, scene->shapes);
-	if (closest_shape)
+	if (get_closest_shape_intersecting(ray, scene->shapes, &hit_info))
 	{
-		color = apply_phong(scene, closest_shape);
+		color = apply_phong(scene, &hit_info);
 	}
 	return (color);
 }
