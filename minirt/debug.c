@@ -35,14 +35,21 @@ void print_scene(t_scene *scene)
 	else
 		printf("  None\n");
 	// **********************************************************************
-	printf("Light:\n");
-	if (scene->light)
+	printf("Lights:\n");
+	if (scene->lights)
 	{
-		printf("  Position: ");
-		print_vector3(scene->light->position);
-		printf("  Brightness: %f\n", scene->light->brightness);
-		printf("  Color: ");
-		print_color(scene->light->color);
+		t_list *l = scene->lights;
+		while (l)
+		{
+			t_light *light = l->content;
+			printf("  Light:\n");
+			printf("    Position: ");
+			print_vector3(light->position);
+			printf("    Brightness: %f\n", light->brightness);
+			printf("    Color: ");
+			print_color(light->color);
+			l = l->next;
+		}
 	}
 	else
 		printf("  None\n");
@@ -84,6 +91,18 @@ void print_scene(t_scene *scene)
 				printf("    Height: %f\n", s->data.cylinder.height);
 				printf("    Color: ");
 				print_color(s->data.cylinder.color);
+			}
+			else if (s->type == TORUS)
+			{
+				printf("  Torus:\n");
+				printf("    Position: ");
+				print_vector3(s->data.torus.position);
+				printf("    Direction: ");
+				print_vector3(s->data.torus.direction);
+				printf("    Minor Radius: %f\n", s->data.torus.minor_radius);
+				printf("    Major Radius: %f\n", s->data.torus.major_radius);
+				printf("    Color: ");
+				print_color(s->data.torus.color);
 			}
 			else
 			{

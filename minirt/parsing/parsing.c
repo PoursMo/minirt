@@ -6,14 +6,26 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 16:06:51 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/25 21:33:48 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/25 23:48:14 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-// empty file
-// directory.rt
+/*
+Torus:
+identifier: to
+x, y, z coordinates of the sphere center
+3D normalized orientation vector, in range [-1,1] for each x, y, z axis
+minor radius ?? diameter ??
+major radius ?? diameter ??
+R,G,B colors in range [0-255]
+
+Light:
+identifier: l instead of L
+*/
+
+// directory.rt ?? pense pas que ce soit possible avec les fonctions autorisees
 
 int	parse_line(char *line, t_scene *scene)
 {
@@ -21,7 +33,7 @@ int	parse_line(char *line, t_scene *scene)
 		return (parsing_get_ambiant_lighting(line + 1, scene));
 	else if (!ft_strncmp("C ", line, 2))
 		return (parsing_get_camera(line + 1, scene));
-	else if (!ft_strncmp("L ", line, 2))
+	else if (!ft_strncmp("l ", line, 2))
 		return (parsing_get_light(line + 1, scene));
 	else if (!ft_strncmp("sp ", line, 3))
 		return (parsing_get_sphere(line + 2, scene));
@@ -29,6 +41,8 @@ int	parse_line(char *line, t_scene *scene)
 		return (parsing_get_plane(line + 2, scene));
 	else if (!ft_strncmp("cy ", line, 3))
 		return (parsing_get_cylinder(line + 2, scene));
+	else if (!ft_strncmp("to ", line, 3))
+		return (parsing_get_torus(line + 2, scene));
 	else
 		return (misconfiguration_error("unkown type identifier"), -1);
 }
@@ -58,5 +72,5 @@ int	parse_file(char *file, t_scene *scene)
 		free(line);
 	}
 	close(fd);
-	return (0);
+	return (check_scene(scene));
 }

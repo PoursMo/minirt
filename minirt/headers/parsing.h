@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 16:18:48 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/24 13:35:21 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/25 23:44:32 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,14 @@ int		is_valid_tail(char *line);
 // parsing_utils2.c
 
 void	misconfiguration_error(char *error);
+int		check_scene(t_scene *scene);
 
 // parsing_shape_getters.c
 
 int		parsing_get_sphere(char *line, t_scene *scene);
 int		parsing_get_plane(char *line, t_scene *scene);
 int		parsing_get_cylinder(char *line, t_scene *scene);
+int		parsing_get_torus(char *line, t_scene *scene);
 
 // parsing_type_getters.c
 

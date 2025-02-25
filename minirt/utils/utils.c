@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 18:47:14 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/24 18:52:10 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/25 23:00:31 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ void	free_scene(t_scene *scene)
 		free(scene->ambiant_light);
 	if (scene->camera)
 		free(scene->camera);
-	if (scene->light)
-		free(scene->light);
+	if (scene->lights)
+		ft_lstclear(&scene->lights, free);
 	if (scene->shapes)
 		ft_lstclear(&scene->shapes, free);
 }
