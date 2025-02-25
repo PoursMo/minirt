@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 14:25:36 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/25 00:06:07 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/25 21:33:01 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 void print_scene(t_scene *scene);
 // *************
 
-
-// 
 int main(int argc, char **argv)
 {
 	t_mrt_data data;

@@ -6,11 +6,14 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 16:06:51 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/24 13:35:36 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/25 21:33:48 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+// empty file
+// directory.rt
 
 int	parse_line(char *line, t_scene *scene)
 {

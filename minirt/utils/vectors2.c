@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 13:44:39 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/24 23:34:17 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/25 21:33:57 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,5 @@ float	v3_dot(t_vector3 a, t_vector3 b)
 
 t_vector3	v3_up(void)
 {
-	return ((t_vector3){.x = 0, .y = 1, .z = 0});
+	return ((t_vector3){.x = 0, .y = -1, .z = 0});
 }
