@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 14:57:10 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/24 14:20:07 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/25 23:35:01 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,22 +47,15 @@ float	mrt_atof(char **nptr)
 			mult = -1;
 		(*nptr)++;
 	}
-	whole = 0;
-	while (**nptr && ft_isdigit(**nptr))
-	{
-		whole = whole * 10 + (**nptr - '0');
-		(*nptr)++;
-	}
+	whole = mrt_atoi(nptr);
 	frac = 0.0f;
 	if (**nptr == '.')
 	{
-		(*nptr)++;
 		divisor = 10.0f;
-		while (**nptr && ft_isdigit(**nptr))
+		while (*++*nptr && ft_isdigit(**nptr))
 		{
 			frac += (**nptr - '0') / divisor;
 			divisor *= 10.0f;
-			(*nptr)++;
 		}
 	}
 	return ((whole + frac) * mult);

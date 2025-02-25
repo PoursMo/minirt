@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 20:28:50 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/24 13:30:16 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/25 23:05:13 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,20 @@ int	parsing_get_camera(char *line, t_scene *scene)
 
 int	parsing_get_light(char *line, t_scene *scene)
 {
-	if (scene->light)
-		return (misconfiguration_error("light: duplicate"), -1);
-	scene->light = malloc(sizeof(t_light));
-	if (!scene->light)
+	t_light	*light;
+	t_list	*lights_list;
+
+	light = malloc(sizeof(t_light));
+	if (!light)
 		return (perror("get_light"), -1);
-	if (parsing_get_vector3(&line, &scene->light->position) == -1
-		|| parsing_get_float(&line, &scene->light->brightness, 0.0f, 1.0f) == -1
-		|| parsing_get_color(&line, &scene->light->color) == -1
+	if (parsing_get_vector3(&line, &light->position) == -1
+		|| parsing_get_float(&line, &light->brightness, 0.0f, 1.0f) == -1
+		|| parsing_get_color(&line, &light->color) == -1
 		|| !is_valid_tail(line))
 		return (misconfiguration_error("light: wrong parameters"), -1);
+	lights_list = ft_lstnew(light);
+	if (!lights_list)
+		return (perror("parsing_get_light"), free(light), -1);
+	ft_lstadd_back(&scene->lights, lights_list);
 	return (0);
 }

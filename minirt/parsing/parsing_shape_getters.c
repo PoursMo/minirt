@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 20:27:59 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/24 14:19:54 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/25 23:04:32 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	parsing_get_sphere(char *line, t_scene *scene)
 
 	shape = malloc(sizeof(t_shape));
 	if (!shape)
-		return (perror("get_sphere"), -1);
+		return (perror("parsing_get_sphere"), -1);
 	shape->type = SPHERE;
 	if (parsing_get_vector3(&line, &shape->data.sphere.position) == -1
 		|| parsing_get_float(&line, &diameter, 0.0f, __FLT_MAX__) == -1
@@ -47,7 +47,7 @@ int	parsing_get_plane(char *line, t_scene *scene)
 
 	shape = malloc(sizeof(t_shape));
 	if (!shape)
-		return (perror("get_plane"), -1);
+		return (perror("parsing_get_plane"), -1);
 	shape->type = PLANE;
 	if (parsing_get_vector3(&line, &shape->data.plane.position) == -1
 		|| parsing_get_normalized_vector3(&line, &shape->data.plane.normal) == -1
@@ -64,7 +64,7 @@ int	parsing_get_cylinder(char *line, t_scene *scene)
 
 	shape = malloc(sizeof(t_shape));
 	if (!shape)
-		return (perror("get_cylinder"), -1);
+		return (perror("parsing_get_cylinder"), -1);
 	shape->type = CYLINDER;
 	if (parsing_get_vector3(&line, &shape->data.cylinder.position) == -1
 		|| parsing_get_normalized_vector3(&line, &shape->data.cylinder.axis) == -1
@@ -74,5 +74,23 @@ int	parsing_get_cylinder(char *line, t_scene *scene)
 		|| !is_valid_tail(line))
 		return (misconfiguration_error("cylinder: wrong parameters"), free(shape), -1);
 	shape->data.cylinder.radius = diameter / 2.0f;
+	return (add_shape_to_scene(shape, scene));
+}
+
+int	parsing_get_torus(char *line, t_scene *scene)
+{
+	t_shape		*shape;
+
+	shape = malloc(sizeof(t_shape));
+	if (!shape)
+		return (perror("parsing_get_torus"), -1);
+	shape->type = TORUS;
+	if (parsing_get_vector3(&line, &shape->data.torus.position) == -1
+		|| parsing_get_normalized_vector3(&line, &shape->data.torus.direction) == -1
+		|| parsing_get_float(&line, &shape->data.torus.minor_radius, 0.0f, __FLT_MAX__) == -1 // diameter ?? radius ?? what if minor > major
+		|| parsing_get_float(&line, &shape->data.torus.major_radius, 0.0f, __FLT_MAX__) == -1 // diameter ?? radius ?? what if minor > major
+		|| parsing_get_color(&line, &shape->data.torus.color) == -1
+		|| !is_valid_tail(line))
+		return (misconfiguration_error("torus: wrong parameters"), free(shape), -1);
 	return (add_shape_to_scene(shape, scene));
 }
