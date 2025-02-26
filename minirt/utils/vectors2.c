@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   vectors2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 13:44:39 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/25 23:49:24 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/26 15:17:05 by lpittet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-double	v3_get_magnitude(t_vector3 v)
+float	v3_get_magnitude(t_vector3 v)
 {
 	return (sqrt(v.x * v.x + v.y * v.y + v.z * v.z));
 }
