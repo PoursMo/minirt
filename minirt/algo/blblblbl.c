@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 12:47:14 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/25 23:02:34 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/26 11:25:36 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,10 @@ t_vector3 get_normal(t_shape *shape, t_vector3 *point)
 	{
 		// implement
 	}
+	else if (shape->type == TORUS)
+	{
+		// implement
+	}
 	return (normal);
 }
 
@@ -80,6 +84,8 @@ t_color get_shape_color(t_shape *shape)
 		return (shape->data.plane.color);
 	else if (shape->type == CYLINDER)
 		return (shape->data.cylinder.color);
+	else if (shape->type == TORUS)
+		return (shape->data.torus.color);
 	return (t_color){0};
 }
 
@@ -109,6 +115,10 @@ int get_closest_shape_intersecting(t_ray *ray, t_list *shapes, t_ray_hit_info *h
 		else if (shape->type == CYLINDER)
 		{
 			// cylinder check
+		}
+		else if (shape->type == TORUS)
+		{
+			// torus check
 		}
 		shapes = shapes->next;
 	}
