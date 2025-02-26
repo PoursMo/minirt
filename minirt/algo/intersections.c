@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersections.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 13:51:10 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/25 00:11:27 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/26 15:17:05 by lpittet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,29 @@ int intersect_plane(t_ray *ray, t_plane *plane, float *intersect_dist)
         return (*intersect_dist >= 0);
     }
     return (0);
+}
+
+int intersect_sphere(t_ray *ray, t_sphere *sphere, float *intersect_dist)
+{
+	float discriminant;
+	float ans1;
+	float ans2;
+	t_vector3 dist;
+
+	dist = v3_subtract(ray->origin, sphere->position);
+	discriminant = v3_dot(ray->direction, dist) * v3_dot(ray->direction, dist)
+					- (v3_get_magnitude(dist) * v3_get_magnitude(dist) - sphere->radius * sphere->radius);
+	if (discriminant < 0)
+		return (0);
+	ans1 = -(v3_dot(ray->direction, dist)) + sqrt(discriminant);
+	ans2 = -(v3_dot(ray->direction, dist)) - sqrt(discriminant);
+	if (ans2 < 0 && ans1 < 0)
+		return (0);
+	else if (ans1 < 0)
+		*intersect_dist = ans2;
+	else if (ans2 < 0)
+		*intersect_dist = ans1;
+	else
+		*intersect_dist = fminf(ans1, ans2);
+	return (1);
 }

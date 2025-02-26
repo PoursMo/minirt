@@ -50,3 +50,9 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+minirt/miniRT
+minirt/objects
+test.rt
+error.txt
+.vscode

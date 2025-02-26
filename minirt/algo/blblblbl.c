@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   blblblbl.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 12:47:14 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/25 23:02:34 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/26 16:56:20 by lpittet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_precomputed_camera	precompute_camera(t_camera *camera, t_img *img)
 
 	result.right_vector = v3_normalize(v3_cross(v3_up(), camera->direction));
 	result.up_vector = v3_cross(camera->direction, result.right_vector);
-	result.aspect_ratio = (float)img->width / (float)img->height;
+	result.aspect_ratio = (float)(img->width - 1) / (float)(img->height - 1); // -1 useful?
 	result.viewport_height = 2 * tan(degrees_to_radians(camera->fov) / 2);
 	result.viewport_width = result.aspect_ratio * result.viewport_height;
 	return (result);
@@ -52,14 +52,14 @@ t_ray	get_ray(int x, int y, t_precomputed_camera *precomputed, t_camera *camera)
 	return (ray);
 }
 
-t_vector3 get_normal(t_shape *shape, t_vector3 *point)
+t_vector3 get_normal(t_shape *shape, t_vector3 point)
 {
 	t_vector3 normal;
 
 	(void)point;
 	if (shape->type == SPHERE)
 	{
-		// implement
+		normal = v3_normalize(v3_subtract(point, shape->data.sphere.position));
 	}
 	else if (shape->type == PLANE)
 	{
@@ -97,9 +97,10 @@ int get_closest_shape_intersecting(t_ray *ray, t_list *shapes, t_ray_hit_info *h
 	while (shapes)
 	{
 		t_shape *shape = (t_shape *)shapes->content;
-		if (shape->type == SPHERE)
+		if (shape->type == SPHERE && intersect_sphere(ray, &shape->data.sphere, &t) && t < closest_t)
 		{
- 			// sphere check
+ 			closest_t = t;
+			closest_shape = shape;
 		}
 		else if (shape->type == PLANE && intersect_plane(ray, &shape->data.plane, &t) && t < closest_t)
 		{
@@ -117,7 +118,7 @@ int get_closest_shape_intersecting(t_ray *ray, t_list *shapes, t_ray_hit_info *h
 		if (hit_info)
 		{
 			hit_info->position = v3_add(ray->origin, v3_scale(ray->direction, closest_t));
-			hit_info->normal = get_normal(closest_shape, &hit_info->position);
+			hit_info->normal = get_normal(closest_shape, hit_info->position);
 			hit_info->shape = closest_shape;
 		}
 		return (1);
