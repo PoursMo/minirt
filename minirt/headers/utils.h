@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 16:48:25 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/24 23:34:27 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/26 11:55:29 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 
 // color.c
 
-int			rgb_to_int(unsigned char red, unsigned char green, unsigned char blue);
-int			color_to_int(t_color color);
 t_color		color_multiply(t_color a, t_color b);
 t_color		color_add(t_color a, t_color b);
 t_color		color_scale(t_color c, float scalar);

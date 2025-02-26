@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 12:47:14 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/26 11:25:36 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/26 11:38:10 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_precomputed_camera	precompute_camera(t_camera *camera, t_img *img)
 
 	result.right_vector = v3_normalize(v3_cross(v3_up(), camera->direction));
 	result.up_vector = v3_cross(camera->direction, result.right_vector);
-	result.aspect_ratio = (float)img->width / (float)img->height;
+	result.aspect_ratio = (float)(img->width - 1) / (float)(img->height - 1);
 	result.viewport_height = 2 * tan(degrees_to_radians(camera->fov) / 2);
 	result.viewport_width = result.aspect_ratio * result.viewport_height;
 	return (result);
