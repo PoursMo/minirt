@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 14:57:10 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/25 23:35:01 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/26 10:59:48 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ float	mrt_atof(char **nptr)
 	{
 		if (**nptr == '-')
 			mult = -1;
-		(*nptr)++;
 	}
 	whole = mrt_atoi(nptr);
 	frac = 0.0f;
@@ -58,7 +57,7 @@ float	mrt_atof(char **nptr)
 			divisor *= 10.0f;
 		}
 	}
-	return ((whole + frac) * mult);
+	return (whole + frac * mult);
 }
 
 int	is_dot_rt_file(char *file)
