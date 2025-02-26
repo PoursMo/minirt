@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 14:25:36 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/25 23:51:07 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/26 17:36:47 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	main(int argc, char **argv)
 		ft_putstr_fd("mlx_new_window error\n", 2);
 		clean_exit(EXIT_FAILURE, &data);
 	}
-	// add loading screen ?
+	put_loading_screen(&data);
 	render_scene(&data);
 	mlx_hook(data.win, DestroyNotify, 0, mrt_terminate, &data);
 	mlx_key_hook(data.win, handle_key, &data);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   blblblbl.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 12:47:14 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/26 16:56:20 by lpittet          ###   ########.fr       */
+/*   Updated: 2025/02/26 17:11:52 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,8 +155,8 @@ t_color apply_phong(t_scene *scene, t_ray_hit_info *hit_info)
 		if (!get_closest_shape_intersecting(&light_ray, scene->shapes, NULL))
 		{
 			// diffuse
-			float diff = fmaxf(0, v3_dot(light_ray.direction, hit_info->normal));
-			t_color diffuse = color_multiply(shape_color, color_scale(color_scale(light->color, light->brightness), diff));
+			float diffuse_factor = fmaxf(0, v3_dot(light_ray.direction, hit_info->normal));
+			t_color diffuse = color_multiply(shape_color, color_scale(color_scale(light->color, light->brightness), diffuse_factor));
 			// specular
 			t_color specular = {0};
 			// apply attenuation depending on range from light ? (bonus bonus)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 16:48:25 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/26 15:17:05 by lpittet          ###   ########.fr       */
+/*   Updated: 2025/02/26 17:37:58 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,9 @@ void		clean_exit(int status, t_mrt_data *data);
 int			mrt_terminate(void *data);
 int			handle_key(int keycode, void *data);
 void		free_scene(t_scene *scene);
+
+// utils2.c
+
+void		put_loading_screen(t_mrt_data *data);
 
 #endif
