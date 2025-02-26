@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 16:06:51 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/26 00:03:25 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/26 11:15:15 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ Torus:
 identifier: to
 x, y, z coordinates of the sphere center
 3D normalized orientation vector, in range [-1,1] for each x, y, z axis
-minor radius ?? diameter ??
-major radius ?? diameter ??
+radius 1
+radius 2
 R,G,B colors in range [0-255]
 
 Light:
@@ -53,7 +53,7 @@ int	parse_file(char *file, t_scene *scene)
 
 	if (!is_dot_rt_file(file))
 		return (misconfiguration_error("invalid file format"), -1);
-	fd = open(file, O_RDWR);
+	fd = open(file, O_RDONLY);
 	if (fd == -1)
 		return (perror(file), -1);
 	while (1)

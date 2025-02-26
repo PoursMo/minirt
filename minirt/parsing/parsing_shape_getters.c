@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 20:27:59 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/25 23:04:32 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/26 11:12:24 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,8 @@ int	parsing_get_cylinder(char *line, t_scene *scene)
 
 int	parsing_get_torus(char *line, t_scene *scene)
 {
-	t_shape		*shape;
+	t_shape	*shape;
+	float	diameters[2];
 
 	shape = malloc(sizeof(t_shape));
 	if (!shape)
@@ -87,10 +88,14 @@ int	parsing_get_torus(char *line, t_scene *scene)
 	shape->type = TORUS;
 	if (parsing_get_vector3(&line, &shape->data.torus.position) == -1
 		|| parsing_get_normalized_vector3(&line, &shape->data.torus.direction) == -1
-		|| parsing_get_float(&line, &shape->data.torus.minor_radius, 0.0f, __FLT_MAX__) == -1 // diameter ?? radius ?? what if minor > major
-		|| parsing_get_float(&line, &shape->data.torus.major_radius, 0.0f, __FLT_MAX__) == -1 // diameter ?? radius ?? what if minor > major
+		|| parsing_get_float(&line, &diameters[0], 0.0f, __FLT_MAX__) == -1
+		|| parsing_get_float(&line, &diameters[1], 0.0f, __FLT_MAX__) == -1
 		|| parsing_get_color(&line, &shape->data.torus.color) == -1
 		|| !is_valid_tail(line))
 		return (misconfiguration_error("torus: wrong parameters"), free(shape), -1);
+	if (diameters[0] == diameters[1])
+		return (misconfiguration_error("torus: invalid torus"), free(shape), -1);
+	shape->data.torus.minor_radius = fminf(diameters[0], diameters[1]) / 2.0f;
+	shape->data.torus.major_radius = fmaxf(diameters[0], diameters[1]) / 2.0f;
 	return (add_shape_to_scene(shape, scene));
 }
