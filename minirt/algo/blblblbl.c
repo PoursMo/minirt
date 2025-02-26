@@ -69,6 +69,10 @@ t_vector3 get_normal(t_shape *shape, t_vector3 point)
 	{
 		// implement
 	}
+	else if (shape->type == TORUS)
+	{
+		// implement
+	}
 	return (normal);
 }
 
@@ -80,6 +84,8 @@ t_color get_shape_color(t_shape *shape)
 		return (shape->data.plane.color);
 	else if (shape->type == CYLINDER)
 		return (shape->data.cylinder.color);
+	else if (shape->type == TORUS)
+		return (shape->data.torus.color);
 	return (t_color){0};
 }
 
@@ -111,6 +117,10 @@ int get_closest_shape_intersecting(t_ray *ray, t_list *shapes, t_ray_hit_info *h
 		{
 			// cylinder check
 		}
+		else if (shape->type == TORUS)
+		{
+			// torus check
+		}
 		shapes = shapes->next;
 	}
 	if (closest_shape)
@@ -130,22 +140,31 @@ int get_closest_shape_intersecting(t_ray *ray, t_list *shapes, t_ray_hit_info *h
 t_color apply_phong(t_scene *scene, t_ray_hit_info *hit_info)
 {
 	t_color shape_color;
-	// t_ray	light_ray;
+	t_color final_color;
+	t_ray	light_ray;
 
 	shape_color = get_shape_color(hit_info->shape);
 	t_color ambiant = color_multiply(shape_color, color_scale(scene->ambiant_light->color, scene->ambiant_light->ratio));
-	// shoot ray at every light
-	// light_ray.origin = hit_info->position;
-	// light_ray.direction = v3_normalize(v3_subtract(scene->light->position, light_ray.origin));
-	// if (get_closest_shape_intersecting(&light_ray, scene->shapes, NULL))
-		// return (ambiant);
-	// diffuse
-	// float diff = fmaxf(0, v3_dot(light_ray.direction, hit_info->normal));
-	// t_color diffuse = color_multiply(shape_color, color_scale(color_scale(scene->light->color, scene->light->brightness), diff));
-	// add specular
-	// apply attenuation depending on range from light ? (bonus bonus)
-	// return (color_add(ambiant, diffuse));
-	return (ambiant);
+	final_color = ambiant;
+	light_ray.origin = hit_info->position;
+	t_list *light_list = scene->lights;
+	while (light_list)
+	{
+		t_light *light = light_list->content;
+		light_ray.direction = v3_normalize(v3_subtract(light->position, light_ray.origin));
+		if (!get_closest_shape_intersecting(&light_ray, scene->shapes, NULL))
+		{
+			// diffuse
+			float diff = fmaxf(0, v3_dot(light_ray.direction, hit_info->normal));
+			t_color diffuse = color_multiply(shape_color, color_scale(color_scale(light->color, light->brightness), diff));
+			// specular
+			t_color specular = {0};
+			// apply attenuation depending on range from light ? (bonus bonus)
+			final_color = color_add(final_color, color_add(diffuse, specular));
+		}
+		light_list = light_list->next;
+	}
+	return (final_color);
 }
 
 t_color trace_ray(t_ray *ray, t_scene *scene)

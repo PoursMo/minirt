@@ -95,6 +95,8 @@ int	parsing_get_normalized_vector3(char **line, t_vector3 *target)
 	target->z = mrt_atof(line);
 	if (target->z < -1.0 || target->z > 1.0)
 		return (-1);
+	if (target->x == 0 && target->y == 0 && target->z == 0)
+		return (-1);
 	*target = v3_normalize(*target);
 	return (0);
 }

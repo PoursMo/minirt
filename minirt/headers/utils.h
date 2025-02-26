@@ -15,8 +15,6 @@
 
 // color.c
 
-int			rgb_to_int(unsigned char red, unsigned char green, unsigned char blue);
-int			color_to_int(t_color color);
 t_color		color_multiply(t_color a, t_color b);
 t_color		color_add(t_color a, t_color b);
 t_color		color_scale(t_color c, float scalar);

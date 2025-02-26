@@ -45,7 +45,6 @@ float	mrt_atof(char **nptr)
 	{
 		if (**nptr == '-')
 			mult = -1;
-		(*nptr)++;
 	}
 	whole = mrt_atoi(nptr);
 	frac = 0.0f;
@@ -58,7 +57,7 @@ float	mrt_atof(char **nptr)
 			divisor *= 10.0f;
 		}
 	}
-	return ((whole + frac) * mult);
+	return (whole + frac * mult);
 }
 
 int	is_dot_rt_file(char *file)

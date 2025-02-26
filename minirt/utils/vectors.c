@@ -57,7 +57,7 @@ t_vector3	v3_normalize(t_vector3 v)
 	float		magnitude;
 	t_vector3	normalized_vector;
 
-	magnitude = sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
+	magnitude = v3_get_magnitude(v);
 	if (magnitude == 0)
 	{
 		normalized_vector.x = 0;
