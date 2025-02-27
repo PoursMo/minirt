@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 16:06:51 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/27 17:02:36 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/27 22:39:16 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ Light:
 identifier: l instead of L
 
 
+take shininess as parameter for shapes ?
 do cleanest parsing ever ?
 with special perror ?
 and usage print ?

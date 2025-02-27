@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 16:48:25 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/27 13:09:23 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/27 21:59:43 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,6 @@ void		free_scene(t_scene *scene);
 // utils2.c
 
 void		put_loading_screen(t_mrt_data *data);
+float		degrees_to_radians(float degrees);
 
 #endif
