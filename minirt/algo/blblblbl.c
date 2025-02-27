@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 12:47:14 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/26 17:11:52 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/27 13:18:06 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,13 +154,17 @@ t_color apply_phong(t_scene *scene, t_ray_hit_info *hit_info)
 		light_ray.direction = v3_normalize(v3_subtract(light->position, light_ray.origin));
 		if (!get_closest_shape_intersecting(&light_ray, scene->shapes, NULL))
 		{
-			// diffuse
-			float diffuse_factor = fmaxf(0, v3_dot(light_ray.direction, hit_info->normal));
-			t_color diffuse = color_multiply(shape_color, color_scale(color_scale(light->color, light->brightness), diffuse_factor));
-			// specular
-			t_color specular = {0};
-			// apply attenuation depending on range from light ? (bonus bonus)
-			final_color = color_add(final_color, color_add(diffuse, specular));
+			final_color = (t_color){255,0,0};
+			// // diffuse
+			// float diffuse_factor = fmaxf(0, v3_dot(light_ray.direction, hit_info->normal));
+			// t_color diffuse = color_multiply(shape_color, color_scale(color_scale(light->color, light->brightness), diffuse_factor));
+			// // specular
+			// t_vector3 view_dir = v3_normalize(v3_subtract(scene->camera->position, hit_info->position));
+    		// t_vector3 reflect_dir = v3_reflect(v3_negate(light_ray.direction), hit_info->normal);
+    		// float spec = powf(fmaxf(v3_dot(view_dir, reflect_dir), 0.0f), 1);
+    		// t_color specular = color_scale(light->color, spec * light->brightness);
+			// // apply attenuation depending on range from light ? (bonus bonus)
+			// final_color = color_add(final_color, color_add(diffuse, specular));
 		}
 		light_list = light_list->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 16:48:25 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/26 17:37:58 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/27 13:09:23 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ t_vector3	v3_normalize(t_vector3 v);
 float		v3_get_magnitude(t_vector3 v);
 float		v3_dot(t_vector3 a, t_vector3 b);
 t_vector3	v3_up(void);
+t_vector3	v3_reflect(t_vector3 v, t_vector3 normal);
+t_vector3	v3_negate(t_vector3 v);
 
 // utils.c
 
