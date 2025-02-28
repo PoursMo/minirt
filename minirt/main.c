@@ -6,15 +6,11 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 14:25:36 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/28 13:25:59 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/28 14:37:01 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-// ** debug.c **
-void print_scene(t_scene *scene);
-// *************
 
 int	main(int argc, char **argv)
 {
