@@ -68,7 +68,9 @@ void print_scene(t_scene *scene)
 				print_vector3(s->data.sphere.position);
 				printf("    Radius: %f\n", s->data.sphere.radius);
 				printf("    Color: ");
-				print_color(s->data.sphere.color);
+				print_color(s->color);
+				printf("    Texture: %p\n", s->texture);
+				printf("    Bump Map: %p\n", s->bump_map);
 			}
 			else if (s->type == PLANE)
 			{
@@ -78,7 +80,9 @@ void print_scene(t_scene *scene)
 				printf("    Normal: ");
 				print_vector3(s->data.plane.normal);
 				printf("    Color: ");
-				print_color(s->data.plane.color);
+				print_color(s->color);
+				printf("    Texture: %p\n", s->texture);
+				printf("    Bump Map: %p\n", s->bump_map);
 			}
 			else if (s->type == CYLINDER)
 			{
@@ -90,7 +94,9 @@ void print_scene(t_scene *scene)
 				printf("    Radius: %f\n", s->data.cylinder.radius);
 				printf("    Height: %f\n", s->data.cylinder.height);
 				printf("    Color: ");
-				print_color(s->data.cylinder.color);
+				print_color(s->color);
+				printf("    Texture: %p\n", s->texture);
+				printf("    Bump Map: %p\n", s->bump_map);
 			}
 			else if (s->type == TORUS)
 			{
@@ -102,7 +108,9 @@ void print_scene(t_scene *scene)
 				printf("    Minor Radius: %f\n", s->data.torus.minor_radius);
 				printf("    Major Radius: %f\n", s->data.torus.major_radius);
 				printf("    Color: ");
-				print_color(s->data.torus.color);
+				print_color(s->color);
+				printf("    Texture: %p\n", s->texture);
+				printf("    Bump Map: %p\n", s->bump_map);
 			}
 			else
 			{

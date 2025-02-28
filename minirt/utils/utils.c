@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 18:47:14 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/25 23:00:31 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/28 14:22:49 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,26 +33,21 @@ void	place_pixel_in_mlx_img(t_img *img, int x, int y, t_color color)
 	}
 }
 
-void	clean_exit(int status, t_mrt_data *data)
+void	put_loading_screen(t_mrt_data *data)
 {
-	free_scene(&data->scene);
-	if (data->win)
-		mlx_destroy_window(data->mlx, data->win);
-	if (data->mlx)
+	int		img_w;
+	int		img_h;
+	t_img	*img;
+
+	img = mlx_xpm_file_to_image(data->mlx, "loading_img.xpm", &img_w, &img_h);
+	if (!img)
 	{
-		mlx_destroy_display(data->mlx);
-		free(data->mlx);
+		ft_putstr_fd("put_loading_screen error\n", 2);
+		clean_exit(EXIT_FAILURE, data);
 	}
-	exit(status);
-}
-
-int	mrt_terminate(void *data)
-{
-	t_mrt_data	*mrt_data;
-
-	mrt_data = (t_mrt_data *)data;
-	clean_exit(EXIT_SUCCESS, mrt_data);
-	return (0);
+	mlx_put_image_to_window(data->mlx, data->win, img,
+		WIDTH / 2 - img_w / 2, HEIGHT / 2 - img_h / 2);
+	mlx_destroy_image(data->mlx, img);
 }
 
 int	handle_key(int keycode, void *data)
@@ -60,16 +55,4 @@ int	handle_key(int keycode, void *data)
 	if (keycode == ESC_KEY)
 		mrt_terminate(data);
 	return (0);
-}
-
-void	free_scene(t_scene *scene)
-{
-	if (scene->ambiant_light)
-		free(scene->ambiant_light);
-	if (scene->camera)
-		free(scene->camera);
-	if (scene->lights)
-		ft_lstclear(&scene->lights, free);
-	if (scene->shapes)
-		ft_lstclear(&scene->shapes, free);
 }

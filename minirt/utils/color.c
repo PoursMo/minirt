@@ -3,29 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 16:49:24 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/26 15:17:05 by lpittet          ###   ########.fr       */
+/*   Updated: 2025/02/28 14:22:28 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-int	rgb_to_int(unsigned char red, unsigned char green, unsigned char blue)
-{
-	int	color;
-
-	color = red << 16;
-	color += green << 8;
-	color += blue;
-	return (color);
-}
-
-int	color_to_int(t_color color)
-{
-	return (rgb_to_int(color.red, color.green, color.blue));
-}
 
 t_color	color_multiply(t_color a, t_color b)
 {
