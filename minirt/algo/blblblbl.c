@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 12:47:14 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/26 17:11:52 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/28 13:05:20 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,19 +76,6 @@ t_vector3 get_normal(t_shape *shape, t_vector3 point)
 	return (normal);
 }
 
-t_color get_shape_color(t_shape *shape)
-{
-	if (shape->type == SPHERE)
-		return (shape->data.sphere.color);
-	else if (shape->type == PLANE)
-		return (shape->data.plane.color);
-	else if (shape->type == CYLINDER)
-		return (shape->data.cylinder.color);
-	else if (shape->type == TORUS)
-		return (shape->data.torus.color);
-	return (t_color){0};
-}
-
 // t = intersection distance
 // returns 0 if no intersection
 // returns 1 if intersection, and fills hit_info if it it not NULL
@@ -139,12 +126,10 @@ int get_closest_shape_intersecting(t_ray *ray, t_list *shapes, t_ray_hit_info *h
 // precompute lights intensities ?
 t_color apply_phong(t_scene *scene, t_ray_hit_info *hit_info)
 {
-	t_color shape_color;
 	t_color final_color;
 	t_ray	light_ray;
 
-	shape_color = get_shape_color(hit_info->shape);
-	t_color ambiant = color_multiply(shape_color, color_scale(scene->ambiant_light->color, scene->ambiant_light->ratio));
+	t_color ambiant = color_multiply(hit_info->shape->color, color_scale(scene->ambiant_light->color, scene->ambiant_light->ratio));
 	final_color = ambiant;
 	light_ray.origin = hit_info->position;
 	t_list *light_list = scene->lights;
@@ -156,7 +141,7 @@ t_color apply_phong(t_scene *scene, t_ray_hit_info *hit_info)
 		{
 			// diffuse
 			float diffuse_factor = fmaxf(0, v3_dot(light_ray.direction, hit_info->normal));
-			t_color diffuse = color_multiply(shape_color, color_scale(color_scale(light->color, light->brightness), diffuse_factor));
+			t_color diffuse = color_multiply(hit_info->shape->color, color_scale(color_scale(light->color, light->brightness), diffuse_factor));
 			// specular
 			t_color specular = {0};
 			// apply attenuation depending on range from light ? (bonus bonus)

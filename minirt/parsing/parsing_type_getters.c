@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_type_getters.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 20:25:55 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/26 15:17:05 by lpittet          ###   ########.fr       */
+/*   Updated: 2025/02/28 13:18:24 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	parsing_get_float(char **line, float *target, float min, float max)
+int	parse_float(char **line, float *target, float min, float max)
 {
 	while (**line == ' ')
 		(*line)++;
@@ -24,7 +24,7 @@ int	parsing_get_float(char **line, float *target, float min, float max)
 	return (0);
 }
 
-int	parsing_get_int(char **line, int *target, int min, int max)
+int	parse_int(char **line, int *target, int min, int max)
 {
 	while (**line == ' ')
 		(*line)++;
@@ -36,7 +36,7 @@ int	parsing_get_int(char **line, int *target, int min, int max)
 	return (0);
 }
 
-int	parsing_get_color(char **line, t_color *target)
+int	parse_color(char **line, t_color *target)
 {
 	while (**line == ' ')
 		(*line)++;
@@ -56,7 +56,7 @@ int	parsing_get_color(char **line, t_color *target)
 	return (0);
 }
 
-int	parsing_get_vector3(char **line, t_vector3 *target)
+int	parse_vector3(char **line, t_vector3 *target)
 {
 	while (**line == ' ')
 		(*line)++;
@@ -76,7 +76,7 @@ int	parsing_get_vector3(char **line, t_vector3 *target)
 	return (0);
 }
 
-int	parsing_get_normalized_vector3(char **line, t_vector3 *target)
+int	parse_normalized_vector3(char **line, t_vector3 *target)
 {
 	while (**line == ' ')
 		(*line)++;

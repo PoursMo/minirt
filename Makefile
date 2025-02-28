@@ -9,10 +9,11 @@ minirt/parsing/parsing_utils.c \
 minirt/parsing/parsing_utils2.c \
 minirt/parsing/parsing_shape_getters.c \
 minirt/parsing/parsing_type_getters.c \
+minirt/parsing/parsing_type_getters2.c \
 minirt/parsing/parsing_unique_getters.c \
 minirt/utils/color.c \
 minirt/utils/utils.c \
-minirt/utils/utils2.c \
+minirt/utils/termination.c \
 minirt/utils/vectors.c \
 minirt/utils/vectors2.c \
 minirt/algo/blblblbl.c \
