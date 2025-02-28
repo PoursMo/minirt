@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vectors2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 13:44:39 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/26 15:17:05 by lpittet          ###   ########.fr       */
+/*   Updated: 2025/02/27 22:19:29 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,15 @@ float	v3_dot(t_vector3 a, t_vector3 b)
 
 t_vector3	v3_up(void)
 {
-	return ((t_vector3){.x = 0, .y = -1, .z = 0});
+	return ((t_vector3){0, -1, 0});
+}
+
+t_vector3	v3_reflect(t_vector3 v, t_vector3 normal)
+{
+    return (v3_subtract(v, v3_scale(normal, 2 * v3_dot(v, normal))));
+}
+
+t_vector3	v3_negate(t_vector3 v)
+{
+    return ((t_vector3){-v.x, -v.y, -v.z});
 }

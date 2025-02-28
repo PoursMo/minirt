@@ -6,16 +6,11 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 12:47:14 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/28 13:05:20 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/28 14:30:49 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-float	degrees_to_radians(float degrees)
-{
-	return (degrees * MRT_PI / 180.0);
-}
 
 t_precomputed_camera	precompute_camera(t_camera *camera, t_img *img)
 {
@@ -121,35 +116,6 @@ int get_closest_shape_intersecting(t_ray *ray, t_list *shapes, t_ray_hit_info *h
 		return (1);
 	}
 	return (0);
-}
-
-// precompute lights intensities ?
-t_color apply_phong(t_scene *scene, t_ray_hit_info *hit_info)
-{
-	t_color final_color;
-	t_ray	light_ray;
-
-	t_color ambiant = color_multiply(hit_info->shape->color, color_scale(scene->ambiant_light->color, scene->ambiant_light->ratio));
-	final_color = ambiant;
-	light_ray.origin = hit_info->position;
-	t_list *light_list = scene->lights;
-	while (light_list)
-	{
-		t_light *light = light_list->content;
-		light_ray.direction = v3_normalize(v3_subtract(light->position, light_ray.origin));
-		if (!get_closest_shape_intersecting(&light_ray, scene->shapes, NULL))
-		{
-			// diffuse
-			float diffuse_factor = fmaxf(0, v3_dot(light_ray.direction, hit_info->normal));
-			t_color diffuse = color_multiply(hit_info->shape->color, color_scale(color_scale(light->color, light->brightness), diffuse_factor));
-			// specular
-			t_color specular = {0};
-			// apply attenuation depending on range from light ? (bonus bonus)
-			final_color = color_add(final_color, color_add(diffuse, specular));
-		}
-		light_list = light_list->next;
-	}
-	return (final_color);
 }
 
 t_color trace_ray(t_ray *ray, t_scene *scene)

@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 16:06:51 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/28 13:13:33 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/28 14:31:05 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,12 @@ R,G,B colors in range [0-255]
 
 Light:
 identifier: l instead of L
+
+
+take shininess as parameter for shapes ?
+do cleanest parsing ever ?
+with special perror ?
+and usage print ?
 */
 
 static int	parse_line(char *line, t_mrt_data *mrt_data)
