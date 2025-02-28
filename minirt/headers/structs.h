@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 11:49:41 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/27 22:23:03 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/28 14:30:47 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,12 @@ typedef struct s_sphere
 {
 	t_vector3	position;
 	float		radius;
-	t_color		color;
 }	t_sphere;
 
 typedef struct s_plane
 {
 	t_vector3	position;
 	t_vector3	normal;
-	t_color		color;
 }	t_plane;
 
 typedef struct s_cylinder
@@ -67,7 +65,6 @@ typedef struct s_cylinder
 	t_vector3	axis;
 	float		radius;
 	float		height;
-	t_color		color;
 }	t_cylinder;
 
 typedef struct s_torus
@@ -76,7 +73,6 @@ typedef struct s_torus
 	t_vector3	direction;
 	float		minor_radius;
 	float		major_radius;
-	t_color		color;
 }	t_torus;
 
 typedef enum e_shape_type
@@ -99,6 +95,9 @@ typedef struct s_shape
 {
 	t_shape_type	type;
 	t_shape_data	data;
+	t_color			color;
+	t_img			*texture;
+	t_img			*bump_map;
 }	t_shape;
 
 typedef struct s_scene

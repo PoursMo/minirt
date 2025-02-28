@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 16:48:25 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/27 21:59:43 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/28 14:31:37 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,13 @@ t_vector3	v3_negate(t_vector3 v);
 // utils.c
 
 void		place_pixel_in_mlx_img(t_img *img, int x, int y, t_color color);
+void		put_loading_screen(t_mrt_data *data);
+int			handle_key(int keycode, void *data);
+
+// termination.c
+
+void		free_shape(t_shape *shape, void *mlx);
 void		clean_exit(int status, t_mrt_data *data);
 int			mrt_terminate(void *data);
-int			handle_key(int keycode, void *data);
-void		free_scene(t_scene *scene);
-
-// utils2.c
-
-void		put_loading_screen(t_mrt_data *data);
-float		degrees_to_radians(float degrees);
 
 #endif

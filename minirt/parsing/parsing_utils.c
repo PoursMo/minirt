@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 14:57:10 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/26 15:17:05 by lpittet          ###   ########.fr       */
+/*   Updated: 2025/02/28 12:11:46 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +60,16 @@ float	mrt_atof(char **nptr)
 	return (whole + frac * mult);
 }
 
-int	is_dot_rt_file(char *file)
+int	check_file_extension(char *file, char *extension)
 {
-	size_t	len;
+	size_t	file_len;
+	size_t	extension_len;
 
-	len = ft_strlen(file);
-	if (len <= 3)
+	file_len = ft_strlen(file);
+	extension_len = ft_strlen(extension);
+	if (file_len <= extension_len)
 		return (0);
-	if (!ft_strncmp(file + len - 3, ".rt", 3))
+	if (!ft_strncmp(file + file_len - extension_len, extension, extension_len))
 		return (1);
 	return (0);
 }
