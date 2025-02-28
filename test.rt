@@ -5,5 +5,6 @@ l -10,-30,-50 0.5 255,255,255
 
 pl 0,0,10 0,0,-1 150,50,150 n n
 
-sp -10,20,0 20 255,255,255 n n
-sp 10,20,0 20 255,255,255 n n
+sp -10,20,0 20 0,0,0 images/textures/checker1.xpm n
+sp 10,20,0 20 0,0,0 images/textures/checker2.xpm n
+sp 0,0,0 20 0,0,0 images/textures/checker3.xpm n
