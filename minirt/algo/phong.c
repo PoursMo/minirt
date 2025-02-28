@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 22:00:26 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/27 23:01:47 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/28 12:06:27 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,24 @@ static t_color	calculate_specular(t_ray *light_ray, t_ray_hit_info *hit_info, t_
 	return (color_scale(light->color, specular_factor * light->brightness));
 }
 
+int is_ray_colliding(t_ray *ray, t_list *shapes)
+{
+	float t;
+	t_shape *shape;
+
+	while (shapes)
+	{
+		shape = (t_shape *)shapes->content;
+		if ((shape->type == SPHERE && intersect_sphere(ray, &shape->data.sphere, &t))
+			|| (shape->type == PLANE && intersect_plane(ray, &shape->data.plane, &t))) // add cylinder and torus
+		{
+ 			return (1);
+		}
+		shapes = shapes->next;
+	}
+	return (0);
+}
+
 // precompute lights intensities ?
 t_color	apply_phong(t_scene *scene, t_ray_hit_info *hit_info)
 {
@@ -65,9 +83,8 @@ t_color	apply_phong(t_scene *scene, t_ray_hit_info *hit_info)
 	{
 		t_light *light = light_list->content;
 		light_ray.direction = v3_normalize(v3_subtract(light->position, light_ray.origin));
-		if (!get_closest_shape_intersecting(&light_ray, scene->shapes, NULL))
+		if (!is_ray_colliding(&light_ray, scene->shapes))
 		{
-			// apply attenuation depending on range from light ? (bonus bonus)
 			final_color = color_add(final_color, color_add(calculate_diffuse(&light_ray, hit_info, &shape_color, light), calculate_specular(&light_ray, hit_info, light, scene)));
 		}
 		light_list = light_list->next;
