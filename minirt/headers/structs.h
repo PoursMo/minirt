@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 11:49:41 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/28 14:30:47 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/01 13:11:46 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,12 @@ typedef struct s_vector3
 	float	y;
 	float	z;
 }	t_vector3;
+
+typedef struct s_vector2
+{
+	float x;
+	float y;
+}	t_vector2;
 
 typedef struct s_color
 {

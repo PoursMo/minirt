@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 12:47:14 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/28 14:30:49 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/01 13:32:26 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,24 +84,10 @@ int get_closest_shape_intersecting(t_ray *ray, t_list *shapes, t_ray_hit_info *h
 	closest_t = __FLT_MAX__;
 	while (shapes)
 	{
-		t_shape *shape = (t_shape *)shapes->content;
-		if (shape->type == SPHERE && intersect_sphere(ray, &shape->data.sphere, &t) && t < closest_t)
+		if (intersect_shape(ray, shapes->content, &t) && t < closest_t)
 		{
  			closest_t = t;
-			closest_shape = shape;
-		}
-		else if (shape->type == PLANE && intersect_plane(ray, &shape->data.plane, &t) && t < closest_t)
-		{
-			closest_t = t;
-			closest_shape = shape;
-		}
-		else if (shape->type == CYLINDER)
-		{
-			// cylinder check
-		}
-		else if (shape->type == TORUS)
-		{
-			// torus check
+			closest_shape = shapes->content;
 		}
 		shapes = shapes->next;
 	}

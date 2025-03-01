@@ -7,4 +7,5 @@ pl 0,0,10 0,0,-1 150,50,150 n n
 
 sp -10,20,0 20 0,0,0 images/textures/checker1.xpm n
 sp 10,20,0 20 0,0,0 images/textures/checker2.xpm n
-sp 0,0,0 20 0,0,0 images/textures/checker3.xpm n
+sp 0,0,0 20 0,0,0 images/textures/checker3.xpm images/bump_maps/bump.xpm
+sp 0,-20,0 20 255,255,255 n images/bump_maps/bump.xpm
