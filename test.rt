@@ -1,11 +1,13 @@
-A 0.3 255,255,255
-C 0,0,-50 0,0,1 70
+A 0.2 255,255,255
+C -2,-5,-20 0.1,0.2,1 90
 
-l -10,-30,-50 0.5 255,255,255
+l -10,-10,-20 0.4 255,255,255
+l 8,-10,-20 0.2 255,255,255
 
-pl 0,0,10 0,0,-1 150,50,150 n n
+sp 0,0,0 10 0,0,0 images/textures/mars.xpm n
+sp -4,-3,-10 3 0,255,0 images/textures/checker1.xpm n
+sp 3,-4,-10 2.2 0,0,255 images/textures/checker2.xpm n
+sp 0,-1,-10 2.8 255,0,0 images/textures/checker3.xpm n
 
-sp -10,20,0 20 0,0,0 images/textures/checker1.xpm n
-sp 10,20,0 20 0,0,0 images/textures/checker2.xpm n
-sp 0,0,0 20 0,0,0 images/textures/checker3.xpm images/bump_maps/bump.xpm
-sp 0,-20,0 20 255,255,255 n images/bump_maps/bump.xpm
+pl 0,10,0 0,1,0 100,100,100 n n
+pl 0,0,10 0,0,-1 150,0,150 n n

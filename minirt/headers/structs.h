@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 11:49:41 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/01 13:11:46 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/01 15:34:15 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,8 @@ typedef struct s_mrt_data
 
 typedef struct s_precomputed_camera
 {
+	t_vector3	origin;
+	t_vector3	forward_vector;
 	t_vector3	right_vector;
 	t_vector3	up_vector;
 	float		aspect_ratio;

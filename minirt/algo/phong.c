@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 22:00:26 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/01 14:05:48 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/01 21:55:47 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,13 @@ static t_color	compute_specular_lighting(t_ray *light_ray, t_ray_hit_info *hit_i
 	return (color_scale(light->color, specular_factor * light->brightness));
 }
 
-int check_ray_collision(t_ray *ray, t_list *shapes)
+int check_ray_collision(t_ray *ray, t_list *shapes, float max_distance)
 {
 	float t;
 	
 	while (shapes)
 	{
-		if (intersect_shape(ray, shapes->content, &t))
+		if (intersect_shape(ray, shapes->content, &t) && t < max_distance)
 			return (1);
 		shapes = shapes->next;
 	}
@@ -74,7 +74,7 @@ t_color	apply_phong(t_scene *scene, t_ray_hit_info *hit_info)
 	if (hit_info->shape->texture)
 		point_color = color_add(point_color, sample_image(compute_shape_uv(hit_info), hit_info->shape->texture));
 	final_color = compute_ambiant_lighting(&point_color, scene);
-	light_ray.origin = v3_add(hit_info->position, v3_scale(hit_info->normal, 1e-4));
+	light_ray.origin = v3_add(hit_info->position, v3_scale(hit_info->normal, EPSILON));
 	normal = hit_info->normal;
 	// if (hit_info->shape->bump_map)
 	// 	normal = apply bump map;
@@ -82,8 +82,9 @@ t_color	apply_phong(t_scene *scene, t_ray_hit_info *hit_info)
 	while (light_list)
 	{
 		t_light *light = light_list->content;
-		light_ray.direction = v3_normalize(v3_subtract(light->position, light_ray.origin));
-		if (!check_ray_collision(&light_ray, scene->shapes))
+		t_vector3 dir = v3_subtract(light->position, light_ray.origin);
+		light_ray.direction = v3_normalize(dir);
+		if (!check_ray_collision(&light_ray, scene->shapes, v3_get_magnitude(dir)))
 		{
 			final_color = color_add(final_color, color_add(compute_diffuse_lighting(&light_ray, normal, &point_color, light), compute_specular_lighting(&light_ray, hit_info, normal, light, scene)));
 		}
