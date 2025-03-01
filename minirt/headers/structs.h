@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 11:49:41 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/01 15:34:15 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/01 23:31:52 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ typedef struct s_ray
 
 typedef struct s_ray_hit_info
 {
+	t_ray		*ray;
 	t_vector3	position;
 	t_vector3	normal;
 	t_shape		*shape;

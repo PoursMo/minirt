@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 12:47:14 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/01 22:16:39 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/01 23:36:12 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ int get_closest_shape_intersecting(t_ray *ray, t_list *shapes, t_ray_hit_info *h
 	{
 		if (hit_info)
 		{
+			hit_info->ray = ray;
 			hit_info->position = v3_add(ray->origin, v3_scale(ray->direction, closest_t));
 			hit_info->normal = get_normal(closest_shape, hit_info->position);
 			hit_info->shape = closest_shape;
@@ -109,7 +110,7 @@ t_color trace_ray(t_ray *ray, t_scene *scene)
 	t_color color;
 	t_ray_hit_info hit_info;
 
-	ft_memset(&color, 0, sizeof(t_color));
+	color = (t_color){0};
 	if (get_closest_shape_intersecting(ray, scene->shapes, &hit_info))
 	{
 		color = apply_phong(scene, &hit_info);

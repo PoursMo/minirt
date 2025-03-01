@@ -9,5 +9,5 @@ sp -4,-3,-10 3 0,255,0 images/textures/checker1.xpm n
 sp 3,-4,-10 2.2 0,0,255 images/textures/checker2.xpm n
 sp 0,-1,-10 2.8 255,0,0 images/textures/checker3.xpm n
 
-pl 0,10,0 0,1,0 100,100,100 n n
+pl 0,10,0 0,-1,0 100,100,100 n n
 pl 0,0,10 0,0,-1 150,0,150 n n

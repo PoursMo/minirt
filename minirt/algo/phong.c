@@ -6,44 +6,20 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 22:00:26 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/01 21:55:47 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/01 23:43:29 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static t_color	compute_ambiant_lighting(t_color *shape_color, t_scene *scene)
+int	check_ray_collision(t_ray *ray, t_list *shapes, float max_distance)
 {
-	return (color_multiply(*shape_color, color_scale(scene->ambiant_light->color, scene->ambiant_light->ratio)));
-}
+	float	distance;
 
-static t_color	compute_diffuse_lighting(t_ray *light_ray, t_vector3 normal, t_color *shape_color, t_light *light)
-{
-	float	diffuse_factor;
-
-	diffuse_factor = fmaxf(0, v3_dot(light_ray->direction, normal));
-	return (color_multiply(*shape_color, color_scale(color_scale(light->color, light->brightness), diffuse_factor)));
-}
-
-static t_color	compute_specular_lighting(t_ray *light_ray, t_ray_hit_info *hit_info, t_vector3 normal, t_light *light, t_scene *scene)
-{
-	t_vector3	view_dir;
-	t_vector3	reflect_dir;
-	float		specular_factor;
-
-	view_dir = v3_normalize(v3_subtract(scene->camera->position, hit_info->position));
-	reflect_dir = v3_reflect(v3_negate(light_ray->direction), normal);
-	specular_factor = powf(fmaxf(v3_dot(view_dir, reflect_dir), 0.0f), SHININESS);
-	return (color_scale(light->color, specular_factor * light->brightness));
-}
-
-int check_ray_collision(t_ray *ray, t_list *shapes, float max_distance)
-{
-	float t;
-	
 	while (shapes)
 	{
-		if (intersect_shape(ray, shapes->content, &t) && t < max_distance)
+		if (intersect_shape(ray, shapes->content, &distance)
+			&& distance < max_distance)
 			return (1);
 		shapes = shapes->next;
 	}
@@ -73,7 +49,7 @@ t_color	apply_phong(t_scene *scene, t_ray_hit_info *hit_info)
 	point_color = hit_info->shape->color;
 	if (hit_info->shape->texture)
 		point_color = color_add(point_color, sample_image(compute_shape_uv(hit_info), hit_info->shape->texture));
-	final_color = compute_ambiant_lighting(&point_color, scene);
+	final_color = compute_ambiant_lighting(point_color, scene->ambiant_light);
 	light_ray.origin = v3_add(hit_info->position, v3_scale(hit_info->normal, EPSILON));
 	normal = hit_info->normal;
 	// if (hit_info->shape->bump_map)
@@ -86,7 +62,7 @@ t_color	apply_phong(t_scene *scene, t_ray_hit_info *hit_info)
 		light_ray.direction = v3_normalize(dir);
 		if (!check_ray_collision(&light_ray, scene->shapes, v3_get_magnitude(dir)))
 		{
-			final_color = color_add(final_color, color_add(compute_diffuse_lighting(&light_ray, normal, &point_color, light), compute_specular_lighting(&light_ray, hit_info, normal, light, scene)));
+			final_color = color_add(final_color, color_add(compute_diffuse_lighting(point_color, light, &light_ray, normal), compute_specular_lighting(light, &light_ray, hit_info, normal)));
 		}
 		light_list = light_list->next;
 	}

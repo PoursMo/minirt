@@ -6,20 +6,21 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 13:43:56 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/01 14:10:42 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/01 23:32:25 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static t_vector2	compute_sphere_uv(t_vector3 normal) {
-    float theta = acos(normal.y); // Polar angle
-    float phi = atan2(normal.z, normal.x); // Azimuthal angle
+static t_vector2	compute_sphere_uv(t_vector3 normal)
+{
+	float	theta = acos(normal.y); // Polar angle
+	float	phi = atan2(normal.z, normal.x); // Azimuthal angle
 
     // Convert to texture coordinates
-    float u = (phi + MRT_PI) / (2.0 * MRT_PI);
-    float v = theta / MRT_PI;
-    return (t_vector2){u, v};
+	float u = (phi + MRT_PI) / (2.0 * MRT_PI);
+	float v = theta / MRT_PI;
+	return (t_vector2){u, v};
 }
 
 // plane uv
