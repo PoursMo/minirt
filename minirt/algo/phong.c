@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 22:00:26 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/02 19:37:59 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/02 21:44:44 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,18 @@ t_color	compute_final_color(t_scene *scene, t_ray_hit_info *hit_info,
 	return (final_color);
 }
 
+float	get_grayscale(t_color c)
+{
+	float	red;
+	float	green;
+	float	blue;
+
+	red = (float)c.red / 255;
+	green = (float)c.green / 255;
+	blue = (float)c.blue / 255;
+	return ((red + green + blue) / 3);
+}
+
 // precompute lights intensities ?
 t_color	apply_phong(t_scene *scene, t_ray_hit_info *hit_info)
 {
@@ -81,6 +93,6 @@ t_color	apply_phong(t_scene *scene, t_ray_hit_info *hit_info)
 		point_color = color_add(point_color, sample_image(compute_shape_uv(hit_info), hit_info->shape->texture));
 	normal = hit_info->normal;
 	// if (hit_info->shape->bump_map)
-	// 	normal = apply bump map;
+	// 	normal = v3_scale(normal, get_grayscale(sample_image(compute_shape_uv(hit_info), hit_info->shape->bump_map)));
 	return (compute_final_color(scene, hit_info, point_color, normal));
 }
