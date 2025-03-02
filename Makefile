@@ -18,7 +18,9 @@ minirt/utils/vectors.c \
 minirt/utils/vectors2.c \
 minirt/algo/blblblbl.c \
 minirt/algo/intersections.c \
+minirt/algo/uvs.c \
 minirt/algo/phong.c \
+minirt/algo/lighting.c \
 minirt/debug.c \
 # remove
 

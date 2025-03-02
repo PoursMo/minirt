@@ -6,13 +6,12 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 16:18:48 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/28 13:13:56 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/02 19:35:42 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSING_H
 # define PARSING_H
-
 
 // parsing.c
 

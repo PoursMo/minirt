@@ -6,29 +6,16 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 16:06:51 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/28 14:31:05 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/02/28 17:35:39 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
 /*
-Torus:
-identifier: to
-x, y, z coordinates of the sphere center
-3D normalized orientation vector, in range [-1,1] for each x, y, z axis
-radius 1
-radius 2
-R,G,B colors in range [0-255]
-
-Light:
-identifier: l instead of L
-
-
 take shininess as parameter for shapes ?
 do cleanest parsing ever ?
 with special perror ?
-and usage print ?
 */
 
 static int	parse_line(char *line, t_mrt_data *mrt_data)

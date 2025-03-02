@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   intersections.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 13:51:10 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/26 15:17:05 by lpittet          ###   ########.fr       */
+/*   Updated: 2025/03/01 13:29:09 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int intersect_plane(t_ray *ray, t_plane *plane, float *intersect_dist)
+static int intersect_plane(t_ray *ray, t_plane *plane, float *intersect_dist)
 {
     float denom;
 	t_vector3 p0l0;
@@ -27,7 +27,7 @@ int intersect_plane(t_ray *ray, t_plane *plane, float *intersect_dist)
     return (0);
 }
 
-int intersect_sphere(t_ray *ray, t_sphere *sphere, float *intersect_dist)
+static int intersect_sphere(t_ray *ray, t_sphere *sphere, float *intersect_dist)
 {
 	float discriminant;
 	float ans1;
@@ -50,4 +50,21 @@ int intersect_sphere(t_ray *ray, t_sphere *sphere, float *intersect_dist)
 	else
 		*intersect_dist = fminf(ans1, ans2);
 	return (1);
+}
+
+//cylinder
+
+//torus
+
+int	intersect_shape(t_ray *ray, t_shape *shape, float *t)
+{
+	if (shape->type == SPHERE)
+		return (intersect_sphere(ray, &shape->data.sphere, t));
+	else if (shape->type == PLANE)
+		return (intersect_plane(ray, &shape->data.plane, t));
+	// else if (shape->type == CYLINDER)
+	// 	return (intersect_cylinder(ray, &shape->data.cylinder, t));
+	// else if (shape->type == TORUS)
+	// 	return (intersect_torus(ray, &shape->data.torus, t));
+	return (0);
 }

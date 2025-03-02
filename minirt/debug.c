@@ -126,11 +126,12 @@ void print_scene(t_scene *scene)
 
 t_color map_v3_to_color(t_vector3 v)
 {
-	t_color color;
+	t_color c;
 
 	v = v3_normalize(v);
-	color.red = (unsigned char)((v.x + 1.0f) * 0.5f * 255);
-	color.green = (unsigned char)((v.y + 1.0f) * 0.5f * 255);
-	color.blue = (unsigned char)((v.z + 1.0f) * 0.5f * 255);
-	return (color);
+	c.red = (unsigned char)((v.x + 1.0f) * 0.5f * 255);
+	c.green = (unsigned char)((v.y + 1.0f) * 0.5f * 255);
+	c.blue = (unsigned char)((v.z + 1.0f) * 0.5f * 255);
+	return (c);
 }
+

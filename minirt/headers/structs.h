@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 11:49:41 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/28 14:30:47 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/02 19:35:55 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,12 @@ typedef struct s_vector3
 	float	y;
 	float	z;
 }	t_vector3;
+
+typedef struct s_vector2
+{
+	float	x;
+	float	y;
+}	t_vector2;
 
 typedef struct s_color
 {
@@ -116,6 +122,7 @@ typedef struct s_ray
 
 typedef struct s_ray_hit_info
 {
+	t_ray		*ray;
 	t_vector3	position;
 	t_vector3	normal;
 	t_shape		*shape;
@@ -130,6 +137,8 @@ typedef struct s_mrt_data
 
 typedef struct s_precomputed_camera
 {
+	t_vector3	origin;
+	t_vector3	forward_vector;
 	t_vector3	right_vector;
 	t_vector3	up_vector;
 	float		aspect_ratio;
