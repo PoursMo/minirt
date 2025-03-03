@@ -6,7 +6,7 @@
 /*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 12:47:14 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/03 16:19:55 by lpittet          ###   ########.fr       */
+/*   Updated: 2025/03/03 16:22:29 by lpittet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ t_vector3 get_normal(t_shape *shape, t_vector3 point, t_ray *ray)
 	{
 		normal = cylinder_normal(shape, point, ray);
 	}
-	else if (shape->type == TORUS)
+	else if (shape->type == CONE)
 	{
 		// implement
 	}

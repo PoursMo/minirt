@@ -6,7 +6,7 @@
 /*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 13:51:10 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/03 16:21:02 by lpittet          ###   ########.fr       */
+/*   Updated: 2025/03/03 16:27:33 by lpittet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,8 +127,6 @@ int	intersect_cylinder(t_ray *ray, t_cylinder *cylinder, float *intersect_dist)
 	return (1);
 }
 
-//cylinder
-
 //cone
 
 int	intersect_shape(t_ray *ray, t_shape *shape, float *t)
@@ -137,8 +135,8 @@ int	intersect_shape(t_ray *ray, t_shape *shape, float *t)
 		return (intersect_sphere(ray, &shape->data.sphere, t));
 	else if (shape->type == PLANE)
 		return (intersect_plane(ray, &shape->data.plane, t));
-	// else if (shape->type == CYLINDER)
-	// 	return (intersect_cylinder(ray, &shape->data.cylinder, t));
+	else if (shape->type == CYLINDER)
+		return (intersect_cylinder(ray, &shape->data.cylinder, t));
 	// else if (shape->type == CONE)
 	// 	return (intersect_cone(ray, &shape->data.cone, t));
 	return (0);
