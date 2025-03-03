@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   blblblbl.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 12:47:14 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/28 14:30:49 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/03 10:24:17 by lpittet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,16 @@ t_ray	get_ray(int x, int y, t_precomputed_camera *precomputed, t_camera *camera)
 	return (ray);
 }
 
+t_vector3 cylinder_normal(t_shape *shape, t_vector3 point)
+{
+	t_vector3 plane_hit_axis;
+	t_vector3 normal;
+
+	plane_hit_axis = v3_cross(shape->data.cylinder.axis, v3_subtract(point, shape->data.cylinder.position));
+	normal = v3_cross(plane_hit_axis, shape->data.cylinder.axis);
+	return (v3_normalize(normal));
+}
+
 t_vector3 get_normal(t_shape *shape, t_vector3 point)
 {
 	t_vector3 normal;
@@ -62,7 +72,7 @@ t_vector3 get_normal(t_shape *shape, t_vector3 point)
 	}
 	else if (shape->type == CYLINDER)
 	{
-		// implement
+		normal = cylinder_normal(shape, point);
 	}
 	else if (shape->type == TORUS)
 	{
@@ -95,9 +105,10 @@ int get_closest_shape_intersecting(t_ray *ray, t_list *shapes, t_ray_hit_info *h
 			closest_t = t;
 			closest_shape = shape;
 		}
-		else if (shape->type == CYLINDER)
+		else if (shape->type == CYLINDER && intersect_cylinder(ray, &shape->data.cylinder, &t) && t < closest_t)
 		{
-			// cylinder check
+			closest_t = t;
+			closest_shape = shape;
 		}
 		else if (shape->type == TORUS)
 		{
