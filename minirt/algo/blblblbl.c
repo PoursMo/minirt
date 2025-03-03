@@ -6,7 +6,7 @@
 /*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 12:47:14 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/03 10:24:17 by lpittet          ###   ########.fr       */
+/*   Updated: 2025/03/03 15:45:32 by lpittet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,17 +47,25 @@ t_ray	get_ray(int x, int y, t_precomputed_camera *precomputed, t_camera *camera)
 	return (ray);
 }
 
-t_vector3 cylinder_normal(t_shape *shape, t_vector3 point)
+t_vector3 cylinder_normal(t_shape *shape, t_vector3 point, t_ray *ray)
 {
 	t_vector3 plane_hit_axis;
 	t_vector3 normal;
 
+	if (v3_get_magnitude(v3_subtract(shape->data.cylinder.position, point)) < shape->data.cylinder.radius ||
+		v3_get_magnitude(v3_subtract(v3_add(shape->data.cylinder.position, v3_scale(shape->data.cylinder.axis, shape->data.cylinder.height)), point)) < shape->data.cylinder.radius)
+		
+	{
+		if (v3_dot(ray->direction, shape->data.cylinder.axis) >= 0)
+			return (v3_scale(shape->data.cylinder.axis, -1));
+		return (shape->data.cylinder.axis);
+	}
 	plane_hit_axis = v3_cross(shape->data.cylinder.axis, v3_subtract(point, shape->data.cylinder.position));
 	normal = v3_cross(plane_hit_axis, shape->data.cylinder.axis);
 	return (v3_normalize(normal));
 }
 
-t_vector3 get_normal(t_shape *shape, t_vector3 point)
+t_vector3 get_normal(t_shape *shape, t_vector3 point, t_ray *ray)
 {
 	t_vector3 normal;
 
@@ -72,7 +80,7 @@ t_vector3 get_normal(t_shape *shape, t_vector3 point)
 	}
 	else if (shape->type == CYLINDER)
 	{
-		normal = cylinder_normal(shape, point);
+		normal = cylinder_normal(shape, point, ray);
 	}
 	else if (shape->type == TORUS)
 	{
@@ -121,7 +129,7 @@ int get_closest_shape_intersecting(t_ray *ray, t_list *shapes, t_ray_hit_info *h
 		if (hit_info)
 		{
 			hit_info->position = v3_add(ray->origin, v3_scale(ray->direction, closest_t));
-			hit_info->normal = get_normal(closest_shape, hit_info->position);
+			hit_info->normal = get_normal(closest_shape, hit_info->position, ray);
 			hit_info->shape = closest_shape;
 		}
 		return (1);

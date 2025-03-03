@@ -6,7 +6,7 @@
 /*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 13:51:10 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/03 14:54:36 by lpittet          ###   ########.fr       */
+/*   Updated: 2025/03/03 15:51:59 by lpittet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,11 +94,11 @@ void	check_for_caps(t_ray *ray, t_cylinder *cylinder, float *intersect_dist)
 		if (v3_get_magnitude(v3_subtract(hit, cylinder->position)) <= cylinder->radius)
 			*intersect_dist = t;
 	}
-	t = v3_dot(v3_subtract(center2, ray->origin), v3_scale(cylinder->axis, cylinder->height)) / dot_normal;
+	t = v3_dot(v3_subtract(center2, ray->origin), cylinder->axis) / dot_normal;
 	if (t > 0 && (!intersect_dist || t < *intersect_dist))
 	{
 		hit = v3_add(ray->origin, v3_scale(ray->direction, t));
-		if (v3_get_magnitude(v3_subtract(hit, cylinder->position)) <= cylinder->radius)
+		if (v3_get_magnitude(v3_subtract(hit, center2)) <= cylinder->radius)
 			*intersect_dist = t;
 	}
 }
