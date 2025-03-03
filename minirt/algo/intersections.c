@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 13:51:10 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/01 13:29:09 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/03 14:13:23 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static int intersect_sphere(t_ray *ray, t_sphere *sphere, float *intersect_dist)
 
 //cylinder
 
-//torus
+//cone
 
 int	intersect_shape(t_ray *ray, t_shape *shape, float *t)
 {
@@ -64,7 +64,7 @@ int	intersect_shape(t_ray *ray, t_shape *shape, float *t)
 		return (intersect_plane(ray, &shape->data.plane, t));
 	// else if (shape->type == CYLINDER)
 	// 	return (intersect_cylinder(ray, &shape->data.cylinder, t));
-	// else if (shape->type == TORUS)
-	// 	return (intersect_torus(ray, &shape->data.torus, t));
+	// else if (shape->type == CONE)
+	// 	return (intersect_cone(ray, &shape->data.cone, t));
 	return (0);
 }
