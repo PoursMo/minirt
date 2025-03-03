@@ -10,7 +10,7 @@
 - RGB color: `[0,255]`,`[0,255]`,`[0,255]`
 ## Camera
 - identifier: `C`
-- 3D position vector: `ℝ_+`,`ℝ`,`ℝ`
+- 3D position vector: `ℝ`,`ℝ`,`ℝ`
 - 3D orientation vector: `[-1.0,1.0]`,`[-1.0,1.0]`,`[-1.0,1.0]`
 - Horizontal FOV: `[0,180]`
 ## Light
@@ -21,7 +21,7 @@
 ## Sphere
 - identifier: `sp`
 - 3D position vector: `ℝ`,`ℝ`,`ℝ`
-- diameter: `ℝ`
+- diameter: `ℝ+`
 - RGB color: `[0,255]`,`[0,255]`,`[0,255]`
 - texture file: `%.xpm` or `n`
 - bump map texture file: `%.xpm` or `n`
@@ -36,17 +36,17 @@
 - identifier: `cy`
 - 3D position vector: `ℝ`,`ℝ`,`ℝ`
 - 3D axis vector: `[-1.0,1.0]`,`[-1.0,1.0]`,`[-1.0,1.0]`
-- diameter: `ℝ`
-- height: `ℝ`
+- diameter: `ℝ+`
+- height: `ℝ+`
 - RGB color: `[0,255]`,`[0,255]`,`[0,255]`
 - texture file: `%.xpm` or `n`
 - bump map texture file: `%.xpm` or `n`
-## Torus
-- identifier: `to`
+## Cone
+- identifier: `co`
 - 3D position vector: `ℝ`,`ℝ`,`ℝ`
 - 3D axis vector: `[-1.0,1.0]`,`[-1.0,1.0]`,`[-1.0,1.0]`
-- diameter 1: `ℝ`
-- diameter 2: `ℝ`
+- diameter: `ℝ+`
+- height: `ℝ+`
 - RGB color: `[0,255]`,`[0,255]`,`[0,255]`
 - texture file: `%.xpm` or `n`
 - bump map texture file: `%.xpm` or `n`
