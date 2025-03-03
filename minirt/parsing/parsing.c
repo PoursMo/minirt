@@ -6,14 +6,15 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 16:06:51 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/28 17:35:39 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/03 11:57:43 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
 /*
-take shininess as parameter for shapes ?
+precompute light
+replace torus > cone
 do cleanest parsing ever ?
 with special perror ?
 */

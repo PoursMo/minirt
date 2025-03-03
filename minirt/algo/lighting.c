@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 23:41:17 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/02 19:37:18 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/03 11:40:16 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ t_color	compute_specular(t_light *light, t_ray *light_ray,
 	t_vector3	reflect_dir;
 	float		specular_factor;
 
-	view_dir = v3_negate(hit_info->ray->direction);
-	reflect_dir = v3_reflect(v3_negate(light_ray->direction), normal);
+	view_dir = v3_scale(hit_info->ray->direction, -1);
+	reflect_dir = v3_reflect(v3_scale(light_ray->direction, -1), normal);
 	specular_factor = powf(fmaxf(0, v3_dot(view_dir, reflect_dir)), SHININESS);
 	return (color_scale(light->color, specular_factor * light->brightness));
 }

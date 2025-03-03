@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 12:47:14 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/01 23:36:12 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/03 11:46:19 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,13 +93,10 @@ int get_closest_shape_intersecting(t_ray *ray, t_list *shapes, t_ray_hit_info *h
 	}
 	if (closest_shape)
 	{
-		if (hit_info)
-		{
-			hit_info->ray = ray;
-			hit_info->position = v3_add(ray->origin, v3_scale(ray->direction, closest_t));
-			hit_info->normal = get_normal(closest_shape, hit_info->position);
-			hit_info->shape = closest_shape;
-		}
+		hit_info->ray = ray;
+		hit_info->position = v3_add(ray->origin, v3_scale(ray->direction, closest_t));
+		hit_info->normal = get_normal(closest_shape, hit_info->position);
+		hit_info->shape = closest_shape;
 		return (1);
 	}
 	return (0);

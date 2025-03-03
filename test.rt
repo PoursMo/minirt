@@ -1,9 +1,9 @@
-A 0.3 255,255,255
+A 0.2 255,0,255
 C 0,0,-50 0,0,1 30
 
 l -10,-30,-50 0.5 255,255,255
 
 pl 0,0,10 0,0,-1 150,50,150 n n
 
-sp -10,0,0 20 0,0,0 images/textures/checker1.xpm images/bump_maps/470-bump.xpm
+sp -10,0,0 20 255,255,255 n images/bump_maps/bump.xpm
 sp 10,0,0 20 255,255,255 n n
