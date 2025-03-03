@@ -10,7 +10,7 @@
 - RGB color: `[0,255]`,`[0,255]`,`[0,255]`
 ## Camera
 - identifier: `C`
-- 3D position vector: `ℝ`,`ℝ`,`ℝ`
+- 3D position vector: `ℝ_+`,`ℝ`,`ℝ`
 - 3D orientation vector: `[-1.0,1.0]`,`[-1.0,1.0]`,`[-1.0,1.0]`
 - Horizontal FOV: `[0,180]`
 ## Light
