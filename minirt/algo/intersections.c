@@ -6,13 +6,13 @@
 /*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 13:51:10 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/03 16:16:06 by lpittet          ###   ########.fr       */
+/*   Updated: 2025/03/03 16:21:02 by lpittet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	intersect_plane(t_ray *ray, t_plane *plane, float *intersect_dist)
+static int intersect_plane(t_ray *ray, t_plane *plane, float *intersect_dist)
 {
 	float		denom;
 	t_vector3	p0l0;
@@ -27,7 +27,7 @@ int	intersect_plane(t_ray *ray, t_plane *plane, float *intersect_dist)
 	return (0);
 }
 
-int	intersect_sphere(t_ray *ray, t_sphere *sphere, float *intersect_dist)
+static int intersect_sphere(t_ray *ray, t_sphere *sphere, float *intersect_dist)
 {
 	float		discriminant;
 	float		ans1;
@@ -125,4 +125,21 @@ int	intersect_cylinder(t_ray *ray, t_cylinder *cylinder, float *intersect_dist)
 	if (!intersect_dist)
 		return (0);
 	return (1);
+}
+
+//cylinder
+
+//cone
+
+int	intersect_shape(t_ray *ray, t_shape *shape, float *t)
+{
+	if (shape->type == SPHERE)
+		return (intersect_sphere(ray, &shape->data.sphere, t));
+	else if (shape->type == PLANE)
+		return (intersect_plane(ray, &shape->data.plane, t));
+	// else if (shape->type == CYLINDER)
+	// 	return (intersect_cylinder(ray, &shape->data.cylinder, t));
+	// else if (shape->type == CONE)
+	// 	return (intersect_cone(ray, &shape->data.cone, t));
+	return (0);
 }

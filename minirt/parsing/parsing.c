@@ -6,29 +6,17 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 16:06:51 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/28 14:31:05 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/03 15:34:08 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
 /*
-Torus:
-identifier: to
-x, y, z coordinates of the sphere center
-3D normalized orientation vector, in range [-1,1] for each x, y, z axis
-radius 1
-radius 2
-R,G,B colors in range [0-255]
-
-Light:
-identifier: l instead of L
-
-
-take shininess as parameter for shapes ?
+precompute light
+replace torus > cone
 do cleanest parsing ever ?
 with special perror ?
-and usage print ?
 */
 
 static int	parse_line(char *line, t_mrt_data *mrt_data)
@@ -45,8 +33,8 @@ static int	parse_line(char *line, t_mrt_data *mrt_data)
 		return (parse_plane(line + 2, mrt_data));
 	else if (!ft_strncmp("cy ", line, 3))
 		return (parse_cylinder(line + 2, mrt_data));
-	else if (!ft_strncmp("to ", line, 3))
-		return (parse_torus(line + 2, mrt_data));
+	else if (!ft_strncmp("co ", line, 3))
+		return (parse_cone(line + 2, mrt_data));
 	else
 		return (misconfiguration_error("unkown type identifier"), -1);
 }
@@ -75,6 +63,7 @@ int	parse_file(char *file, t_mrt_data *mrt_data)
 				return (free(line), close(fd), -1);
 		free(line);
 	}
+	print_scene(&mrt_data->scene);
 	close(fd);
 	return (check_scene(&mrt_data->scene));
 }

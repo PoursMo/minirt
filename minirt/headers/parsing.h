@@ -6,13 +6,12 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 16:18:48 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/28 13:13:56 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/03 15:01:31 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSING_H
 # define PARSING_H
-
 
 // parsing.c
 
@@ -36,7 +35,7 @@ int		check_scene(t_scene *scene);
 int		parse_sphere(char *line, t_mrt_data *mrt_data);
 int		parse_plane(char *line, t_mrt_data *mrt_data);
 int		parse_cylinder(char *line, t_mrt_data *mrt_data);
-int		parse_torus(char *line, t_mrt_data *mrt_data);
+int		parse_cone(char *line, t_mrt_data *mrt_data);
 
 // parsing_type_getters.c
 

@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 13:44:39 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/27 22:19:29 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/03 11:39:47 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,4 @@ t_vector3	v3_up(void)
 t_vector3	v3_reflect(t_vector3 v, t_vector3 normal)
 {
     return (v3_subtract(v, v3_scale(normal, 2 * v3_dot(v, normal))));
-}
-
-t_vector3	v3_negate(t_vector3 v)
-{
-    return ((t_vector3){-v.x, -v.y, -v.z});
 }

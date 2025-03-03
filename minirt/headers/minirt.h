@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 16:18:53 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/27 21:39:11 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/01 21:58:57 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@
 # define ESC_KEY 65307
 # define WIDTH 1000
 # define HEIGHT 700
+# define SHININESS 32
+# define EPSILON 1e-4
 
 // ** debug.c **
 t_color map_v3_to_color(t_vector3 v);
