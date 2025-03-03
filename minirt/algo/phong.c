@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 22:00:26 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/03 12:00:50 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/03 16:40:17 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ t_color	apply_phong(t_scene *scene, t_ray_hit_info *hit_info)
 {
 	t_color		point_color;
 	t_vector3	normal;
-	t_vector2 uvs;
+	t_vector2	uvs;
 
 	if (hit_info->shape->bump_map || hit_info->shape->texture)
 		uvs = compute_shape_uv(hit_info);

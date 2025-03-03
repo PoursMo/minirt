@@ -21,6 +21,7 @@ minirt/algo/intersections.c \
 minirt/algo/uvs.c \
 minirt/algo/phong.c \
 minirt/algo/lighting.c \
+minirt/algo/normal.c \
 minirt/debug.c \
 # remove
 
