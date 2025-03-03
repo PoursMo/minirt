@@ -98,15 +98,15 @@ void print_scene(t_scene *scene)
 				printf("    Texture: %p\n", s->texture);
 				printf("    Bump Map: %p\n", s->bump_map);
 			}
-			else if (s->type == TORUS)
+			else if (s->type == CONE)
 			{
-				printf("  Torus:\n");
+				printf("  Cone:\n");
 				printf("    Position: ");
-				print_vector3(s->data.torus.position);
-				printf("    Direction: ");
-				print_vector3(s->data.torus.direction);
-				printf("    Minor Radius: %f\n", s->data.torus.minor_radius);
-				printf("    Major Radius: %f\n", s->data.torus.major_radius);
+				print_vector3(s->data.cone.position);
+				printf("    Axis: ");
+				print_vector3(s->data.cone.axis);
+				printf("    Radius: %f\n", s->data.cone.radius);
+				printf("    Height: %f\n", s->data.cone.height);
 				printf("    Color: ");
 				print_color(s->color);
 				printf("    Texture: %p\n", s->texture);

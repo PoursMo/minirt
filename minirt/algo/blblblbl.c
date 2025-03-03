@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 12:47:14 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/03 11:46:19 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/03 15:27:56 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ t_ray	get_ray(int x, int y, t_precomputed_camera *precomputed)
 	return (ray);
 }
 
-t_vector3 get_normal(t_shape *shape, t_vector3 point)
+t_vector3 get_normal(t_shape *shape, t_vector3 point, t_ray *ray)
 {
 	t_vector3 normal;
 
@@ -63,10 +63,14 @@ t_vector3 get_normal(t_shape *shape, t_vector3 point)
 	if (shape->type == SPHERE)
 		normal = v3_normalize(v3_subtract(point, shape->data.sphere.position));
 	else if (shape->type == PLANE)
+	{	
 		normal = shape->data.plane.normal;
+		if (v3_dot(normal, ray->direction) > 0)
+			normal = v3_scale(normal, -1);
+	}
 	else if (shape->type == CYLINDER)
 		{} // implement
-	else if (shape->type == TORUS)
+	else if (shape->type == CONE)
 		{} // implement
 	return (normal);
 }
@@ -95,7 +99,7 @@ int get_closest_shape_intersecting(t_ray *ray, t_list *shapes, t_ray_hit_info *h
 	{
 		hit_info->ray = ray;
 		hit_info->position = v3_add(ray->origin, v3_scale(ray->direction, closest_t));
-		hit_info->normal = get_normal(closest_shape, hit_info->position);
+		hit_info->normal = get_normal(closest_shape, hit_info->position, ray);
 		hit_info->shape = closest_shape;
 		return (1);
 	}

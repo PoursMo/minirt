@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 11:49:41 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/02 19:35:55 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/03 14:08:21 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_ambiant_light
 {
 	float	ratio;
 	t_color	color;
+	t_color	scaled_color;
 }	t_ambiant_light;
 
 typedef struct s_camera
@@ -51,6 +52,7 @@ typedef struct s_light
 	t_vector3	position;
 	float		brightness;
 	t_color		color;
+	t_color		scaled_color;
 }	t_light;
 
 typedef struct s_sphere
@@ -73,20 +75,20 @@ typedef struct s_cylinder
 	float		height;
 }	t_cylinder;
 
-typedef struct s_torus
+typedef struct s_cone
 {
 	t_vector3	position;
-	t_vector3	direction;
-	float		minor_radius;
-	float		major_radius;
-}	t_torus;
+	t_vector3	axis;
+	float		radius;
+	float		height;
+}	t_cone;
 
 typedef enum e_shape_type
 {
 	SPHERE,
 	PLANE,
 	CYLINDER,
-	TORUS
+	CONE
 }	t_shape_type;
 
 typedef union u_shape_data
@@ -94,7 +96,7 @@ typedef union u_shape_data
 	t_sphere	sphere;
 	t_plane		plane;
 	t_cylinder	cylinder;
-	t_torus		torus;
+	t_cone		cone;
 }	t_shape_data;
 
 typedef struct s_shape

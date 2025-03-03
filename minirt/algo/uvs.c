@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 13:43:56 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/02 18:58:29 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/03 14:13:38 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static t_vector2	compute_sphere_uv(t_vector3 normal)
 
 // cylinder uv
 
-// torus uv
+// cone uv
 
 t_vector2	compute_shape_uv(t_ray_hit_info *info)
 {
@@ -36,7 +36,7 @@ t_vector2	compute_shape_uv(t_ray_hit_info *info)
 	// 	return (compute_plane_uv(info->normal));
 	// else if (info->shape->type == CYLINDER)
 	// 	return (compute_cylinder_uv(info->normal));
-	// else if (info->shape->type == TORUS)
-	// 	return (compute_torus_uv(info->normal));
+	// else if (info->shape->type == CONE)
+	// 	return (compute_cone_uv(info->normal));
 	return ((t_vector2){0});
 }
