@@ -51,8 +51,7 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
-minirt/miniRT
+miniRT
 minirt/objects
-test.rt
 error.txt
 .vscode

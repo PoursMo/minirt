@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 22:00:26 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/03 16:40:17 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/04 18:14:54 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,38 @@ float	get_grayscale(t_color c)
 	return ((red + green + blue) / 3);
 }
 
+t_vector2 v2_add(t_vector2 a, t_vector2 b)
+{
+	t_vector2 result;
+
+	result.x = a.x + b.x;
+	result.y = a.y + b.y;
+	return (result);
+}
+
+void	compute_sphere_binormals(t_vector3 normal, t_vector3 *tangent, t_vector3 *bitangent)
+{
+	if (fabs(normal.y) > 0.9999)
+		*tangent = (t_vector3){1.0, 0.0, 0.0};
+	else
+		*tangent = (t_vector3){0.0, 1.0, 0.0};
+	*bitangent = v3_cross(normal, *tangent);
+	*tangent = v3_cross(*bitangent, normal);
+}
+
+t_vector3 perturb_normal(t_vector2 uvs, t_ray_hit_info *hit_info)
+{
+	float bump_value = get_grayscale(sample_image(uvs, hit_info->shape->bump_map));
+	float delta_u = 1.0 / hit_info->shape->bump_map->width;
+	float delta_v = 1.0 / hit_info->shape->bump_map->height;
+	float dhdu = get_grayscale(sample_image(v2_add(uvs, (t_vector2){delta_u, 0}), hit_info->shape->bump_map)) - bump_value;
+	float dhdv = get_grayscale(sample_image(v2_add(uvs, (t_vector2){0, delta_v}), hit_info->shape->bump_map)) - bump_value;
+	t_vector3 tangent, bitangent;
+	compute_sphere_binormals(hit_info->normal, &tangent, &bitangent);
+	t_vector3 perturbed_normal = v3_normalize(v3_add(v3_add(v3_scale(tangent, dhdu), v3_scale(bitangent, dhdv)), v3_scale(hit_info->normal, bump_value)));
+	return perturbed_normal;
+}
+
 t_color	apply_phong(t_scene *scene, t_ray_hit_info *hit_info)
 {
 	t_color		point_color;
@@ -95,6 +127,6 @@ t_color	apply_phong(t_scene *scene, t_ray_hit_info *hit_info)
 		point_color = color_add(point_color, sample_image(uvs, hit_info->shape->texture));
 	normal = hit_info->normal;
 	if (hit_info->shape->bump_map)
-		normal = v3_scale(normal, get_grayscale(sample_image(uvs, hit_info->shape->bump_map)));
+		normal = perturb_normal(uvs, hit_info);
 	return (compute_final_color(scene, hit_info, point_color, normal));
 }
