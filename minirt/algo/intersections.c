@@ -6,7 +6,7 @@
 /*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 13:51:10 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/03 16:27:33 by lpittet          ###   ########.fr       */
+/*   Updated: 2025/03/04 08:45:13 by lpittet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ int	intersect_cylinder(t_ray *ray, t_cylinder *cylinder, float *intersect_dist)
 	t[1] = (-quad[1] + sqrtf(quad[3])) / (2 * quad[0]);
 	check_for_cylinder_len(cylinder, ray, t, intersect_dist);
 	check_for_caps(ray, cylinder, intersect_dist);
-	if (!intersect_dist)
+	if (*intersect_dist < 0)
 		return (0);
 	return (1);
 }

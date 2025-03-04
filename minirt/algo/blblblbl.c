@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   blblblbl.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 12:47:14 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/03 16:38:04 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/04 08:46:48 by lpittet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int get_closest_shape_intersecting(t_ray *ray, t_list *shapes, t_ray_hit_info *h
 	closest_t = __FLT_MAX__;
 	while (shapes)
 	{
+		t = -EPSILON;
 		if (intersect_shape(ray, shapes->content, &t) && t < closest_t)
 		{
  			closest_t = t;
