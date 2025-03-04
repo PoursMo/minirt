@@ -6,7 +6,7 @@
 /*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 13:51:10 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/04 08:45:13 by lpittet          ###   ########.fr       */
+/*   Updated: 2025/03/04 08:56:21 by lpittet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	check_for_cylinder_len(t_cylinder *cylinder, t_ray *ray, float t[2],
 		p = v3_dot(v3_subtract(hit_point, cylinder->position), cylinder->axis);
 		if (p >= 0 && p <= cylinder->height)
 		{
-			if (!intersect_dist || t[1] < *intersect_dist)
+			if (*intersect_dist < 0 || t[1] < *intersect_dist)
 				*intersect_dist = t[1];
 		}
 	}
@@ -90,14 +90,14 @@ void	check_for_caps(t_ray *ray, t_cylinder *cylinder, float *intersect_dist)
 		return ;
 	center2 = v3_add(cylinder->position, v3_scale(cylinder->axis, cylinder->height));
 	t = v3_dot(v3_subtract(cylinder->position, ray->origin), cylinder->axis) / dot_normal;
-	if (t > 0 && (!intersect_dist || t < *intersect_dist))
+	if (t > 0 && (*intersect_dist < 0 || t < *intersect_dist))
 	{
 		hit = v3_add(ray->origin, v3_scale(ray->direction, t));
 		if (v3_get_magnitude(v3_subtract(hit, cylinder->position)) <= cylinder->radius)
 			*intersect_dist = t;
 	}
 	t = v3_dot(v3_subtract(center2, ray->origin), cylinder->axis) / dot_normal;
-	if (t > 0 && (!intersect_dist || t < *intersect_dist))
+	if (t > 0 && (*intersect_dist < 0 || t < *intersect_dist))
 	{
 		hit = v3_add(ray->origin, v3_scale(ray->direction, t));
 		if (v3_get_magnitude(v3_subtract(hit, center2)) <= cylinder->radius)
