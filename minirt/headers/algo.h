@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   algo.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 13:51:34 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/03 16:38:38 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/04 09:01:52 by lpittet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ALGO_H
 # define ALGO_H
 
+void 		render_scene(t_mrt_data *data);
 // uvs.c
 
 t_vector2	compute_shape_uv(t_ray_hit_info *info);
