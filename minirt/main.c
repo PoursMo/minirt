@@ -3,29 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 14:25:36 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/03 16:38:32 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/04 08:34:37 by lpittet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-static void render_scene(t_mrt_data *data)
-{
-	t_img *img;
-
-	img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
-	if (!img)
-    {
-    	ft_putstr_fd("mlx_new_image error\n", 2);
-    	clean_exit(EXIT_FAILURE, data);
-    }
-	fill_img(img, &data->scene);
-	mlx_put_image_to_window(data->mlx, data->win, img, 0, 0);
-	mlx_destroy_image(data->mlx, img);
-}
 
 int	main(int argc, char **argv)
 {
