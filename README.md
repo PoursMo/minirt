@@ -1,6 +1,6 @@
 # `%.rt` file:
 - There can only be 1 of each element with capital identifier
-- All of the elements with a capital identifier must be present, as well as atleast one light, and one shape
+- All of the elements with a capital identifier must be present
 - Each type of information from an element must be separated by one or more spaces
 - Each type of element can be separated by one or more line breaks
 - Each type of element can be set in any order in the file
