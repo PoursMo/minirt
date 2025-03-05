@@ -6,7 +6,7 @@
 /*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 13:51:10 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/05 08:52:21 by lpittet          ###   ########.fr       */
+/*   Updated: 2025/03/05 08:57:18 by lpittet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,32 @@ int	intersect_cylinder(t_ray *ray, t_cylinder *cylinder, float *intersect_dist)
 	return (1);
 }
 
-int	intersect_cone(t_ray *ray, t_cone *cone, float *interset_dist)
+void	check_for_cone_len(t_cone *cone, t_ray *ray, float t[2],
+	float *intersect_dist)
+{
+	float		p;
+	t_vector3	hit_point;
+
+	if (t[0] > 0)
+	{
+		hit_point = v3_add(ray->origin, v3_scale(ray->direction, t[0]));
+		p = v3_dot(v3_subtract(hit_point, cone->position), cone->axis);
+		if (p >= 0 && p <= cone->height)
+			*intersect_dist = t[0];
+	}
+	if (t[1] > 0)
+	{
+		hit_point = v3_add(ray->origin, v3_scale(ray->direction, t[1]));
+		p = v3_dot(v3_subtract(hit_point, cone->position), cone->axis);
+		if (p >= 0 && p <= cone->height)
+		{
+			if (*intersect_dist < 0 || t[1] < *intersect_dist)
+				*intersect_dist = t[1];
+		}
+	}
+}
+
+int	intersect_cone(t_ray *ray, t_cone *cone, float *intersect_dist)
 {
 	float		quad[4];
 	float		t[2];
@@ -146,6 +171,10 @@ int	intersect_cone(t_ray *ray, t_cone *cone, float *interset_dist)
 		return (0);
 	t[0] = (-quad[1] - sqrtf(quad[3])) / (2 * quad[0]);
 	t[1] = (-quad[1] + sqrtf(quad[3])) / (2 * quad[0]);
+	check_for_cone_len(cone, ray, t, intersect_dist);
+	if (*intersect_dist < 0)
+		return (0);
+	return (1);
 }
 
 int	intersect_shape(t_ray *ray, t_shape *shape, float *t)
@@ -156,7 +185,7 @@ int	intersect_shape(t_ray *ray, t_shape *shape, float *t)
 		return (intersect_plane(ray, &shape->data.plane, t));
 	else if (shape->type == CYLINDER)
 		return (intersect_cylinder(ray, &shape->data.cylinder, t));
-	// else if (shape->type == CONE)
-	// 	return (intersect_cone(ray, &shape->data.cone, t));
+	else if (shape->type == CONE)
+		return (intersect_cone(ray, &shape->data.cone, t));
 	return (0);
 }
