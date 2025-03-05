@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 20:25:55 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/28 14:21:05 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/05 16:49:15 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	parse_img(char **line, t_img **img, void *mlx)
 	if (*((*line) - 1) != ' ')
 		return (-1);
 	file = get_texture_file(line);
-	if (!strncmp(file, "n", ft_strlen(file)))
+	if (!ft_strncmp(file, "n", ft_strlen(file)))
 		return (*img = NULL, free(file), 0);
 	if (!check_file_extension(file, ".xpm") || access(file, R_OK) == -1)
 		return (free(file), -1);
