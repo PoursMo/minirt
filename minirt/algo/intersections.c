@@ -6,7 +6,7 @@
 /*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 13:51:10 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/04 08:56:21 by lpittet          ###   ########.fr       */
+/*   Updated: 2025/03/05 08:52:21 by lpittet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,26 @@ int	intersect_cylinder(t_ray *ray, t_cylinder *cylinder, float *intersect_dist)
 	return (1);
 }
 
-//cone
+int	intersect_cone(t_ray *ray, t_cone *cone, float *interset_dist)
+{
+	float		quad[4];
+	float		t[2];
+	t_vector3	cam_obj;
+
+	cam_obj = v3_subtract(ray->origin, cone->position);
+	quad[0] = v3_dot(ray->direction, v3_scale(cone->axis, -1))
+		* v3_dot(ray->direction, v3_scale(cone->axis, -1)) - cos(cone->angle) * cos(cone->angle);
+	quad[1] = 2 * (v3_dot(ray->direction, v3_scale(cone->axis, -1))
+		* v3_dot(cam_obj, v3_scale(cone->axis, -1))
+		- v3_dot(ray->direction, v3_scale(cone->axis, -1)) * cos(cone->angle) * cos(cone->angle));
+	quad[2] = v3_dot(cam_obj, v3_scale(cone->axis, -1)) * v3_dot(cam_obj, v3_scale(cone->axis, -1))
+		- v3_dot(cam_obj, cam_obj) * cos(cone->angle) * cos(cone->angle);
+	quad[3] = quad[1] * quad[1] - 4 * quad[0] * quad[2];
+	if (quad[3] < 0)
+		return (0);
+	t[0] = (-quad[1] - sqrtf(quad[3])) / (2 * quad[0]);
+	t[1] = (-quad[1] + sqrtf(quad[3])) / (2 * quad[0]);
+}
 
 int	intersect_shape(t_ray *ray, t_shape *shape, float *t)
 {

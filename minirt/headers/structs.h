@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 11:49:41 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/03 14:08:21 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/05 08:51:33 by lpittet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ typedef struct s_cone
 	t_vector3	axis;
 	float		radius;
 	float		height;
+	float		angle;
 }	t_cone;
 
 typedef enum e_shape_type
