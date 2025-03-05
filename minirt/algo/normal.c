@@ -6,7 +6,7 @@
 /*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 15:39:42 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/05 08:31:45 by lpittet          ###   ########.fr       */
+/*   Updated: 2025/03/05 11:25:30 by lpittet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,24 @@ static t_vector3	cylinder_normal(t_shape *shape, t_vector3 point, t_ray *ray)
 	return (v3_normalize(normal));
 }
 
+static t_vector3 cone_normal(t_shape *shape, t_vector3 point, t_ray *ray)
+{
+	t_vector3	normal;
+	t_vector3	proj_vector;
+	t_vector3 	apex;
+	t_vector3	perp_vector;
+	(void)ray;
+	apex = v3_add(shape->data.cone.position,
+			v3_scale(shape->data.cone.axis, shape->data.cone.height));
+	proj_vector = v3_scale(shape->data.cone.axis,
+			v3_dot(v3_subtract(point, apex), shape->data.cone.axis));
+	perp_vector = v3_subtract(v3_subtract(point, apex), proj_vector);
+	normal = v3_add(v3_scale(shape->data.cone.axis,
+		cos(shape->data.cone.angle)),
+		v3_scale(v3_normalize(perp_vector), sin(shape->data.cone.angle)));
+	return (v3_normalize(normal));
+}
+
 t_vector3	get_normal(t_shape *shape, t_vector3 point, t_ray *ray)
 {
 	t_vector3	normal;
@@ -50,7 +68,7 @@ t_vector3	get_normal(t_shape *shape, t_vector3 point, t_ray *ray)
 		normal = cylinder_normal(shape, point, ray);
 	else if (shape->type == CONE)
 	{
-		normal = shape->data.cone.axis;
+		normal = cone_normal(shape, point, ray);
 	}
 	return (normal);
 }
