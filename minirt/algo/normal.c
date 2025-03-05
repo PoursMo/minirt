@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   normal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 15:39:42 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/03 16:39:59 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/05 08:31:45 by lpittet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ t_vector3	get_normal(t_shape *shape, t_vector3 point, t_ray *ray)
 		normal = cylinder_normal(shape, point, ray);
 	else if (shape->type == CONE)
 	{
-		// implement
+		normal = shape->data.cone.axis;
 	}
 	return (normal);
 }
