@@ -6,7 +6,7 @@
 /*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 15:39:42 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/05 11:25:30 by lpittet          ###   ########.fr       */
+/*   Updated: 2025/03/06 11:01:53 by lpittet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,16 @@ static t_vector3	cylinder_normal(t_shape *shape, t_vector3 point, t_ray *ray)
 {
 	t_vector3	plane_hit_axis;
 	t_vector3	normal;
-
+	
+	(void)ray;
 	if (v3_get_magnitude(v3_subtract(shape->data.cylinder.position, point))
-		< shape->data.cylinder.radius
-		|| v3_get_magnitude(v3_subtract(v3_add(shape->data.cylinder.position,
+		< shape->data.cylinder.radius)
+		return (v3_scale(shape->data.cylinder.axis, -1));
+	if (v3_get_magnitude(v3_subtract(v3_add(shape->data.cylinder.position,
 					v3_scale(shape->data.cylinder.axis,
 						shape->data.cylinder.height)), point))
-		< shape->data.cylinder.radius)
-	{
-		if (v3_dot(ray->direction, shape->data.cylinder.axis) >= 0)
-			return (v3_scale(shape->data.cylinder.axis, -1));
+		< shape->data.cylinder.radius)	
 		return (shape->data.cylinder.axis);
-	}
 	plane_hit_axis = v3_cross(shape->data.cylinder.axis,
 			v3_subtract(point, shape->data.cylinder.position));
 	normal = v3_cross(plane_hit_axis, shape->data.cylinder.axis);
@@ -70,5 +68,6 @@ t_vector3	get_normal(t_shape *shape, t_vector3 point, t_ray *ray)
 	{
 		normal = cone_normal(shape, point, ray);
 	}
+	// TODO 
 	return (normal);
 }
