@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   algo.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 13:51:34 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/04 09:01:52 by lpittet          ###   ########.fr       */
+/*   Updated: 2025/03/06 14:53:53 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,9 @@ t_color		compute_specular(t_light *light, t_ray *light_ray,
 // normal.c
 
 t_vector3 get_normal(t_shape *shape, t_vector3 point, t_ray *ray);
+
+// bump.c
+
+t_vector3 perturb_normal(t_vector2 uvs, t_ray_hit_info *hit_info);
 
 #endif

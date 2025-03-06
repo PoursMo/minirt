@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 16:48:25 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/03 11:39:57 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/06 14:58:04 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,10 @@ t_color		get_pixel_from_mlx_img(t_img *img, int x, int y);
 void		put_loading_screen(t_mrt_data *data);
 int			handle_key(int keycode, void *data);
 float		degrees_to_radians(float degrees);
+
+// utils2.c
+
+t_color		sample_image(t_vector2 uv, t_img *image);
 
 // termination.c
 
