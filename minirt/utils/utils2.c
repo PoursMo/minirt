@@ -1,33 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vectors2.c                                         :+:      :+:    :+:   */
+/*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/22 13:44:39 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/06 14:57:25 by aloubry          ###   ########.fr       */
+/*   Created: 2025/03/06 14:56:56 by aloubry           #+#    #+#             */
+/*   Updated: 2025/03/06 14:57:03 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-float	v3_get_magnitude(t_vector3 v)
+// Sample color from an image using UV coordinates
+t_color	sample_image(t_vector2 uv, t_img *image)
 {
-	return (sqrt(v.x * v.x + v.y * v.y + v.z * v.z));
-}
+	t_color	color;
+	int		x;
+	int		y;
 
-float	v3_dot(t_vector3 a, t_vector3 b)
-{
-	return (a.x * b.x + a.y * b.y + a.z * b.z);
-}
-
-t_vector3	v3_up(void)
-{
-	return ((t_vector3){0, -1, 0});
-}
-
-t_vector3	v3_reflect(t_vector3 v, t_vector3 normal)
-{
-	return (v3_subtract(v, v3_scale(normal, 2 * v3_dot(v, normal))));
+	x = (int)(uv.x * image->width) % image->width;
+	y = (int)(uv.y * image->height) % image->height;
+	color = get_pixel_from_mlx_img(image, x, y);
+	return (color);
 }
