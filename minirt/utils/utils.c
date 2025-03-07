@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 18:47:14 by aloubry           #+#    #+#             */
-/*   Updated: 2025/02/28 18:24:16 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/06 14:57:45 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ void	put_loading_screen(t_mrt_data *data)
 	int		img_h;
 	t_img	*img;
 
-	img = mlx_xpm_file_to_image(data->mlx, "images/loading_img.xpm", &img_w, &img_h);
+	img = mlx_xpm_file_to_image(data->mlx, "images/loading_img.xpm",
+			&img_w, &img_h);
 	if (!img)
 	{
 		ft_putstr_fd("put_loading_screen error\n", 2);

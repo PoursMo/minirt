@@ -28,7 +28,7 @@ int	parse_sphere(char *line, t_mrt_data *mrt_data)
 	t_shape		*shape;
 	float		diameter;
 
-	shape = calloc(1, sizeof(t_shape));
+	shape = ft_calloc(1, sizeof(t_shape));
 	if (!shape)
 		return (perror("parse_sphere"), -1);
 	shape->type = SPHERE;
@@ -47,7 +47,7 @@ int	parse_plane(char *line, t_mrt_data *mrt_data)
 {
 	t_shape		*shape;
 
-	shape = calloc(1, sizeof(t_shape));
+	shape = ft_calloc(1, sizeof(t_shape));
 	if (!shape)
 		return (perror("parse_plane"), -1);
 	shape->type = PLANE;
@@ -66,7 +66,7 @@ int	parse_cylinder(char *line, t_mrt_data *mrt_data)
 	t_shape		*shape;
 	float		diameter;
 
-	shape = calloc(1, sizeof(t_shape));
+	shape = ft_calloc(1, sizeof(t_shape));
 	if (!shape)
 		return (perror("parse_cylinder"), -1);
 	shape->type = CYLINDER;
@@ -88,7 +88,7 @@ int	parse_cone(char *line, t_mrt_data *mrt_data)
 	t_shape	*shape;
 	float	diameter;
 
-	shape = calloc(1, sizeof(t_shape));
+	shape = ft_calloc(1, sizeof(t_shape));
 	if (!shape)
 		return (perror("parse_cone"), -1);
 	shape->type = CONE;
