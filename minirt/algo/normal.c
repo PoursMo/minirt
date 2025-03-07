@@ -6,18 +6,17 @@
 /*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 15:39:42 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/06 11:01:53 by lpittet          ###   ########.fr       */
+/*   Updated: 2025/03/07 11:42:43 by lpittet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static t_vector3	cylinder_normal(t_shape *shape, t_vector3 point, t_ray *ray)
+static t_vector3	cylinder_normal(t_shape *shape, t_vector3 point)
 {
 	t_vector3	plane_hit_axis;
 	t_vector3	normal;
-	
-	(void)ray;
+
 	if (v3_get_magnitude(v3_subtract(shape->data.cylinder.position, point))
 		< shape->data.cylinder.radius)
 		return (v3_scale(shape->data.cylinder.axis, -1));
@@ -32,22 +31,22 @@ static t_vector3	cylinder_normal(t_shape *shape, t_vector3 point, t_ray *ray)
 	return (v3_normalize(normal));
 }
 
-static t_vector3 cone_normal(t_shape *shape, t_vector3 point, t_ray *ray)
+
+static t_vector3 cone_normal(t_shape *shape, t_vector3 point)
 {
-	t_vector3	normal;
-	t_vector3	proj_vector;
-	t_vector3 	apex;
-	t_vector3	perp_vector;
-	(void)ray;
-	apex = v3_add(shape->data.cone.position,
-			v3_scale(shape->data.cone.axis, shape->data.cone.height));
-	proj_vector = v3_scale(shape->data.cone.axis,
-			v3_dot(v3_subtract(point, apex), shape->data.cone.axis));
-	perp_vector = v3_subtract(v3_subtract(point, apex), proj_vector);
-	normal = v3_add(v3_scale(shape->data.cone.axis,
-		cos(shape->data.cone.angle)),
-		v3_scale(v3_normalize(perp_vector), sin(shape->data.cone.angle)));
-	return (v3_normalize(normal));
+    t_vector3 normal;
+    t_vector3 apex;
+    t_vector3 point_to_apex;
+    t_vector3 axis_component;
+    
+    
+    apex = v3_add(shape->data.cone.position, 
+                  v3_scale(shape->data.cone.axis, shape->data.cone.height));
+    point_to_apex = v3_subtract(apex, point);
+    axis_component = v3_scale(shape->data.cone.axis, 
+                              v3_dot(point_to_apex, shape->data.cone.axis));
+    normal = v3_subtract(point_to_apex, axis_component);
+    return (v3_scale(v3_normalize(normal), -1));
 }
 
 t_vector3	get_normal(t_shape *shape, t_vector3 point, t_ray *ray)
@@ -63,11 +62,11 @@ t_vector3	get_normal(t_shape *shape, t_vector3 point, t_ray *ray)
 			normal = v3_scale(normal, -1);
 	}
 	else if (shape->type == CYLINDER)
-		normal = cylinder_normal(shape, point, ray);
+		normal = cylinder_normal(shape, point);
 	else if (shape->type == CONE)
 	{
-		normal = cone_normal(shape, point, ray);
+		normal = cone_normal(shape, point);
 	}
-	// TODO 
+	//if inside normal = scale(normal, -1);
 	return (normal);
 }
