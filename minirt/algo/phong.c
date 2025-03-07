@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   phong.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 22:00:26 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/06 14:58:23 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/07 11:29:02 by lpittet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	check_ray_collision(t_ray *ray, t_list *shapes, float max_distance)
 
 	while (shapes)
 	{
+		distance = -EPSILON;
 		if (intersect_shape(ray, shapes->content, &distance)
 			&& distance < max_distance)
 			return (1);

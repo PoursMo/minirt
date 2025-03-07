@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_shape_getters.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 20:27:59 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/05 11:32:17 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/04 11:22:22 by lpittet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,5 +102,6 @@ int	parse_cone(char *line, t_mrt_data *mrt_data)
 		|| !is_valid_tail(line))
 		return (misconfiguration_error("cone: wrong parameters"), free_shape(shape, mrt_data->mlx), -1);
 	shape->data.cone.radius = diameter / 2.0f;
+	shape->data.cone.angle = atan(shape->data.cone.radius / shape->data.cone.height);
 	return (add_shape_to_scene(shape, &mrt_data->scene));
 }

@@ -6,7 +6,7 @@
 /*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 13:51:10 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/04 08:56:21 by lpittet          ###   ########.fr       */
+/*   Updated: 2025/03/07 13:30:35 by lpittet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,72 @@ int	intersect_cylinder(t_ray *ray, t_cylinder *cylinder, float *intersect_dist)
 	return (1);
 }
 
-//cone
+void	check_for_cone_len(t_cone *cone, t_ray *ray, float	t[2],
+	float *intersect_dist)
+{
+	float		p;
+	t_vector3	hit_point;
+	t_vector3	apex;
+
+	apex = v3_add(cone->position, v3_scale(cone->axis, cone->height));
+	if (t[0] > 0)
+	{
+		hit_point = v3_add(ray->origin, v3_scale(ray->direction, t[0]));
+		p = v3_dot(v3_subtract(hit_point, apex), v3_scale(cone->axis, -1));
+		if (p >= 0 && p <= cone->height)
+			*intersect_dist = t[0];
+	}
+	if (t[1] > 0)
+	{
+		hit_point = v3_add(ray->origin, v3_scale(ray->direction, t[1]));
+		p = v3_dot(v3_subtract(hit_point, apex), v3_scale(cone->axis, -1));
+		if (p >= 0 && p <= cone->height)
+		{
+			if (*intersect_dist < 0 || t[1] < *intersect_dist)
+				*intersect_dist = t[1];
+		}
+	}
+}
+
+void	check_for_cone_base(t_ray *ray, t_cone *cone, float *intersect_dist)
+{
+	t_vector3	hit_point;
+	float		dist;
+	float		denom;
+	t_vector3	p0l0;
+	
+	denom = v3_dot(cone->axis, ray->direction);
+	if (fabs(denom) > 1e-6)
+		return;
+	p0l0 = v3_subtract(cone->position, ray->origin);
+	dist = v3_dot(p0l0, cone->axis) / denom;
+	hit_point = v3_scale(ray->direction, dist);
+	return (dist <= cone->radius);
+}
+
+int	intersect_cone(t_ray *ray, t_cone *cone, float *intersect_dist)
+{
+	float		quad[4];
+	float		t[2];
+	t_vector3	cam_obj;
+	
+	cam_obj = v3_subtract(ray->origin, cone->position);
+	quad[0] = pow(v3_dot(ray->direction, cone->axis),2) - pow(cos(cone->angle), 2);
+	quad[1] = 2 * ((v3_dot(ray->direction, cone->axis)) * v3_dot(cam_obj, cone->axis)
+		- v3_dot(ray->direction, cam_obj) * pow(cos(cone->angle), 2));
+	quad[2] = pow(v3_dot(cam_obj, cone->axis), 2)
+		- pow(v3_get_magnitude(cam_obj), 2) * pow(cos(cone->angle), 2);
+	quad[3] = quad[1] * quad[1] - 4 * quad[0] * quad[2];
+	if (quad[3] < 0)
+		return (0);
+	t[0] = (-quad[1] - sqrt(quad[3])) / (2 * quad[0]);
+	t[1] = (-quad[1] + sqrt(quad[3])) / (2 * quad[0]);
+	check_for_cone_len(cone, ray, t, intersect_dist);
+	check_for_cone_base(cone, ray, intersect_dist);
+	if (*intersect_dist < 0)
+		return (0);
+	return (1);
+}
 
 int	intersect_shape(t_ray *ray, t_shape *shape, float *t)
 {
@@ -137,7 +202,7 @@ int	intersect_shape(t_ray *ray, t_shape *shape, float *t)
 		return (intersect_plane(ray, &shape->data.plane, t));
 	else if (shape->type == CYLINDER)
 		return (intersect_cylinder(ray, &shape->data.cylinder, t));
-	// else if (shape->type == CONE)
-	// 	return (intersect_cone(ray, &shape->data.cone, t));
+	else if (shape->type == CONE)
+		return (intersect_cone(ray, &shape->data.cone, t));
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 12:47:14 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/04 08:46:48 by lpittet          ###   ########.fr       */
+/*   Updated: 2025/03/07 11:28:38 by lpittet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ int get_closest_shape_intersecting(t_ray *ray, t_list *shapes, t_ray_hit_info *h
 		hit_info->position = v3_add(ray->origin, v3_scale(ray->direction, closest_t));
 		hit_info->normal = get_normal(closest_shape, hit_info->position, ray);
 		hit_info->shape = closest_shape;
+		if (closest_shape->type == CONE)
+			print_vector3(hit_info->normal);
 		return (1);
 	}
 	return (0);

@@ -1,6 +1,6 @@
 #include "minirt.h"
 
-static void print_vector3(t_vector3 v)
+void print_vector3(t_vector3 v)
 {
 	printf("x: %f, y: %f, z: %f\n", v.x, v.y, v.z);
 }
