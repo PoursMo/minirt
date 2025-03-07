@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 13:43:56 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/06 15:41:06 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/07 15:26:03 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,14 +63,25 @@ static t_vector2	compute_cylinder_uv(t_vector3 position,
 
 t_vector2	compute_shape_uv(t_ray_hit_info *info)
 {
+	t_cylinder	*cylinder;
+
 	if (info->shape->type == SPHERE)
 		return (compute_sphere_uv(info->normal));
 	else if (info->shape->type == PLANE)
 		return (compute_plane_uv(info->position, info->normal));
 	else if (info->shape->type == CYLINDER)
-		return (compute_cylinder_uv(info->position, info->normal,
-				info->shape->data.cylinder.axis));
+	{
+		cylinder = &info->shape->data.cylinder;
+		if (!(v3_get_magnitude(v3_subtract(cylinder->position,
+						info->position)) < cylinder->radius)
+			&& !(v3_get_magnitude(v3_subtract(v3_add(cylinder->position,
+							v3_scale(cylinder->axis, cylinder->height)),
+						info->position))
+				< cylinder->radius))
+			return (compute_cylinder_uv(info->position, info->normal,
+					cylinder->axis));
+	}
 	// else if (info->shape->type == CONE)
 	// 	return (compute_cone_uv(info->normal));
-	return ((t_vector2){0});
+	return ((t_vector2){-1, -1});
 }
