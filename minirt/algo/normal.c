@@ -6,12 +6,25 @@
 /*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 15:39:42 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/07 14:26:05 by lpittet          ###   ########.fr       */
+/*   Updated: 2025/03/07 15:04:05 by lpittet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
+// static int	check_inside(t_shape *shape, t_vector3 cam_pos)
+// {
+// 	if (shape->type == SPHERE)
+// 		return (v3_get_magnitude(v3_subtract(cam_pos, shape->data.sphere.position)) < )
+// 	else if (shape->type == PLANE)
+// 		return (0);
+// 	else if (shape->type == CYLINDER)
+// 		normal = cylinder_normal(shape, point);
+// 	else if (shape->type == CONE)
+// 	{
+// 		normal = cone_normal(shape, point);
+// 	}
+// }
 static t_vector3	cylinder_normal(t_shape *shape, t_vector3 point)
 {
 	t_vector3	plane_hit_axis;
