@@ -6,7 +6,7 @@
 /*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 15:39:42 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/07 11:42:43 by lpittet          ###   ########.fr       */
+/*   Updated: 2025/03/07 14:26:05 by lpittet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,19 +34,23 @@ static t_vector3	cylinder_normal(t_shape *shape, t_vector3 point)
 
 static t_vector3 cone_normal(t_shape *shape, t_vector3 point)
 {
-    t_vector3 normal;
-    t_vector3 apex;
-    t_vector3 point_to_apex;
-    t_vector3 axis_component;
-    
-    
-    apex = v3_add(shape->data.cone.position, 
-                  v3_scale(shape->data.cone.axis, shape->data.cone.height));
-    point_to_apex = v3_subtract(apex, point);
-    axis_component = v3_scale(shape->data.cone.axis, 
-                              v3_dot(point_to_apex, shape->data.cone.axis));
-    normal = v3_subtract(point_to_apex, axis_component);
-    return (v3_scale(v3_normalize(normal), -1));
+	t_vector3 	normal;
+	t_vector3 	apex;
+	t_vector3 	point_to_apex;
+	t_vector3 	axis_component;
+	float		dot_hit;
+	
+	dot_hit = v3_dot(v3_subtract(shape->data.cone.position, point),
+		shape->data.cone.axis);
+	if (fabs(dot_hit < EPSILON))
+		return (v3_scale(shape->data.cone.axis, -1));
+	apex = v3_add(shape->data.cone.position, 
+					v3_scale(shape->data.cone.axis, shape->data.cone.height));
+	point_to_apex = v3_subtract(apex, point);
+	axis_component = v3_scale(shape->data.cone.axis, 
+								v3_dot(point_to_apex, shape->data.cone.axis));
+	normal = v3_subtract(point_to_apex, axis_component);
+	return (v3_scale(v3_normalize(normal), -1));
 }
 
 t_vector3	get_normal(t_shape *shape, t_vector3 point, t_ray *ray)
