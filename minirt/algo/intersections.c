@@ -6,7 +6,7 @@
 /*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 13:51:10 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/07 13:30:35 by lpittet          ###   ########.fr       */
+/*   Updated: 2025/03/07 15:11:36 by lpittet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,7 @@ void	check_for_cone_len(t_cone *cone, t_ray *ray, float	t[2],
 	}
 }
 
-void	check_for_cone_base(t_ray *ray, t_cone *cone, float *intersect_dist)
+void	check_for_cone_base(t_cone *cone, t_ray *ray, float *intersect_dist)
 {
 	t_vector3	hit_point;
 	float		dist;
@@ -163,11 +163,13 @@ void	check_for_cone_base(t_ray *ray, t_cone *cone, float *intersect_dist)
 	
 	denom = v3_dot(cone->axis, ray->direction);
 	if (fabs(denom) > 1e-6)
-		return;
+		return ;
 	p0l0 = v3_subtract(cone->position, ray->origin);
 	dist = v3_dot(p0l0, cone->axis) / denom;
 	hit_point = v3_scale(ray->direction, dist);
-	return (dist <= cone->radius);
+	if (v3_get_magnitude(v3_subtract(hit_point, cone->position)) <= cone->radius
+		&& dist < *intersect_dist)
+		*intersect_dist = dist;
 }
 
 int	intersect_cone(t_ray *ray, t_cone *cone, float *intersect_dist)
