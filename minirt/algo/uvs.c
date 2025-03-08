@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 13:43:56 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/07 15:26:03 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/08 13:37:43 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static t_vector2	compute_sphere_uv(t_vector3 normal)
 	float	v;
 
 	u = 0.5 + atan2(normal.z, normal.x) / (2 * MRT_PI);
-	v = 0.5 - asin(normal.y) / MRT_PI;
+	v = 0.5 + asin(normal.y) / MRT_PI;
 	return ((t_vector2){u, v});
 }
 
@@ -59,7 +59,31 @@ static t_vector2	compute_cylinder_uv(t_vector3 position,
 	return ((t_vector2){u, v});
 }
 
-// cone
+static t_vector3	compute_cone_apex(t_cone *cone)
+{
+	return (v3_subtract(cone->position, v3_scale(cone->axis, cone->height)));
+}
+
+static t_vector2	compute_cone_uv(t_vector3 position, t_vector3 normal, t_vector3 apex, t_vector3 axis, float height)
+{
+	t_vector3	u_axis;
+	t_vector3	v_axis;
+	float		u;
+	float		v;
+	float		theta;
+	float		distance;
+
+	if (fabs(axis.y) > 0.9999)
+		u_axis = v3_cross((t_vector3){1, 0, 0}, axis);
+	else
+		u_axis = v3_cross((t_vector3){0, 1, 0}, axis);
+	v_axis = v3_cross(axis, u_axis);
+	theta = atan2(v3_dot(normal, v_axis), v3_dot(normal, u_axis));
+	u = (theta + MRT_PI) / (2 * MRT_PI);
+	distance = v3_get_magnitude(v3_subtract(position, apex));
+	v = distance / height - floor(distance / height);
+	return ((t_vector2){u, v});
+}
 
 t_vector2	compute_shape_uv(t_ray_hit_info *info)
 {
@@ -81,7 +105,10 @@ t_vector2	compute_shape_uv(t_ray_hit_info *info)
 			return (compute_cylinder_uv(info->position, info->normal,
 					cylinder->axis));
 	}
-	// else if (info->shape->type == CONE)
-	// 	return (compute_cone_uv(info->normal));
+	else if (info->shape->type == CONE)
+	{
+		// if not bottom
+		return (compute_cone_uv(info->position, info->normal, compute_cone_apex(&info->shape->data.cone), info->shape->data.cone.axis, info->shape->data.cone.height));
+	}
 	return ((t_vector2){-1, -1});
 }
