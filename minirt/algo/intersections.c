@@ -6,7 +6,7 @@
 /*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 13:51:10 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/10 09:42:22 by lpittet          ###   ########.fr       */
+/*   Updated: 2025/03/10 10:57:50 by lpittet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,6 @@ int	intersect_cylinder(t_ray *ray, t_cylinder *cylinder, float *intersect_dist)
 		return (0);
 	return (1);
 }
-
-
 
 int	intersect_cone(t_ray *ray, t_cone *cone, float *intersect_dist)
 {
