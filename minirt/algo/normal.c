@@ -6,7 +6,7 @@
 /*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 15:39:42 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/10 09:47:01 by lpittet          ###   ########.fr       */
+/*   Updated: 2025/03/10 09:59:32 by lpittet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ static int	check_inside(t_shape *shape, t_vector3 cam_pos)
 {
 	t_vector3	cam_proj;
 	float		dist_cam_axis;
-	float		local_radius;
 
 	if (shape->type == SPHERE)
 		return (v3_get_magnitude(v3_subtract(cam_pos,
@@ -98,7 +97,7 @@ static t_vector3 cone_normal(t_shape *shape, t_vector3 point)
 	axis_component = v3_scale(shape->data.cone.axis, 
 								v3_dot(point_to_apex, shape->data.cone.axis));
 	normal = v3_subtract(point_to_apex, axis_component);
-	return (v3_scale(v3_normalize(normal), -1));
+	return (v3_normalize(normal));
 }
 
 t_vector3	get_normal(t_shape *shape, t_vector3 point, t_ray *ray)

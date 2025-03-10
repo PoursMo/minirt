@@ -24,6 +24,8 @@ minirt/algo/phong.c \
 minirt/algo/bump.c \
 minirt/algo/lighting.c \
 minirt/algo/normal.c \
+minirt/algo/cone.c \
+minirt/algo/cylinder.c \
 minirt/debug.c \
 # remove
 
