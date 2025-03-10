@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   algo.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 13:51:34 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/06 14:53:53 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/10 09:47:40 by lpittet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ALGO_H
 # define ALGO_H
 
-void 		render_scene(t_mrt_data *data);
+void		render_scene(t_mrt_data *data);
 // uvs.c
 
 t_vector2	compute_shape_uv(t_ray_hit_info *info);
@@ -21,6 +21,21 @@ t_vector2	compute_shape_uv(t_ray_hit_info *info);
 // intersections.c
 
 int			intersect_shape(t_ray *ray, t_shape *shape, float *t);
+
+// cylinder.c
+
+void		check_for_cylinder_len(t_cylinder *cylinder, t_ray *ray, float t[2],
+				float *intersect_dist);
+void		check_for_caps(t_ray *ray, t_cylinder *cylinder,
+				float *intersect_dist);
+// cone.c
+
+void		check_for_cone_len(t_cone *cone, t_ray *ray, float t[2],
+				float *intersect_dist);
+void		check_for_cone_base(t_cone *cone, t_ray *ray,
+				float *intersect_dist);
+int			check_inside_cone(t_cone *cone, t_vector3 cam_proj,
+				float dist_cam_axis);
 
 // phong.c
 
@@ -36,10 +51,10 @@ t_color		compute_specular(t_light *light, t_ray *light_ray,
 
 // normal.c
 
-t_vector3 get_normal(t_shape *shape, t_vector3 point, t_ray *ray);
+t_vector3	get_normal(t_shape *shape, t_vector3 point, t_ray *ray);
 
 // bump.c
 
-t_vector3 perturb_normal(t_vector2 uvs, t_ray_hit_info *hit_info);
+t_vector3	perturb_normal(t_vector2 uvs, t_ray_hit_info *hit_info);
 
 #endif
