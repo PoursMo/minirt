@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 20:25:55 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/05 16:49:15 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/07 16:56:51 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	parse_img(char **line, t_img **img, void *mlx)
 
 	while (**line == ' ')
 		(*line)++;
-	if (*((*line) - 1) != ' ')
+	if (*((*line) - 1) != ' ' || **line == '\n' || !**line)
 		return (-1);
 	file = get_texture_file(line);
 	if (!ft_strncmp(file, "n", ft_strlen(file)))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   phong.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 22:00:26 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/07 11:29:02 by lpittet          ###   ########.fr       */
+/*   Updated: 2025/03/08 12:43:26 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,10 @@ t_color	apply_phong(t_scene *scene, t_ray_hit_info *hit_info)
 	if (hit_info->shape->bump_map || hit_info->shape->texture)
 		uvs = compute_shape_uv(hit_info);
 	point_color = hit_info->shape->color;
-	if (hit_info->shape->texture)
+	if (hit_info->shape->texture && uvs.x != -1 && uvs.y != -1)
 		point_color = color_add(point_color, sample_image(uvs, hit_info->shape->texture));
 	normal = hit_info->normal;
-	if (hit_info->shape->bump_map)
+	if (hit_info->shape->bump_map && uvs.x != -1 && uvs.y != -1)
 		normal = perturb_normal(uvs, hit_info);
 	return (compute_final_color(scene, hit_info, point_color, normal));
 }
