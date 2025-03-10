@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   blblblbl.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 12:47:14 by aloubry           #+#    #+#             */
 /*   Updated: 2025/03/10 09:57:49 by lpittet          ###   ########.fr       */
