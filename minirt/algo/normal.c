@@ -6,7 +6,7 @@
 /*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 15:39:42 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/11 10:06:21 by lpittet          ###   ########.fr       */
+/*   Updated: 2025/03/11 11:20:53 by lpittet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,7 @@ static int	check_inside(t_shape *shape, t_vector3 cam_pos)
 			< shape->data.cylinder.height);
 	}
 	if (shape->type == CONE)
-	{
-		return (check_inside_cone(&shape->data.cone, cam_proj, dist_cam_axis));
-	}
+		return (0);
 	return (0);
 }
 
