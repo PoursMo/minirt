@@ -6,7 +6,7 @@
 /*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 09:38:32 by lpittet           #+#    #+#             */
-/*   Updated: 2025/03/10 11:12:38 by lpittet          ###   ########.fr       */
+/*   Updated: 2025/03/11 10:02:12 by lpittet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,29 +37,29 @@ void	check_for_cylinder_len(t_cylinder *cylinder, t_ray *ray, float t[2],
 	}
 }
 
-void	check_for_caps(t_ray *ray, t_cylinder *cylinder, float *intersect_dist)
+void	check_for_caps(t_ray *ray, t_cylinder *cyl, float *intersect_dist)
 {
 	t_vector3	center2;
 	float		dot_normal;
 	float		t;
 	t_vector3	hit;
 
-	dot_normal = v3_dot(cylinder->axis, ray->direction);
+	dot_normal = v3_dot(cyl->axis, ray->direction);
 	if (fabs(dot_normal) < 1e-9)
 		return ;
-	center2 = v3_add(cylinder->position, v3_scale(cylinder->axis, cylinder->height));
-	t = v3_dot(v3_subtract(cylinder->position, ray->origin), cylinder->axis) / dot_normal;
+	center2 = v3_add(cyl->position, v3_scale(cyl->axis, cyl->height));
+	t = v3_dot(v3_subtract(cyl->position, ray->origin), cyl->axis) / dot_normal;
 	if (t > 0 && (*intersect_dist < 0 || t < *intersect_dist))
 	{
 		hit = v3_add(ray->origin, v3_scale(ray->direction, t));
-		if (v3_get_magnitude(v3_subtract(hit, cylinder->position)) < cylinder->radius)
+		if (v3_get_magnitude(v3_subtract(hit, cyl->position)) < cyl->radius)
 			*intersect_dist = t;
 	}
-	t = v3_dot(v3_subtract(center2, ray->origin), cylinder->axis) / dot_normal;
+	t = v3_dot(v3_subtract(center2, ray->origin), cyl->axis) / dot_normal;
 	if (t > 0 && (*intersect_dist < 0 || t < *intersect_dist))
 	{
 		hit = v3_add(ray->origin, v3_scale(ray->direction, t));
-		if (v3_get_magnitude(v3_subtract(hit, center2)) < cylinder->radius)
+		if (v3_get_magnitude(v3_subtract(hit, center2)) < cyl->radius)
 			*intersect_dist = t;
 	}
 }
