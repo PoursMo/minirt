@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_shape_getters.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 20:27:59 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/04 11:22:22 by lpittet          ###   ########.fr       */
+/*   Updated: 2025/03/11 12:56:25 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ int	parse_sphere(char *line, t_mrt_data *mrt_data)
 		|| parse_img(&line, &shape->texture, mrt_data->mlx) == -1
 		|| parse_img(&line, &shape->bump_map, mrt_data->mlx) == -1
 		|| !is_valid_tail(line))
-		return (misconfiguration_error("sphere: wrong parameters"), free_shape(shape, mrt_data->mlx), -1);
+		return (misconfiguration_error("sphere: wrong parameters"),
+			free_shape(shape, mrt_data->mlx), -1);
 	shape->data.sphere.radius = diameter / 2.0f;
 	return (add_shape_to_scene(shape, &mrt_data->scene));
 }
@@ -57,7 +58,8 @@ int	parse_plane(char *line, t_mrt_data *mrt_data)
 		|| parse_img(&line, &shape->texture, mrt_data->mlx) == -1
 		|| parse_img(&line, &shape->bump_map, mrt_data->mlx) == -1
 		|| !is_valid_tail(line))
-		return (misconfiguration_error("plane: wrong parameters"), free_shape(shape, mrt_data->mlx), -1);
+		return (misconfiguration_error("plane: wrong parameters"),
+			free_shape(shape, mrt_data->mlx), -1);
 	return (add_shape_to_scene(shape, &mrt_data->scene));
 }
 
@@ -73,12 +75,14 @@ int	parse_cylinder(char *line, t_mrt_data *mrt_data)
 	if (parse_vector3(&line, &shape->data.cylinder.position) == -1
 		|| parse_normalized_vector3(&line, &shape->data.cylinder.axis) == -1
 		|| parse_float(&line, &diameter, 0.0f, __FLT_MAX__) == -1
-		|| parse_float(&line, &shape->data.cylinder.height, 0.0f, __FLT_MAX__) == -1
+		|| parse_float(&line, &shape->data.cylinder.height, 0.0f, __FLT_MAX__)
+		== -1
 		|| parse_color(&line, &shape->color) == -1
 		|| parse_img(&line, &shape->texture, mrt_data->mlx) == -1
 		|| parse_img(&line, &shape->bump_map, mrt_data->mlx) == -1
 		|| !is_valid_tail(line))
-		return (misconfiguration_error("cylinder: wrong parameters"), free_shape(shape, mrt_data->mlx), -1);
+		return (misconfiguration_error("cylinder: wrong parameters"),
+			free_shape(shape, mrt_data->mlx), -1);
 	shape->data.cylinder.radius = diameter / 2.0f;
 	return (add_shape_to_scene(shape, &mrt_data->scene));
 }
@@ -100,8 +104,10 @@ int	parse_cone(char *line, t_mrt_data *mrt_data)
 		|| parse_img(&line, &shape->texture, mrt_data->mlx) == -1
 		|| parse_img(&line, &shape->bump_map, mrt_data->mlx) == -1
 		|| !is_valid_tail(line))
-		return (misconfiguration_error("cone: wrong parameters"), free_shape(shape, mrt_data->mlx), -1);
+		return (misconfiguration_error("cone: wrong parameters"),
+			free_shape(shape, mrt_data->mlx), -1);
 	shape->data.cone.radius = diameter / 2.0f;
-	shape->data.cone.angle = atan(shape->data.cone.radius / shape->data.cone.height);
+	shape->data.cone.angle = atan(shape->data.cone.radius
+			/ shape->data.cone.height);
 	return (add_shape_to_scene(shape, &mrt_data->scene));
 }

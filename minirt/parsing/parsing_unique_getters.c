@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 20:28:50 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/03 14:12:46 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/11 12:55:07 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@ int	parse_ambiant_lighting(char *line, t_scene *scene)
 	if (parse_float(&line, &scene->ambiant_light->ratio, 0.0f, 1.0f) == -1
 		|| parse_color(&line, &scene->ambiant_light->color) == -1
 		|| !is_valid_tail(line))
-		return (misconfiguration_error("ambiant lighting: wrong parameters"), -1);
-	scene->ambiant_light->scaled_color = color_scale(scene->ambiant_light->color, scene->ambiant_light->ratio);
+		return (misconfiguration_error("ambiant lighting: wrong parameters"),
+			-1);
+	scene->ambiant_light->scaled_color
+		= color_scale(scene->ambiant_light->color, scene->ambiant_light->ratio);
 	return (0);
 }
 

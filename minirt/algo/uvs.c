@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 13:43:56 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/08 13:37:43 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/11 12:09:35 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ static t_vector2	compute_cone_uv(t_vector3 position, t_vector3 normal, t_vector3
 t_vector2	compute_shape_uv(t_ray_hit_info *info)
 {
 	t_cylinder	*cylinder;
+	// t_cone		*cone;
 
 	if (info->shape->type == SPHERE)
 		return (compute_sphere_uv(info->normal));
@@ -107,6 +108,7 @@ t_vector2	compute_shape_uv(t_ray_hit_info *info)
 	}
 	else if (info->shape->type == CONE)
 	{
+		// cone = &info->shape->data.cone;
 		// if not bottom
 		return (compute_cone_uv(info->position, info->normal, compute_cone_apex(&info->shape->data.cone), info->shape->data.cone.axis, info->shape->data.cone.height));
 	}

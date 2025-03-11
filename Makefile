@@ -17,7 +17,8 @@ minirt/utils/utils2.c \
 minirt/utils/termination.c \
 minirt/utils/vectors.c \
 minirt/utils/vectors2.c \
-minirt/algo/blblblbl.c \
+minirt/algo/rendering.c \
+minirt/algo/tracing.c \
 minirt/algo/intersections.c \
 minirt/algo/uvs.c \
 minirt/algo/phong.c \
