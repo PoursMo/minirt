@@ -6,7 +6,7 @@
 /*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 15:39:42 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/10 11:02:33 by lpittet          ###   ########.fr       */
+/*   Updated: 2025/03/11 09:17:33 by lpittet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ static t_vector3 cone_normal(t_shape *shape, t_vector3 point)
 	apex = v3_add(shape->data.cone.position, 
 					v3_scale(shape->data.cone.axis, shape->data.cone.height));
 	point_to_apex = v3_subtract(apex, point);
+	if (v3_get_magnitude(v3_subtract(apex, point_to_apex)) < EPSILON)
+		return (shape->data.cone.axis);
 	axis_component = v3_scale(shape->data.cone.axis, 
 								v3_dot(point_to_apex, shape->data.cone.axis));
 	normal = v3_subtract(point_to_apex, axis_component);
