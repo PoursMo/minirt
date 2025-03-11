@@ -6,13 +6,13 @@
 /*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 13:51:10 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/10 10:57:50 by lpittet          ###   ########.fr       */
+/*   Updated: 2025/03/11 10:00:12 by lpittet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static int intersect_plane(t_ray *ray, t_plane *plane, float *intersect_dist)
+static int	intersect_plane(t_ray *ray, t_plane *plane, float *intersect_dist)
 {
 	float		denom;
 	t_vector3	p0l0;
@@ -27,7 +27,8 @@ static int intersect_plane(t_ray *ray, t_plane *plane, float *intersect_dist)
 	return (0);
 }
 
-static int intersect_sphere(t_ray *ray, t_sphere *sphere, float *intersect_dist)
+static int	intersect_sphere(t_ray *ray, t_sphere *sphere,
+	float *intersect_dist)
 {
 	float		discriminant;
 	float		ans1;
@@ -53,8 +54,6 @@ static int intersect_sphere(t_ray *ray, t_sphere *sphere, float *intersect_dist)
 	return (1);
 }
 
-
-
 int	intersect_cylinder(t_ray *ray, t_cylinder *cylinder, float *intersect_dist)
 {
 	float		quad[4];
@@ -62,9 +61,13 @@ int	intersect_cylinder(t_ray *ray, t_cylinder *cylinder, float *intersect_dist)
 	t_vector3	cam_obj;
 
 	cam_obj = v3_subtract(ray->origin, cylinder->position);
-	quad[0] = 1 - v3_dot(ray->direction, cylinder->axis) * v3_dot(ray->direction, cylinder->axis);
-	quad[1] = 2 * (v3_dot(ray->direction, cam_obj) - v3_dot(ray->direction, cylinder->axis) * v3_dot(cam_obj, cylinder->axis));
-	quad[2] = v3_dot(cam_obj, cam_obj) - v3_dot(cam_obj, cylinder->axis) * v3_dot(cam_obj, cylinder->axis) - cylinder->radius * cylinder->radius;
+	quad[0] = 1 - v3_dot(ray->direction, cylinder->axis)
+		* v3_dot(ray->direction, cylinder->axis);
+	quad[1] = 2 * (v3_dot(ray->direction, cam_obj)
+			- v3_dot(ray->direction, cylinder->axis)
+			* v3_dot(cam_obj, cylinder->axis));
+	quad[2] = v3_dot(cam_obj, cam_obj) - v3_dot(cam_obj, cylinder->axis)
+		* v3_dot(cam_obj, cylinder->axis) - cylinder->radius * cylinder->radius;
 	quad[3] = quad[1] * quad[1] - 4 * quad[0] * quad[2];
 	if (quad[3] < 0)
 		return (0);
@@ -82,11 +85,13 @@ int	intersect_cone(t_ray *ray, t_cone *cone, float *intersect_dist)
 	float		quad[4];
 	float		t[2];
 	t_vector3	cam_obj;
-	
+
 	cam_obj = v3_subtract(ray->origin, cone->position);
-	quad[0] = pow(v3_dot(ray->direction, cone->axis),2) - pow(cos(cone->angle), 2);
-	quad[1] = 2 * ((v3_dot(ray->direction, cone->axis)) * v3_dot(cam_obj, cone->axis)
-		- v3_dot(ray->direction, cam_obj) * pow(cos(cone->angle), 2));
+	quad[0] = pow(v3_dot(ray->direction, cone->axis), 2)
+		- pow(cos(cone->angle), 2);
+	quad[1] = 2 * ((v3_dot(ray->direction, cone->axis))
+			* v3_dot(cam_obj, cone->axis)
+			- v3_dot(ray->direction, cam_obj) * pow(cos(cone->angle), 2));
 	quad[2] = pow(v3_dot(cam_obj, cone->axis), 2)
 		- pow(v3_get_magnitude(cam_obj), 2) * pow(cos(cone->angle), 2);
 	quad[3] = quad[1] * quad[1] - 4 * quad[0] * quad[2];

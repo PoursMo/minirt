@@ -6,7 +6,7 @@
 /*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 09:41:45 by lpittet           #+#    #+#             */
-/*   Updated: 2025/03/10 10:02:22 by lpittet          ###   ########.fr       */
+/*   Updated: 2025/03/11 10:03:18 by lpittet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	check_for_cone_base(t_cone *cone, t_ray *ray, float *intersect_dist)
 	float		dist;
 	float		denom;
 	t_vector3	p0l0;
-	
+
 	denom = v3_dot(cone->axis, ray->direction);
 	if (fabs(denom) < 1e-6)
 		return ;
@@ -57,14 +57,14 @@ void	check_for_cone_base(t_cone *cone, t_ray *ray, float *intersect_dist)
 		*intersect_dist = dist;
 }
 
-int check_inside_cone(t_cone *cone, t_vector3 cam_proj, float dist_cam_axis)
+int	check_inside_cone(t_cone *cone, t_vector3 cam_proj, float dist_cam_axis)
 {
 	float		local_radius;
 
-	local_radius = tan(cone->angle) * (cone->height -
-			v3_get_magnitude(v3_subtract(cam_proj, cone->position)));
+	local_radius = tan(cone->angle) * (cone->height
+			- v3_get_magnitude(v3_subtract(cam_proj, cone->position)));
 	if (dist_cam_axis >= local_radius)
 		return (0);
 	return (v3_get_magnitude(v3_subtract(cam_proj,
-		cone->position)) < cone->height);
+				cone->position)) < cone->height);
 }
