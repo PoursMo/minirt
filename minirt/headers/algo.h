@@ -3,17 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   algo.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 13:51:34 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/10 09:47:40 by lpittet          ###   ########.fr       */
+/*   Updated: 2025/03/11 12:49:50 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ALGO_H
 # define ALGO_H
 
+// rendering.c
+
 void		render_scene(t_mrt_data *data);
+
+// tracing.c
+
+t_ray		get_ray(int x, int y, t_precomputed_camera *precomputed);
+t_color		trace_ray(t_ray *ray, t_scene *scene);
+
 // uvs.c
 
 t_vector2	compute_shape_uv(t_ray_hit_info *info);

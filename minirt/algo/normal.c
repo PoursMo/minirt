@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   normal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 15:39:42 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/11 10:06:21 by lpittet          ###   ########.fr       */
+/*   Updated: 2025/03/11 12:50:33 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ t_vector3	get_normal(t_shape *shape, t_vector3 point, t_ray *ray)
 	if (shape->type == SPHERE)
 		normal = v3_normalize(v3_subtract(point, shape->data.sphere.position));
 	else if (shape->type == PLANE)
-	{	
+	{
 		normal = shape->data.plane.normal;
 		if (v3_dot(normal, ray->direction) > 0)
 			normal = v3_scale(normal, -1);
