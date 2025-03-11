@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 20:25:55 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/07 16:56:51 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/11 12:56:34 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ static char	*get_texture_file(char **line)
 	char	*file;
 
 	size = 0;
-	while (*((*line) + size) != ' ' && *((*line) + size) != '\n' && *((*line) + size))
+	while (*((*line) + size) != ' ' && *((*line) + size) != '\n'
+		&& *((*line) + size))
 		size++;
 	file = malloc(sizeof(char) * (size + 1));
 	if (!file)
