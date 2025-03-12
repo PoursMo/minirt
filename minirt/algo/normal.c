@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   normal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 15:39:42 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/11 12:50:33 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/12 09:55:01 by lpittet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,7 @@ static int	check_inside(t_shape *shape, t_vector3 cam_pos)
 			< shape->data.cylinder.height);
 	}
 	if (shape->type == CONE)
-	{
-		return (check_inside_cone(&shape->data.cone, cam_proj, dist_cam_axis));
-	}
+		return (0);
 	return (0);
 }
 
@@ -66,12 +64,12 @@ static t_vector3	cylinder_normal(t_shape *shape, t_vector3 point)
 	t_vector3	normal;
 
 	if (v3_get_magnitude(v3_subtract(shape->data.cylinder.position, point))
-		< shape->data.cylinder.radius)
+		< shape->data.cylinder.radius - EPSILON)
 		return (v3_scale(shape->data.cylinder.axis, -1));
 	if (v3_get_magnitude(v3_subtract(v3_add(shape->data.cylinder.position,
 					v3_scale(shape->data.cylinder.axis,
 						shape->data.cylinder.height)), point))
-		< shape->data.cylinder.radius)
+		< shape->data.cylinder.radius - EPSILON)
 		return (shape->data.cylinder.axis);
 	plane_hit_axis = v3_cross(shape->data.cylinder.axis,
 			v3_subtract(point, shape->data.cylinder.position));
