@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 13:43:56 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/11 12:09:35 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/11 14:21:52 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ static t_vector2	compute_cone_uv(t_vector3 position, t_vector3 normal, t_vector3
 t_vector2	compute_shape_uv(t_ray_hit_info *info)
 {
 	t_cylinder	*cylinder;
-	// t_cone		*cone;
+	t_cone		*cone;
 
 	if (info->shape->type == SPHERE)
 		return (compute_sphere_uv(info->normal));
@@ -97,20 +97,18 @@ t_vector2	compute_shape_uv(t_ray_hit_info *info)
 	else if (info->shape->type == CYLINDER)
 	{
 		cylinder = &info->shape->data.cylinder;
-		if (!(v3_get_magnitude(v3_subtract(cylinder->position,
-						info->position)) < cylinder->radius)
-			&& !(v3_get_magnitude(v3_subtract(v3_add(cylinder->position,
-							v3_scale(cylinder->axis, cylinder->height)),
-						info->position))
-				< cylinder->radius))
-			return (compute_cylinder_uv(info->position, info->normal,
-					cylinder->axis));
+		if (fabsf(v3_dot(info->normal, cylinder->axis)) > 0.9999)
+			return (compute_plane_uv(info->position, info->normal));
+		return (compute_cylinder_uv(info->position,
+				info->normal, cylinder->axis));
 	}
 	else if (info->shape->type == CONE)
 	{
-		// cone = &info->shape->data.cone;
-		// if not bottom
-		return (compute_cone_uv(info->position, info->normal, compute_cone_apex(&info->shape->data.cone), info->shape->data.cone.axis, info->shape->data.cone.height));
+		cone = &info->shape->data.cone;
+		if (v3_dot(info->normal, cone->axis) > 0.9999)
+			return (compute_plane_uv(info->position, info->normal));
+		return (compute_cone_uv(info->position, info->normal,
+				compute_cone_apex(cone), cone->axis, cone->height));
 	}
 	return ((t_vector2){-1, -1});
 }
