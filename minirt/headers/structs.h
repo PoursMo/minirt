@@ -6,7 +6,7 @@
 /*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 11:49:41 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/04 11:21:34 by lpittet          ###   ########.fr       */
+/*   Updated: 2025/03/13 11:42:14 by lpittet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,14 @@ typedef struct s_light
 	t_color		scaled_color;
 }	t_light;
 
+typedef enum e_hit_pos
+{
+	NONE,
+	TOP,
+	BODY,
+	BASE
+}	t_hit_pos;
+
 typedef struct s_sphere
 {
 	t_vector3	position;
@@ -73,6 +81,7 @@ typedef struct s_cylinder
 	t_vector3	axis;
 	float		radius;
 	float		height;
+	t_hit_pos	hit_pos;
 }	t_cylinder;
 
 typedef struct s_cone
@@ -82,6 +91,7 @@ typedef struct s_cone
 	float		radius;
 	float		height;
 	float		angle;
+	t_hit_pos	hit_pos;
 }	t_cone;
 
 typedef enum e_shape_type

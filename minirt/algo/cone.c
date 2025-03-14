@@ -6,7 +6,7 @@
 /*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 09:41:45 by lpittet           #+#    #+#             */
-/*   Updated: 2025/03/11 11:13:05 by lpittet          ###   ########.fr       */
+/*   Updated: 2025/03/14 09:17:48 by lpittet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,22 @@ void	check_for_cone_base(t_cone *cone, t_ray *ray, float *intersect_dist)
 	float		dist;
 	float		denom;
 	t_vector3	p0l0;
+	t_vector3	base_hit;
 
 	denom = v3_dot(cone->axis, ray->direction);
 	if (fabs(denom) < EPSILON)
 		return ;
 	p0l0 = v3_subtract(cone->position, ray->origin);
 	dist = v3_dot(p0l0, cone->axis) / denom;
+	if (dist < 0 || dist > *intersect_dist)
+		return ;
 	hit_point = v3_add(ray->origin, v3_scale(ray->direction, dist));
-	if (v3_get_magnitude(v3_subtract(hit_point, cone->position)) <= cone->radius
-		&& dist > 0 && dist < *intersect_dist)
+	base_hit = v3_subtract(hit_point, cone->position);
+	if (v3_dot(base_hit, base_hit) < cone->radius * cone->radius)
+	{
 		*intersect_dist = dist;
+		cone->hit_pos = BASE;
+	}
 }
 
 int	check_inside_cone(t_cone *cone, t_vector3 cam_proj, float dist_cam_axis)

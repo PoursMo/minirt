@@ -6,7 +6,7 @@
 /*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 09:38:32 by lpittet           #+#    #+#             */
-/*   Updated: 2025/03/11 10:02:12 by lpittet          ###   ########.fr       */
+/*   Updated: 2025/03/13 11:46:03 by lpittet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	check_for_cylinder_len(t_cylinder *cylinder, t_ray *ray, float t[2],
 				*intersect_dist = t[1];
 		}
 	}
+	if (intersect_dist)
+		cylinder->hit_pos = BODY;
 }
 
 void	check_for_caps(t_ray *ray, t_cylinder *cyl, float *intersect_dist)
