@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 16:06:51 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/14 13:56:27 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/14 14:03:07 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ int	parse_file(char *file, t_mrt_data *mrt_data)
 				return (free(line), close(fd), -1);
 		free(line);
 	}
-	print_scene(&mrt_data->scene);
 	close(fd);
 	return (check_scene(&mrt_data->scene));
 }

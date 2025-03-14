@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 16:18:48 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/14 13:56:39 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/14 14:02:39 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int		is_valid_tail(char *line);
 
 void	misconfiguration_error(char *error);
 int		check_scene(t_scene *scene);
+int		add_shape_to_scene(t_shape *shape, t_scene *scene);
 
 // parsing_shape_getters.c
 

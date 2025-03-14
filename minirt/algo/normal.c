@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 15:39:42 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/14 14:00:40 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/14 14:05:46 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,8 @@ t_vector3	get_normal(t_shape *shape, t_vector3 point, t_ray *ray)
 		normal = cylinder_normal(shape, point);
 	else if (shape->type == CONE)
 		normal = cone_normal(shape, point);
-	else if (shape->type == CUBE)
-		normal = cube_normal(shape, point);
+	// else if (shape->type == CUBE)
+	// 	normal = cube_normal(shape, point);
 	if (v3_dot(normal, ray->direction) > 0)
 		normal = v3_scale(normal, -1);
 	return (normal);

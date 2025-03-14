@@ -6,22 +6,11 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 20:27:59 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/14 13:56:05 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/14 14:04:49 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-static int	add_shape_to_scene(t_shape *shape, t_scene *scene)
-{
-	t_list	*shape_list;
-
-	shape_list = ft_lstnew(shape);
-	if (!shape_list)
-		return (perror("add_shape_to_scene"), free(shape), -1);
-	ft_lstadd_back(&scene->shapes, shape_list);
-	return (0);
-}
 
 int	parse_sphere(char *line, t_mrt_data *mrt_data)
 {
@@ -101,8 +90,6 @@ int	parse_cone(char *line, t_mrt_data *mrt_data)
 		|| parse_float(&line, &diameter, 0.0f, __FLT_MAX__) == -1
 		|| parse_float(&line, &shape->data.cone.height, 0.0f, __FLT_MAX__) == -1
 		|| parse_color(&line, &shape->color) == -1
-		|| parse_img(&line, &shape->texture, mrt_data->mlx) == -1
-		|| parse_img(&line, &shape->bump_map, mrt_data->mlx) == -1
 		|| !is_valid_tail(line))
 		return (misconfiguration_error("cone: wrong parameters"),
 			free_shape(shape, mrt_data->mlx), -1);

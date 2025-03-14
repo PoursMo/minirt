@@ -6,7 +6,6 @@ l 8,-10,-20 0.8 100,100,255
 
 cy -2,0.5,0 0,-1,0 1 1 100,100,100 images/textures/checker1.xpm n
 cy 0,0,0.5 0,0,-1 1 1 100,100,100 images/textures/checker1.xpm n
-co 2,0.5,0 0,-1,0 1 1 100,100,100 images/textures/checker1.xpm n
 sp -1,0,0 1 100,100,100 images/textures/checker1.xpm n
 sp 1,0,0 1 100,100,100 images/textures/checker1.xpm n
 pl 0,0,10 0,0,1 50,100,50 images/textures/checker1.xpm n

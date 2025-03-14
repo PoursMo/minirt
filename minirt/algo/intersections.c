@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 13:51:10 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/14 14:00:23 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/14 14:05:50 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ int	intersect_shape(t_ray *ray, t_shape *shape, float *t)
 		return (intersect_cylinder(ray, &shape->data.cylinder, t));
 	else if (shape->type == CONE)
 		return (intersect_cone(ray, &shape->data.cone, t));
-	else if (shape->type == CUBE)
-		return (intersect_cube(ray, &shape->data.cone, t));
+	// else if (shape->type == CUBE)
+	// 	return (intersect_cube(ray, &shape->data.cone, t));
 	return (0);
 }

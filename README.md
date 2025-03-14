@@ -48,5 +48,11 @@
 - diameter: `ℝ+`
 - height: `ℝ+`
 - RGB color: `[0,255]`,`[0,255]`,`[0,255]`
+## Cube
+- identifier: `cu`
+- 3D position vector: `ℝ`,`ℝ`,`ℝ`
+- 3D axis vector: `[-1.0,1.0]`,`[-1.0,1.0]`,`[-1.0,1.0]`
+- size: `ℝ+`
+- RGB color: `[0,255]`,`[0,255]`,`[0,255]`
 - texture file: `%.xpm` or `n`
 - bump map texture file: `%.xpm` or `n`
