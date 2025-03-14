@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 16:06:51 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/03 15:34:08 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/14 13:56:27 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ static int	parse_line(char *line, t_mrt_data *mrt_data)
 		return (parse_cylinder(line + 2, mrt_data));
 	else if (!ft_strncmp("co ", line, 3))
 		return (parse_cone(line + 2, mrt_data));
+	else if (!ft_strncmp("cu ", line, 3))
+		return (parse_cube(line + 2, mrt_data));
 	else
 		return (misconfiguration_error("unkown type identifier"), -1);
 }

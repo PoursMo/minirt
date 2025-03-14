@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 15:39:42 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/14 13:07:10 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/14 14:00:40 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,31 +31,6 @@ t_vector3	proj_on_axis(t_shape *shape, t_vector3 point)
 		pos_point = v3_subtract(point, position);
 	}
 	return (v3_add(position, v3_scale(axis, v3_dot(pos_point, axis))));
-}
-
-static int	check_inside(t_shape *shape, t_vector3 cam_pos)
-{
-	t_vector3	cam_proj;
-	float		dist_cam_axis;
-
-	if (shape->type == SPHERE)
-		return (v3_get_magnitude(v3_subtract(cam_pos,
-					shape->data.sphere.position)) < shape->data.sphere.radius);
-	if (shape->type == PLANE)
-		return (0);
-	cam_proj = proj_on_axis(shape, cam_pos);
-	dist_cam_axis = v3_get_magnitude(v3_subtract(cam_pos, cam_proj));
-	if (shape->type == CYLINDER)
-	{
-		if (dist_cam_axis >= shape->data.cylinder.radius)
-			return (0);
-		return (v3_get_magnitude(v3_subtract(cam_proj,
-					shape->data.cylinder.position))
-			< shape->data.cylinder.height);
-	}
-	if (shape->type == CONE)
-		return (0);
-	return (0);
 }
 
 static t_vector3	cylinder_normal(t_shape *shape, t_vector3 point)
@@ -107,18 +82,14 @@ t_vector3	get_normal(t_shape *shape, t_vector3 point, t_ray *ray)
 	if (shape->type == SPHERE)
 		normal = v3_normalize(v3_subtract(point, shape->data.sphere.position));
 	else if (shape->type == PLANE)
-	{
 		normal = shape->data.plane.normal;
-		if (v3_dot(normal, ray->direction) > 0)
-			normal = v3_scale(normal, -1);
-	}
 	else if (shape->type == CYLINDER)
 		normal = cylinder_normal(shape, point);
 	else if (shape->type == CONE)
-	{
 		normal = cone_normal(shape, point);
-	}
-	if (check_inside(shape, ray->origin))
+	else if (shape->type == CUBE)
+		normal = cube_normal(shape, point);
+	if (v3_dot(normal, ray->direction) > 0)
 		normal = v3_scale(normal, -1);
 	return (normal);
 }

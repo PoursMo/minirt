@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/01 13:43:56 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/11 14:21:52 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/14 14:01:25 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ t_vector2	compute_shape_uv(t_ray_hit_info *info)
 
 	if (info->shape->type == SPHERE)
 		return (compute_sphere_uv(info->normal));
-	else if (info->shape->type == PLANE)
+	else if (info->shape->type == PLANE || info->shape->type == CUBE)
 		return (compute_plane_uv(info->position, info->normal));
 	else if (info->shape->type == CYLINDER)
 	{

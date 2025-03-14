@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 11:49:41 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/04 11:21:34 by lpittet          ###   ########.fr       */
+/*   Updated: 2025/03/14 13:54:33 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,20 @@ typedef struct s_cone
 	float		angle;
 }	t_cone;
 
+typedef struct s_cube
+{
+	t_vector3	position;
+	t_vector3	axis;
+	float		size;
+}	t_cube;
+
 typedef enum e_shape_type
 {
 	SPHERE,
 	PLANE,
 	CYLINDER,
-	CONE
+	CONE,
+	CUBE
 }	t_shape_type;
 
 typedef union u_shape_data
@@ -98,6 +106,7 @@ typedef union u_shape_data
 	t_plane		plane;
 	t_cylinder	cylinder;
 	t_cone		cone;
+	t_cube		cube;
 }	t_shape_data;
 
 typedef struct s_shape

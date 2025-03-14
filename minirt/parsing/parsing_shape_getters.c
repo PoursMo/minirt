@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 20:27:59 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/11 12:56:25 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/14 13:56:05 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,5 +109,25 @@ int	parse_cone(char *line, t_mrt_data *mrt_data)
 	shape->data.cone.radius = diameter / 2.0f;
 	shape->data.cone.angle = atan(shape->data.cone.radius
 			/ shape->data.cone.height);
+	return (add_shape_to_scene(shape, &mrt_data->scene));
+}
+
+int	parse_cube(char *line, t_mrt_data *mrt_data)
+{
+	t_shape	*shape;
+
+	shape = ft_calloc(1, sizeof(t_shape));
+	if (!shape)
+		return (perror("parse_cube"), -1);
+	shape->type = CUBE;
+	if (parse_vector3(&line, &shape->data.cube.position) == -1
+		|| parse_normalized_vector3(&line, &shape->data.cube.axis) == -1
+		|| parse_float(&line, &shape->data.cube.size, 0.0f, __FLT_MAX__) == -1
+		|| parse_color(&line, &shape->color) == -1
+		|| parse_img(&line, &shape->texture, mrt_data->mlx) == -1
+		|| parse_img(&line, &shape->bump_map, mrt_data->mlx) == -1
+		|| !is_valid_tail(line))
+		return (misconfiguration_error("cube: wrong parameters"),
+			free_shape(shape, mrt_data->mlx), -1);
 	return (add_shape_to_scene(shape, &mrt_data->scene));
 }
