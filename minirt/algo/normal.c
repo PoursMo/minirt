@@ -6,32 +6,11 @@
 /*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 15:39:42 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/15 13:15:05 by lpittet          ###   ########.fr       */
+/*   Updated: 2025/03/15 13:21:53 by lpittet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-t_vector3	proj_on_axis(t_shape *shape, t_vector3 point)
-{
-	t_vector3	pos_point;
-	t_vector3	position;
-	t_vector3	axis;
-
-	if (shape->type == CYLINDER)
-	{
-		position = shape->data.cylinder.position;
-		axis = shape->data.cylinder.axis;
-		pos_point = v3_subtract(point, position);
-	}
-	if (shape->type == CONE)
-	{
-		position = shape->data.cone.position;
-		axis = shape->data.cone.axis;
-		pos_point = v3_subtract(point, position);
-	}
-	return (v3_add(position, v3_scale(axis, v3_dot(pos_point, axis))));
-}
 
 static t_vector3	cylinder_normal(t_shape *shape, t_vector3 point)
 {
