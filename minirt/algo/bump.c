@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 14:51:30 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/06 15:23:08 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/15 14:16:18 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ static float	get_grayscale(t_color c)
 	return ((red + green + blue) / 3);
 }
 
-// precompute deltau deltav ?
 static float	compute_values(t_vector2 uvs, t_img *bump_map,
 	float *dhdu, float *dhdv)
 {
