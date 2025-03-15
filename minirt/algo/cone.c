@@ -6,7 +6,7 @@
 /*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 09:41:45 by lpittet           #+#    #+#             */
-/*   Updated: 2025/03/15 13:44:11 by lpittet          ###   ########.fr       */
+/*   Updated: 2025/03/15 13:46:46 by lpittet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	check_for_cone_len(t_cone *cone, t_ray *ray, float t[2],
 		}
 	}
 }
-
 
 int	check_inside_cone(t_cone *cone, t_vector3 cam_proj, float dist_cam_axis)
 {
