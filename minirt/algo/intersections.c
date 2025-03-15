@@ -6,7 +6,7 @@
 /*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 13:51:10 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/15 13:16:05 by lpittet          ###   ########.fr       */
+/*   Updated: 2025/03/15 13:44:19 by lpittet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@ int	intersect_cone(t_ray *ray, t_cone *cone, float *intersect_dist)
 	t[0] = (-quad[1] - sqrt(quad[3])) / (2 * quad[0]);
 	t[1] = (-quad[1] + sqrt(quad[3])) / (2 * quad[0]);
 	check_for_cone_len(cone, ray, t, intersect_dist);
-	check_for_cone_base(cone, ray, intersect_dist);
 	if (*intersect_dist < 0)
 		return (0);
 	return (1);

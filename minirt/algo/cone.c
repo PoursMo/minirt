@@ -6,7 +6,7 @@
 /*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 09:41:45 by lpittet           #+#    #+#             */
-/*   Updated: 2025/03/11 11:13:05 by lpittet          ###   ########.fr       */
+/*   Updated: 2025/03/15 13:44:11 by lpittet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,23 +39,6 @@ void	check_for_cone_len(t_cone *cone, t_ray *ray, float t[2],
 	}
 }
 
-void	check_for_cone_base(t_cone *cone, t_ray *ray, float *intersect_dist)
-{
-	t_vector3	hit_point;
-	float		dist;
-	float		denom;
-	t_vector3	p0l0;
-
-	denom = v3_dot(cone->axis, ray->direction);
-	if (fabs(denom) < EPSILON)
-		return ;
-	p0l0 = v3_subtract(cone->position, ray->origin);
-	dist = v3_dot(p0l0, cone->axis) / denom;
-	hit_point = v3_add(ray->origin, v3_scale(ray->direction, dist));
-	if (v3_get_magnitude(v3_subtract(hit_point, cone->position)) <= cone->radius
-		&& dist > 0 && dist < *intersect_dist)
-		*intersect_dist = dist;
-}
 
 int	check_inside_cone(t_cone *cone, t_vector3 cam_proj, float dist_cam_axis)
 {
