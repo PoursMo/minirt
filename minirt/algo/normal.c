@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   normal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 15:39:42 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/14 14:05:46 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/15 13:15:05 by lpittet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,28 @@ static t_vector3	cone_normal(t_shape *shape, t_vector3 point)
 	return (v3_normalize(normal));
 }
 
+t_vector3	cube_normal(t_shape *shape, t_vector3 point)
+{
+	t_vector3	normals[6];
+	t_vector3	point_to_center;
+	t_vector3	center;
+	int			i;
+	t_cube		*cube;
+
+	i = 0;
+	cube = &shape->data.cube;
+	get_normals(cube, normals);
+	while (i < 6)
+	{
+		center = v3_add(cube->position, v3_scale(normals[i], cube->size / 2));
+		point_to_center = v3_subtract(point, center);
+		if (fabs(v3_dot(point_to_center, normals[i])) < EPSILON)
+			return (normals[i]);
+		i++;
+	}
+	return ((t_vector3){0, 0, 0});
+}
+
 t_vector3	get_normal(t_shape *shape, t_vector3 point, t_ray *ray)
 {
 	t_vector3	normal;
@@ -87,8 +109,8 @@ t_vector3	get_normal(t_shape *shape, t_vector3 point, t_ray *ray)
 		normal = cylinder_normal(shape, point);
 	else if (shape->type == CONE)
 		normal = cone_normal(shape, point);
-	// else if (shape->type == CUBE)
-	// 	normal = cube_normal(shape, point);
+	else if (shape->type == CUBE)
+		normal = cube_normal(shape, point);
 	if (v3_dot(normal, ray->direction) > 0)
 		normal = v3_scale(normal, -1);
 	return (normal);

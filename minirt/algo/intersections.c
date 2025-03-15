@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   intersections.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 13:51:10 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/14 14:05:50 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/15 13:16:05 by lpittet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static int	intersect_plane(t_ray *ray, t_plane *plane, float *intersect_dist)
+int	intersect_plane(t_ray *ray, t_plane *plane, float *intersect_dist)
 {
 	float		denom;
 	t_vector3	p0l0;
@@ -27,8 +27,7 @@ static int	intersect_plane(t_ray *ray, t_plane *plane, float *intersect_dist)
 	return (0);
 }
 
-static int	intersect_sphere(t_ray *ray, t_sphere *sphere,
-	float *intersect_dist)
+int	intersect_sphere(t_ray *ray, t_sphere *sphere, float *intersect_dist)
 {
 	float		discriminant;
 	float		ans1;
@@ -106,17 +105,21 @@ int	intersect_cone(t_ray *ray, t_cone *cone, float *intersect_dist)
 	return (1);
 }
 
-int	intersect_shape(t_ray *ray, t_shape *shape, float *t)
+int	intersect_cube(t_ray *ray, t_cube *cube, float *intersect_dist)
 {
-	if (shape->type == SPHERE)
-		return (intersect_sphere(ray, &shape->data.sphere, t));
-	else if (shape->type == PLANE)
-		return (intersect_plane(ray, &shape->data.plane, t));
-	else if (shape->type == CYLINDER)
-		return (intersect_cylinder(ray, &shape->data.cylinder, t));
-	else if (shape->type == CONE)
-		return (intersect_cone(ray, &shape->data.cone, t));
-	// else if (shape->type == CUBE)
-	// 	return (intersect_cube(ray, &shape->data.cone, t));
+	t_vector3	centers[6];
+	t_vector3	normals[6];
+	int			i;
+
+	get_normals(cube, normals);
+	get_centers(cube, centers, normals);
+	i = 0;
+	while (i < 6)
+	{
+		check_side(ray, centers[i], cube, intersect_dist);
+		i++;
+	}
+	if (*intersect_dist > 0)
+		return (1);
 	return (0);
 }
