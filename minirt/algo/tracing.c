@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tracing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 12:04:55 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/11 12:48:38 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/15 13:15:13 by lpittet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,4 +90,19 @@ t_color	trace_ray(t_ray *ray, t_scene *scene)
 		color = apply_phong(scene, &hit_info);
 	}
 	return (color);
+}
+
+int	intersect_shape(t_ray *ray, t_shape *shape, float *t)
+{
+	if (shape->type == SPHERE)
+		return (intersect_sphere(ray, &shape->data.sphere, t));
+	else if (shape->type == PLANE)
+		return (intersect_plane(ray, &shape->data.plane, t));
+	else if (shape->type == CYLINDER)
+		return (intersect_cylinder(ray, &shape->data.cylinder, t));
+	else if (shape->type == CONE)
+		return (intersect_cone(ray, &shape->data.cone, t));
+	else if (shape->type == CUBE)
+		return (intersect_cube(ray, &shape->data.cube, t));
+	return (0);
 }
