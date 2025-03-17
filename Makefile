@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -Ilibft -Iminilibx-linux -Iminirt/headers -g # remove -g
+CFLAGS = -Wall -Wextra -Werror -Ilibft -Iminilibx-linux -Iminirt/headers -pthread -O3
 LFLAGS = -Llibft -lft -Lminilibx-linux -lmlx_Linux -lXext -lX11 -lm
 NAME = miniRT
 SRCSDIR = srcs/

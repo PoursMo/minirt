@@ -26,28 +26,81 @@ static t_precomputed_camera	precompute_camera(t_camera *camera, t_img *img)
 	return (result);
 }
 
-// fills img using rays
-static void	fill_img(t_img *img, t_scene *scene)
-{
-	t_precomputed_camera	precomputed;
-	t_ray					ray;
-	t_color					color;
-	int						x;
-	int						y;
+#define NB_THREADS 20
+#include <pthread.h>
 
-	precomputed = precompute_camera(scene->camera, img);
-	y = 0;
-	while (y < img->height)
+typedef struct s_thread_data
+{
+	int y_start;
+	int y_stop;
+	t_img *img;
+	t_scene *scene;
+	t_precomputed_camera *precomputed;
+} t_thread_data;
+
+void *t(void *thread_data)
+{
+	int y;
+	int x;
+	t_ray ray;
+	t_color color;
+	t_thread_data *data;
+
+	data = (t_thread_data*)thread_data;
+	y = data->y_start;
+	while (y < data->y_stop)
 	{
 		x = 0;
-		while (x < img->width)
+		while (x < data->img->width)
 		{
-			ray = get_ray(x, y, &precomputed);
-			color = trace_ray(&ray, scene);
-			place_pixel_in_mlx_img(img, x, y, color);
+			ray = get_ray(x, y, data->precomputed);
+			color = trace_ray(&ray, data->scene);
+			place_pixel_in_mlx_img(data->img, x, y, color);
 			x++;
 		}
 		y++;
+	}
+	return (NULL);
+}
+
+// fills img using rays
+static void	fill_img(t_img *img, t_scene *scene)
+{
+	t_precomputed_camera precomputed = precompute_camera(scene->camera, img);
+	int y_step = img->height / NB_THREADS;
+	int leftover = img->height % NB_THREADS;
+	pthread_t *threads = malloc(sizeof(pthread_t) * NB_THREADS);
+	t_thread_data *datas = malloc(sizeof(t_thread_data) * NB_THREADS);
+	int i = 0;
+	while(i < NB_THREADS)
+	{
+		datas[i].y_stop = datas[i - 1].y_stop + y_step;
+		if (leftover)
+		{
+			datas[i].y_stop++;
+			leftover--;
+		}
+		if (i == 0)
+			datas[i].y_start = 0;
+		else
+			datas[i].y_start = datas[i - 1].y_stop;
+		datas[i].img = img;
+		datas[i].scene = scene;
+		datas[i].precomputed = &precomputed;
+		printf("Thread %d: y_start = %d, y_stop = %d\n", i, datas[i].y_start, datas[i].y_stop);
+		i++;
+	}
+	i = 0;
+	while (i < NB_THREADS)
+	{
+		pthread_create(&threads[i], NULL, t, (void*)&datas[i]);
+		i++;
+	}
+	i = 0;
+	while (i < NB_THREADS)
+	{
+		pthread_join(threads[i], NULL);
+		i++;
 	}
 }
 
