@@ -20,9 +20,6 @@
 # include <string.h>
 # include <math.h>
 
-#include <pthread.h>
-#define NB_THREADS 20
-
 # include "mlx.h"
 # include "mlx_int.h"
 # include "libft.h"
@@ -39,10 +36,7 @@
 # define SHININESS 32
 # define EPSILON 1e-3
 
-// ** debug.c **
-t_color map_v3_to_color(t_vector3 v);
-void print_scene(t_scene *scene);
-void print_vector3(t_vector3 v);
-// *************
+# include <pthread.h>
+# define NB_THREADS 20
 
 #endif

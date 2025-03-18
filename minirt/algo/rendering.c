@@ -12,7 +12,21 @@
 
 #include "minirt.h"
 
-static void	*routine(void *thread_data)
+static t_precomputed_camera	precompute_camera(t_camera *camera, t_img *img)
+{
+	t_precomputed_camera	result;
+
+	result.forward_vector = camera->direction;
+	result.origin = camera->position;
+	result.right_vector = v3_normalize(v3_cross(v3_up(), camera->direction));
+	result.up_vector = v3_cross(camera->direction, result.right_vector);
+	result.aspect_ratio = (float)img->width / (float)img->height;
+	result.viewport_height = 2 * tan(degrees_to_radians(camera->fov) / 2);
+	result.viewport_width = result.aspect_ratio * result.viewport_height;
+	return (result);
+}
+
+static void	*thread_routine(void *thread_data)
 {
 	int				y;
 	int				x;
@@ -40,21 +54,17 @@ static void	*routine(void *thread_data)
 // fills img using rays
 static void	fill_img(t_img *img, t_scene *scene)
 {
-	pthread_t				*threads;
-	t_thread_data			*datas;
+	pthread_t				threads[NB_THREADS];
+	t_thread_data			datas[NB_THREADS];
 	int						i;
+	t_precomputed_camera	precomputed;
 
-	threads = malloc(sizeof(pthread_t) * NB_THREADS);
-	if (!threads)
-	{
-		perror("fill_img");
-		return ;
-	}
-	datas = generate_thread_data(img, scene);
+	precomputed = precompute_camera(scene->camera, img);
+	fill_thread_datas(datas, img, scene, &precomputed);
 	i = 0;
 	while (i < NB_THREADS)
 	{
-		pthread_create(&threads[i], NULL, routine, (void *)&datas[i]);
+		pthread_create(&threads[i], NULL, thread_routine, (void *)&datas[i]);
 		i++;
 	}
 	i = 0;
@@ -63,8 +73,6 @@ static void	fill_img(t_img *img, t_scene *scene)
 		pthread_join(threads[i], NULL);
 		i++;
 	}
-	free(datas);
-	free(threads);
 }
 
 // renders scene using mlx image

@@ -12,20 +12,6 @@
 
 #include "minirt.h"
 
-static t_precomputed_camera	precompute_camera(t_camera *camera, t_img *img)
-{
-	t_precomputed_camera	result;
-
-	result.forward_vector = camera->direction;
-	result.origin = camera->position;
-	result.right_vector = v3_normalize(v3_cross(v3_up(), camera->direction));
-	result.up_vector = v3_cross(camera->direction, result.right_vector);
-	result.aspect_ratio = (float)img->width / (float)img->height;
-	result.viewport_height = 2 * tan(degrees_to_radians(camera->fov) / 2);
-	result.viewport_width = result.aspect_ratio * result.viewport_height;
-	return (result);
-}
-
 static void	fill_thread_data(t_thread_data *datas, int i, int y_step,
 	int *leftover)
 {
@@ -44,28 +30,22 @@ static void	fill_thread_data(t_thread_data *datas, int i, int y_step,
 		datas[i].y_start = datas[i - 1].y_stop;
 }
 
-t_thread_data	*generate_thread_data(t_img *img, t_scene *scene)
+void	fill_thread_datas(t_thread_data *datas, t_img *img, t_scene *scene,
+	t_precomputed_camera *precomputed)
 {
-	int						y_step;
-	int						leftover;
-	t_precomputed_camera	precomputed;
-	t_thread_data			*datas;
-	int						i;
+	int	y_step;
+	int	leftover;
+	int	i;
 
-	datas = malloc(sizeof(t_thread_data) * NB_THREADS);
-	if (!datas)
-		return (perror("generate_thread_data"), NULL);
 	y_step = img->height / NB_THREADS;
 	leftover = img->height % NB_THREADS;
-	precomputed = precompute_camera(scene->camera, img);
 	i = 0;
 	while (i < NB_THREADS)
 	{
 		fill_thread_data(datas, i, y_step, &leftover);
 		datas[i].img = img;
 		datas[i].scene = scene;
-		datas[i].precomputed = &precomputed;
+		datas[i].precomputed = precomputed;
 		i++;
 	}
-	return (datas);
 }

@@ -81,6 +81,7 @@ t_vector3	perturb_normal(t_vector2 uvs, t_ray_hit_info *hit_info);
 
 // threads.c
 
-t_thread_data	*generate_thread_data(t_img *img, t_scene *scene);
+void		fill_thread_datas(t_thread_data *datas, t_img *img, t_scene *scene,
+				t_precomputed_camera *precomputed);
 
 #endif

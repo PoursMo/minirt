@@ -27,7 +27,6 @@ int	main(int argc, char **argv)
 	}
 	if (parse_file(argv[argc - 1], &data) == -1)
 		clean_exit(EXIT_FAILURE, &data);
-	print_scene(&data.scene); // debug
 	data.win = mlx_new_window(data.mlx, WIDTH, HEIGHT, "miniRT");
 	if (!data.win)
 	{
