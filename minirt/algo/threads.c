@@ -27,16 +27,16 @@ static t_precomputed_camera	precompute_camera(t_camera *camera, t_img *img)
 }
 
 static void	fill_thread_data(t_thread_data *datas, int i, int y_step,
-	int leftover)
+	int *leftover)
 {
 	if (i == 0)
 		datas[i].y_stop = y_step;
 	else
 		datas[i].y_stop = datas[i - 1].y_stop + y_step;
-	if (leftover)
+	if (*leftover)
 	{
 		datas[i].y_stop++;
-		leftover--;
+		(*leftover)--;
 	}
 	if (i == 0)
 		datas[i].y_start = 0;
@@ -61,7 +61,7 @@ t_thread_data	*generate_thread_data(t_img *img, t_scene *scene)
 	i = 0;
 	while (i < NB_THREADS)
 	{
-		fill_thread_data(datas, i, y_step, leftover);
+		fill_thread_data(datas, i, y_step, &leftover);
 		datas[i].img = img;
 		datas[i].scene = scene;
 		datas[i].precomputed = &precomputed;
