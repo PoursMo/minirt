@@ -28,6 +28,7 @@ minirt/algo/normal.c \
 minirt/algo/cone.c \
 minirt/algo/cylinder.c \
 minirt/algo/cube.c \
+minirt/algo/threads.c \
 minirt/debug.c \
 # remove
 

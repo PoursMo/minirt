@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   algo.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 13:51:34 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/15 13:17:21 by lpittet          ###   ########.fr       */
+/*   Updated: 2025/03/18 12:02:30 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,9 @@ t_vector3	get_normal(t_shape *shape, t_vector3 point, t_ray *ray);
 // bump.c
 
 t_vector3	perturb_normal(t_vector2 uvs, t_ray_hit_info *hit_info);
+
+// threads.c
+
+t_thread_data	*generate_thread_data(t_img *img, t_scene *scene);
 
 #endif

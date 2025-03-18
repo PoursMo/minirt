@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 16:18:53 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/11 12:49:36 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/18 11:42:02 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@
 # include <stdlib.h>
 # include <string.h>
 # include <math.h>
+
+#include <pthread.h>
+#define NB_THREADS 20
 
 # include "mlx.h"
 # include "mlx_int.h"

@@ -6,47 +6,21 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 12:47:14 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/11 12:08:41 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/18 12:07:02 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static t_precomputed_camera	precompute_camera(t_camera *camera, t_img *img)
+static void	*routine(void *thread_data)
 {
-	t_precomputed_camera	result;
+	int				y;
+	int				x;
+	t_ray			ray;
+	t_color			color;
+	t_thread_data	*data;
 
-	result.forward_vector = camera->direction;
-	result.origin = camera->position;
-	result.right_vector = v3_normalize(v3_cross(v3_up(), camera->direction));
-	result.up_vector = v3_cross(camera->direction, result.right_vector);
-	result.aspect_ratio = (float)img->width / (float)img->height;
-	result.viewport_height = 2 * tan(degrees_to_radians(camera->fov) / 2);
-	result.viewport_width = result.aspect_ratio * result.viewport_height;
-	return (result);
-}
-
-#define NB_THREADS 20
-#include <pthread.h>
-
-typedef struct s_thread_data
-{
-	int y_start;
-	int y_stop;
-	t_img *img;
-	t_scene *scene;
-	t_precomputed_camera *precomputed;
-} t_thread_data;
-
-void *t(void *thread_data)
-{
-	int y;
-	int x;
-	t_ray ray;
-	t_color color;
-	t_thread_data *data;
-
-	data = (t_thread_data*)thread_data;
+	data = (t_thread_data *)thread_data;
 	y = data->y_start;
 	while (y < data->y_stop)
 	{
@@ -66,34 +40,21 @@ void *t(void *thread_data)
 // fills img using rays
 static void	fill_img(t_img *img, t_scene *scene)
 {
-	t_precomputed_camera precomputed = precompute_camera(scene->camera, img);
-	int y_step = img->height / NB_THREADS;
-	int leftover = img->height % NB_THREADS;
-	pthread_t *threads = malloc(sizeof(pthread_t) * NB_THREADS);
-	t_thread_data *datas = malloc(sizeof(t_thread_data) * NB_THREADS);
-	int i = 0;
-	while(i < NB_THREADS)
+	pthread_t				*threads;
+	t_thread_data			*datas;
+	int						i;
+
+	threads = malloc(sizeof(pthread_t) * NB_THREADS);
+	if (!threads)
 	{
-		datas[i].y_stop = datas[i - 1].y_stop + y_step;
-		if (leftover)
-		{
-			datas[i].y_stop++;
-			leftover--;
-		}
-		if (i == 0)
-			datas[i].y_start = 0;
-		else
-			datas[i].y_start = datas[i - 1].y_stop;
-		datas[i].img = img;
-		datas[i].scene = scene;
-		datas[i].precomputed = &precomputed;
-		printf("Thread %d: y_start = %d, y_stop = %d\n", i, datas[i].y_start, datas[i].y_stop);
-		i++;
+		perror("fill_img");
+		return ;
 	}
+	datas = generate_thread_data(img, scene);
 	i = 0;
 	while (i < NB_THREADS)
 	{
-		pthread_create(&threads[i], NULL, t, (void*)&datas[i]);
+		pthread_create(&threads[i], NULL, routine, (void *)&datas[i]);
 		i++;
 	}
 	i = 0;
@@ -102,6 +63,8 @@ static void	fill_img(t_img *img, t_scene *scene)
 		pthread_join(threads[i], NULL);
 		i++;
 	}
+	free(datas);
+	free(threads);
 }
 
 // renders scene using mlx image

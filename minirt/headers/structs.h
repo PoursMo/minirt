@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 11:49:41 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/14 13:54:33 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/18 11:41:05 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,5 +157,14 @@ typedef struct s_precomputed_camera
 	float		viewport_height;
 	float		viewport_width;
 }	t_precomputed_camera;
+
+typedef struct s_thread_data
+{
+	int						y_start;
+	int						y_stop;
+	t_img					*img;
+	t_scene					*scene;
+	t_precomputed_camera	*precomputed;
+}	t_thread_data;
 
 #endif
