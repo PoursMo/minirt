@@ -6,7 +6,7 @@
 /*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 15:39:42 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/15 13:21:53 by lpittet          ###   ########.fr       */
+/*   Updated: 2025/03/19 09:50:44 by lpittet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ static t_vector3	cone_normal(t_shape *shape, t_vector3 point)
 
 t_vector3	cube_normal(t_shape *shape, t_vector3 point)
 {
-	t_vector3	normals[6];
 	t_vector3	point_to_center;
 	t_vector3	center;
 	int			i;
@@ -64,13 +63,13 @@ t_vector3	cube_normal(t_shape *shape, t_vector3 point)
 
 	i = 0;
 	cube = &shape->data.cube;
-	get_normals(cube, normals);
 	while (i < 6)
 	{
-		center = v3_add(cube->position, v3_scale(normals[i], cube->size / 2));
+		center = v3_add(cube->position, v3_scale(cube->normals[i],
+					cube->size / 2));
 		point_to_center = v3_subtract(point, center);
-		if (fabs(v3_dot(point_to_center, normals[i])) < EPSILON)
-			return (normals[i]);
+		if (fabs(v3_dot(point_to_center, cube->normals[i])) < EPSILON)
+			return (cube->normals[i]);
 		i++;
 	}
 	return ((t_vector3){0, 0, 0});

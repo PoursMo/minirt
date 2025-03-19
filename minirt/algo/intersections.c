@@ -6,7 +6,7 @@
 /*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 13:51:10 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/15 13:44:19 by lpittet          ###   ########.fr       */
+/*   Updated: 2025/03/19 09:25:39 by lpittet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,11 +107,9 @@ int	intersect_cone(t_ray *ray, t_cone *cone, float *intersect_dist)
 int	intersect_cube(t_ray *ray, t_cube *cube, float *intersect_dist)
 {
 	t_vector3	centers[6];
-	t_vector3	normals[6];
 	int			i;
 
-	get_normals(cube, normals);
-	get_centers(cube, centers, normals);
+	get_centers(cube, centers, cube->normals);
 	i = 0;
 	while (i < 6)
 	{

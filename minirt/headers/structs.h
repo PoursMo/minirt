@@ -6,7 +6,7 @@
 /*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 11:49:41 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/18 11:41:05 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/19 11:19:20 by aloubry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ typedef struct s_cube
 	t_vector3	position;
 	t_vector3	axis;
 	float		size;
+	t_vector3	normals[6];
 }	t_cube;
 
 typedef enum e_shape_type
