@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 11:49:41 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/14 13:54:33 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/19 09:14:11 by lpittet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ typedef struct s_cube
 	t_vector3	position;
 	t_vector3	axis;
 	float		size;
+	t_vector3	normals[6];
 }	t_cube;
 
 typedef enum e_shape_type

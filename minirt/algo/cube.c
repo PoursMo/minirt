@@ -6,7 +6,7 @@
 /*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 15:47:37 by lpittet           #+#    #+#             */
-/*   Updated: 2025/03/15 13:14:00 by lpittet          ###   ########.fr       */
+/*   Updated: 2025/03/19 09:27:41 by lpittet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,23 +43,40 @@ void	get_centers(t_cube *cube, t_vector3 *centers, t_vector3 *normals)
 	}
 }
 
+int	find_normal_index(t_cube *cube, t_vector3 normal)
+{
+	int		i;
+	float	dot;
+	float	current_dot;
+	int		index;
+	
+	i = 1;
+	index = 0;
+	dot = v3_dot(normal, cube->normals[0]);
+	while (i < 6)
+	{
+		current_dot = v3_dot(normal, cube->normals[i]);
+		if (current_dot < dot)
+		{
+			dot = current_dot;
+			index = i;
+		}
+		i++;
+	}
+	return (index);
+}
+
 int	inside_square(t_vector3 hit_point, t_cube *cube, t_vector3 center_face,
 	t_vector3 normal)
 {
-	t_vector3	normals[6];
 	int			i;
 	t_vector3	u;
 	t_vector3	v;
 	t_vector3	point_to_center;
 
-	i = 0;
-	get_normals(cube, normals);
-	while (fabs(normal.x) - fabs(normals[i].x) > EPSILON
-		|| fabs(normal.y) - fabs(normals[i].y) > EPSILON
-		|| fabs(normal.z) - fabs(normals[i].z) > EPSILON)
-		i++;
-	u = normals[(i + 1) % 3];
-	v = normals[(i + 2) % 3];
+	i = find_normal_index(cube, normal);
+	u = cube->normals[(i + 1) % 3];
+	v = cube->normals[(i + 2) % 3];
 	point_to_center = v3_subtract(hit_point, center_face);
 	if (fabs(v3_dot(point_to_center, u)) < cube->size / 2
 		&& fabs(v3_dot(point_to_center, v)) < cube->size / 2)
