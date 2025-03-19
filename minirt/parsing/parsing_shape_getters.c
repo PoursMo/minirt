@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_shape_getters.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 20:27:59 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/14 14:04:49 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/19 09:14:55 by lpittet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,5 +116,6 @@ int	parse_cube(char *line, t_mrt_data *mrt_data)
 		|| !is_valid_tail(line))
 		return (misconfiguration_error("cube: wrong parameters"),
 			free_shape(shape, mrt_data->mlx), -1);
+	get_normals(&shape->data.cube, shape->data.cube.normals);
 	return (add_shape_to_scene(shape, &mrt_data->scene));
 }
