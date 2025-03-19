@@ -6,7 +6,7 @@
 /*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 14:25:36 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/04 08:34:37 by lpittet          ###   ########.fr       */
+/*   Updated: 2025/03/19 09:50:58 by lpittet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int	main(int argc, char **argv)
 	}
 	if (parse_file(argv[argc - 1], &data) == -1)
 		clean_exit(EXIT_FAILURE, &data);
-	print_scene(&data.scene); // debug
 	data.win = mlx_new_window(data.mlx, WIDTH, HEIGHT, "miniRT");
 	if (!data.win)
 	{

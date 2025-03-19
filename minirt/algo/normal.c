@@ -6,7 +6,7 @@
 /*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 15:39:42 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/19 09:25:53 by lpittet          ###   ########.fr       */
+/*   Updated: 2025/03/19 09:50:44 by lpittet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ t_vector3	cube_normal(t_shape *shape, t_vector3 point)
 	while (i < 6)
 	{
 		center = v3_add(cube->position, v3_scale(cube->normals[i],
-			cube->size / 2));
+					cube->size / 2));
 		point_to_center = v3_subtract(point, center);
 		if (fabs(v3_dot(point_to_center, cube->normals[i])) < EPSILON)
 			return (cube->normals[i]);

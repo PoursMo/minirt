@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aloubry <aloubry@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 16:18:53 by aloubry           #+#    #+#             */
-/*   Updated: 2025/03/11 12:49:36 by aloubry          ###   ########.fr       */
+/*   Updated: 2025/03/19 09:51:06 by lpittet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,5 @@
 # define HEIGHT 700
 # define SHININESS 32
 # define EPSILON 1e-3
-
-// ** debug.c **
-t_color map_v3_to_color(t_vector3 v);
-void print_scene(t_scene *scene);
-void print_vector3(t_vector3 v);
-// *************
 
 #endif

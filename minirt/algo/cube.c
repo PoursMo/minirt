@@ -6,7 +6,7 @@
 /*   By: lpittet <lpittet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 15:47:37 by lpittet           #+#    #+#             */
-/*   Updated: 2025/03/19 09:27:41 by lpittet          ###   ########.fr       */
+/*   Updated: 2025/03/19 09:50:10 by lpittet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	find_normal_index(t_cube *cube, t_vector3 normal)
 	float	dot;
 	float	current_dot;
 	int		index;
-	
+
 	i = 1;
 	index = 0;
 	dot = v3_dot(normal, cube->normals[0]);

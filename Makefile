@@ -1,6 +1,6 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -Ilibft -Iminilibx-linux -Iminirt/headers -g # remove -g
-LFLAGS = -Llibft -lft -Lminilibx-linux -lmlx_Linux -lXext -lX11 -lm
+CFLAGS = -Wall -Wextra -Werror -Ilibft -Iminilibx-linux -Iminirt/headers 
+LFLAGS = -Llibft -lft -Lminilibx-linux -lmlx_Linux -lXext -lX11 -lm -O3
 NAME = miniRT
 SRCSDIR = srcs/
 SRCS =	minirt/main.c \
@@ -28,8 +28,7 @@ minirt/algo/normal.c \
 minirt/algo/cone.c \
 minirt/algo/cylinder.c \
 minirt/algo/cube.c \
-minirt/debug.c \
-# remove
+
 
 
 OBJSDIR = minirt/objects
